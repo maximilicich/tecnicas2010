@@ -3,8 +3,9 @@ package mat7510.eventManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.uba.fi.mat7510.eventManagerApi.EventManager;
-import ar.uba.fi.mat7510.eventManagerApi.EventManagerFactory;
+import mat7510.eventManagerApi.Event;
+import mat7510.eventManagerApi.EventManager;
+import mat7510.eventManagerApi.EventManagerFactory;
 
 public class Main {
 
@@ -22,8 +23,9 @@ public class Main {
 		// EL RECEIVER DE LAS ACCIONES:
 		BombaDeAgua bomba = new BombaDeAgua();
 
-		Listt<Event> eventList = new ArrayList<Event>();
-		eventList.add(new TanqueVacioEvent(tanque)).add(new HayPresionEvent(medidor));
+		List<Event> eventList = new ArrayList<Event>();
+		eventList.add(new TanqueVacioEvent(tanque));
+		eventList.add(new HayPresionEvent(medidor));
 		
 		// REGISTRAMOS LOS COMANDOS - eVENTOS:
 		mngr.register(new EncenderBombaCmd(bomba), eventList);
