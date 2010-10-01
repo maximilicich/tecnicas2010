@@ -4,7 +4,8 @@ public class EventManagerFactory {
 
 	public static EventManager createEventManager() {
 		// TODO Auto-generated method stub
-		return null;
+		// ACA DEBERIA DEVOLVER UNA IMPLEMENTACION DE UN EVENT MANAGER
+		return null; 
 	}
 
 }
