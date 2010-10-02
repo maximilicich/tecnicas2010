@@ -6,8 +6,9 @@ public class ConcreteEventManager implements EventManager {
 
 	
 	
-	private List<Action> actions;
+	private List<ActionHandler> actions;
 	
+	private List<EventCancel> eventsCancel;
 	
 	@Override
 	public void eventOccurred(Event e) {
@@ -38,5 +39,7 @@ public class ConcreteEventManager implements EventManager {
 		// TODO Auto-generated method stub
 
 	}
+	
+		
 
 }
