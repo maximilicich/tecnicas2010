@@ -5,8 +5,6 @@ import java.util.List;
 
 public class ConcreteEventManager implements EventManager {
 
-	
-	
 	private List<ActionHandler> actions;
 	
 	private List<EventCancel> eventsCancel;
@@ -29,34 +27,39 @@ public class ConcreteEventManager implements EventManager {
 
 	}
 
-	private void notifyChange(Event event, boolean b) {
+	private void notifyChange(Event event, boolean marcar) {
 		
 		Iterator<ActionHandler> itActions = actions.iterator();
 		Iterator<Event> itEvents;
 		ActionHandler action;
+		Event actionEvent;
+		int index;
 		
 		while (itActions.hasNext()){
 			
 			action = itActions.next();	
 			itEvents = action.getEventIterator();
+			index = 0;
 			while (itEvents.hasNext()){
 				
-				if (event.equals(itEvents.next()) && b == true){
-					// marca el evento
+				actionEvent = itEvents.next();
+				if (event.equals(actionEvent) && marcar == true){
+					// marca el evento 
+					action.activateEvent(index);
 				}
 				
-				if (event.equals(itEvents.next()) && b == false){
+				if (event.equals(actionEvent) && marcar == false){
 					// desmarca el evento
+					action.cancelEvent(index);
 				}
+				index ++;
 			}
 			
-			// Si estan todos marcados
-					//action.getCommand().execute();
-					//desmarcar eventos 
-			// fin si
-			
-		}
-		
+			if (action.isActive()){
+				action.getCommand().execute();
+				action.cleanState();
+			}		
+		}		
 	}
 
 	@Override
