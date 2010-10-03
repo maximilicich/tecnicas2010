@@ -4,9 +4,7 @@ package mat7510.eventManagerApi;
 public class EventManagerFactory {
         private static EventManager eventManager = null;
 
-        private EventManagerFactory(){
-
-        }
+        private EventManagerFactory(){};
 
 	public static EventManager createEventManager() {
 		if (eventManager == null) {
