@@ -94,4 +94,7 @@ public class BasicTest {
 		// el cambio de estado, por la accion ejecutada...
 		assertTrue(actionReceiver.getState());
 	}
+	
+	
+	
 }
