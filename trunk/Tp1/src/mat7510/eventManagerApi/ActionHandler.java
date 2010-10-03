@@ -9,7 +9,8 @@ public class ActionHandler {
 	private ActionCommand command;
 	
 	private List<Event> events;
-	
+
+        //TODO: creo q este estado deberia estar en la interfaz Event
         private ArrayList<Boolean> eventsIndexs;
 
         int amountActivated;
@@ -106,13 +107,27 @@ public class ActionHandler {
                     }
             }
 	}
+
+        private void cancelEventsWithOrder (int index){
+
+            for( int i=index ; i < eventsIndexs.size() ; i++){
+                if(eventsIndexs.get(index) == true){
+                    eventsIndexs.set(index,false);
+                    amountActivated--;
+                }
+            }
+        }
 	
 	public void cancelEvent (int index){
 	// Cuando se cancela seteo el estado a desactivado
 		
 		if (eventsIndexs.get(index) == true){
-                   eventsIndexs.set(index,false);
-                   amountActivated--;
+                    if(order)
+                        cancelEventsWithOrder (index);
+                    else{
+                         eventsIndexs.set(index,false);
+                         amountActivated--;
+                    }
 		}	
 	}
 	
