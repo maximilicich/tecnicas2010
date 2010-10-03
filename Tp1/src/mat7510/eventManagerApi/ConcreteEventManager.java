@@ -95,7 +95,11 @@ public class ConcreteEventManager implements EventManager {
 		EventCancel eventCancel = new EventCancel (event1, event2);
 		this.eventsCancel.add(eventCancel);
 	}
-	
+
+	@Override
+	public void reset() {
+		// TODO Implementar el reset(). Deberia desregistrar todos los eventos-comandos y cancelables, dejando al manager en su estado inicial...
 		
+	}
 
 }
