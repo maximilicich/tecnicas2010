@@ -31,7 +31,7 @@ public class ActionHandler {
        private void createEvents() {
 	// Inicializa el array de eventos de control del comando
 		amountActivated=0;
-                eventsIndexs = new ArrayList();
+                eventsIndexs = new ArrayList<Boolean>();
 		for (int index = 0; index < events.size(); index++ ){
                         eventsIndexs.add(index,false);
 		}
