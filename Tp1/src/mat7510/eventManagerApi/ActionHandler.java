@@ -1,5 +1,6 @@
 package mat7510.eventManagerApi;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,8 +10,10 @@ public class ActionHandler {
 	
 	private List<Event> events;
 	
-	private List<Integer> eventsIndexs;
-	
+        private ArrayList<Boolean> eventsIndexs;
+
+        int amountActivated;
+
 	private boolean order;
 	
 	static public ActionHandler createActionSingle ( ActionCommand command, Event event){
@@ -30,7 +33,9 @@ public class ActionHandler {
 		this.command = command;
 		this.events.add(event);
 		setOrder(false);
-		clearEvents();
+		createEvents();
+                amountActivated=0;
+                //TODO:crear el array
 	}
 		
 	private ActionHandler ( ActionCommand command, List<Event> events, boolean order){
@@ -38,14 +43,27 @@ public class ActionHandler {
 		this.command = command;
 		this.events = events;
 		setOrder(order);
-		clearEvents();
+		createEvents();
+                amountActivated=0;
+                //TODO:crear el array
 	}	    
-	
-	private void clearEvents() {		
-	// Inicializa la lista de eventos de control del comando
-		
+
+        private void createEvents() {
+	// Inicializa el array de eventos de control del comando
+		amountActivated=0;
 		for (int index = 0; index < events.size(); index++ ){
-			eventsIndexs.add(index);
+                        eventsIndexs.add(index,false);
+		}
+	}
+
+	private void clearEvents() {		
+	// Inicializa el array de eventos de control del comando
+                if(amountActivated==0)
+                    return;
+                
+		amountActivated=0;
+		for (int index = 0; index < events.size(); index++ ){	
+                        eventsIndexs.set(index,false);
 		}		
 	}
 
@@ -74,66 +92,52 @@ public class ActionHandler {
 	}
 	
 	public void activateEvent (int index){
-	// Cuando se activa se remueve de la lista el numero de evento correspondiente al indice	
-		
-		if ( order == true ){
-			if (verifyState( index ) == true && verifyOrder( index ) == true ){
-				eventsIndexs.remove(index);
-			}
-		}	
-		else{			
-			if (verifyState( index ) == true){
-				eventsIndexs.remove(index);
-			}	
-		}		
+	// Cuando se activa se setea en el array como activo(true)
+		if(eventsIndexs.get(index)!=true){
+                    if ( order == true ){
+                            if(verifyOrder( index ) == true){
+                               eventsIndexs.set(index, true);
+                               amountActivated++;
+                            }
+                    }else{
+                          eventsIndexs.set(index, true);
+                          amountActivated++;
+                    }
+            }
 	}
 	
 	public void cancelEvent (int index){
-	// Cuando se cancela se vuelve a agregar a la lista el numero de evento correspondiente al indice
+	// Cuando se cancela seteo el estado a desactivado
 		
-			if (verifyState(index) == false){
-				eventsIndexs.add(index,index);
-			}	
+		if (eventsIndexs.get(index) == true){
+                   eventsIndexs.set(index,false);
+                   amountActivated--;
+		}	
 	}
 	
 	private boolean verifyOrder(int index) {
 	// Verifica que no haya ningun evento con indice menor al que se esta revisando dentro de la lista	
-		
-		Iterator<Integer>it = eventsIndexs.iterator();
-		boolean doSomething = true;
-		
-		while (it.hasNext() && doSomething == true ){
-			
-			if ( it.next() < index ){
-				doSomething = false;
-			}		
-		}
-		return doSomething;			
+            int i=0;
+
+            if(amountActivated==index-1){
+                while(i<index){
+                    if(eventsIndexs.get(i)==false)
+                        return false;
+                    i++;
+                }
+            }
+            return true;
 	}
-	
-	private boolean verifyState( int index ){
-	// Verifica que ya no se pueda activar/desactivar el mismo evento en forma sucesiva
-		
-		Iterator<Integer>it = eventsIndexs.iterator();
-		boolean doSomething = false;
-		
-		while (it.hasNext() && doSomething == true ){
-			
-			if ( it.next() == index ){
-				doSomething = true;
-			}		
-		}
-		return doSomething;
-	}
-	
-	public boolean isActive() {	
-	// Verifica que se encuentren todos los eventos activados osea borrados de la lista de indice de eventos	
-			return eventsIndexs.isEmpty();		
+
+	public boolean isActive() {
+            if(amountActivated==eventsIndexs.size())
+                return true;
+            else return false;
 	}
 	
 	public void cleanState(){
 	// Vuelve los eventos al momento inicial	
-			clearEvents();		
+            clearEvents();
 	}
 
 }
