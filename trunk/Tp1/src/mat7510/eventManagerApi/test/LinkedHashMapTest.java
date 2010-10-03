@@ -5,49 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import mat7510.eventManagerApi.Event;
+import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 
 import org.junit.Test;
-
-class SimpleEvent implements Event {
-
-	private String eventName;
-
-	public SimpleEvent(String eventName) {
-		this.eventName = eventName;
-	}
-	
-	public String getEventName() {
-		return this.eventName;
-	}
-	
-	public boolean equals(Event anotherEvent) {
-		// Asumimos que todo evento de esta clase es el mismo
-		if (!(anotherEvent instanceof BasicEvent)) {
-			return false;
-		}
-		return ((SimpleEvent)anotherEvent).eventName.equals(this.eventName);
-	}
-	
-	@Override
-	public String toString() {
-		return this.eventName;
-	}
-	
-}
-
-class SimpleEvent2 implements Event {
-
-	@Override
-	public boolean equals(Event anotherEvent) {
-		// Asumimos que todo evento de esta clase es el mismo
-		if (!(anotherEvent instanceof BasicEvent)) {
-			return false;
-		}
-		return true;
-	}
-	
-}
-
 
 public class LinkedHashMapTest {
 
@@ -55,31 +15,31 @@ public class LinkedHashMapTest {
 	public void testHashMap () {
 		
 		Map<Event, Boolean> hash = new LinkedHashMap<Event, Boolean>();
-		hash.put(new SimpleEvent("evento A"), true);
-		hash.put(new SimpleEvent("evento B"), false);
-		hash.put(new SimpleEvent("evento C"), true);
-		hash.put(new SimpleEvent("evento D"), false);
-		hash.put(new SimpleEvent("evento E"), false);
-		hash.put(new SimpleEvent("evento F"), true);
-		hash.put(new SimpleEvent("evento G"), false);
-		hash.put(new SimpleEvent("evento H"), true);
-		hash.put(new SimpleEvent("evento I"), true);
-		hash.put(new SimpleEvent("evento J"), false);
-		hash.put(new SimpleEvent("evento K"), false);
-		hash.put(new SimpleEvent("evento L"), false);
-		hash.put(new SimpleEvent("evento M"), false);
-		hash.put(new SimpleEvent("evento N"), false);
-		hash.put(new SimpleEvent("evento O"), false);
-		hash.put(new SimpleEvent("evento P"), false);
-		hash.put(new SimpleEvent("evento Q"), false);
-		hash.put(new SimpleEvent("evento R"), false);
-		hash.put(new SimpleEvent("evento S"), false);
-		hash.put(new SimpleEvent("evento T"), false);
-		hash.put(new SimpleEvent("evento V"), false);
-		hash.put(new SimpleEvent("evento W"), false);
-		hash.put(new SimpleEvent("evento X"), false);
-		hash.put(new SimpleEvent("evento Y"), false);
-		hash.put(new SimpleEvent("evento Z"), false);
+		hash.put(new BasicEvent("evento A"), true);
+		hash.put(new BasicEvent("evento B"), false);
+		hash.put(new BasicEvent("evento C"), true);
+		hash.put(new BasicEvent("evento D"), false);
+		hash.put(new BasicEvent("evento E"), false);
+		hash.put(new BasicEvent("evento F"), true);
+		hash.put(new BasicEvent("evento G"), false);
+		hash.put(new BasicEvent("evento H"), true);
+		hash.put(new BasicEvent("evento I"), true);
+		hash.put(new BasicEvent("evento J"), false);
+		hash.put(new BasicEvent("evento K"), false);
+		hash.put(new BasicEvent("evento L"), false);
+		hash.put(new BasicEvent("evento M"), false);
+		hash.put(new BasicEvent("evento N"), false);
+		hash.put(new BasicEvent("evento O"), false);
+		hash.put(new BasicEvent("evento P"), false);
+		hash.put(new BasicEvent("evento Q"), false);
+		hash.put(new BasicEvent("evento R"), false);
+		hash.put(new BasicEvent("evento S"), false);
+		hash.put(new BasicEvent("evento T"), false);
+		hash.put(new BasicEvent("evento V"), false);
+		hash.put(new BasicEvent("evento W"), false);
+		hash.put(new BasicEvent("evento X"), false);
+		hash.put(new BasicEvent("evento Y"), false);
+		hash.put(new BasicEvent("evento Z"), false);
 		
 		for (Iterator<Map.Entry<Event, Boolean>> it = hash.entrySet().iterator() ; it.hasNext();) {
 			Map.Entry<Event, Boolean> pairs = it.next();
