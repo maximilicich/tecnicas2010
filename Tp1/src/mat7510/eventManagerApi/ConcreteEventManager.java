@@ -14,17 +14,18 @@ public class ConcreteEventManager implements EventManager {
 		
 		Iterator<EventCancel> it = eventsCancel.iterator();
 		EventCancel eventCancel;
-		
-		while (it.hasNext()){
+		boolean isFound=false;
+
+		while (it.hasNext() && !isFound){
 			
 			eventCancel = it.next();
 			if ( e.equals(eventCancel.getEventSource())){				
 				notifyChange ( eventCancel.getEventToBeCancel(),false);
+                                isFound=true;
 			}			
 		}
 		
 		notifyChange (e,true);
-
 	}
 
 	private void notifyChange(Event event, boolean marcar) {
@@ -34,31 +35,34 @@ public class ConcreteEventManager implements EventManager {
 		ActionHandler action;
 		Event actionEvent;
 		int index;
-		
+	
 		while (itActions.hasNext()){
 			
 			action = itActions.next();	
 			itEvents = action.getEventIterator();
 			index = 0;
+
 			while (itEvents.hasNext()){
 				
 				actionEvent = itEvents.next();
 				if (event.equals(actionEvent) && marcar == true){
 					// marca el evento 
 					action.activateEvent(index);
+                                        
+                                        if (action.isActive()){
+                                            action.getCommand().execute();
+                                            action.cleanState();
+                                        }
+                                        return;
 				}
 				
 				if (event.equals(actionEvent) && marcar == false){
 					// desmarca el evento
 					action.cancelEvent(index);
+                                        return;
 				}
 				index ++;
-			}
-			
-			if (action.isActive()){
-				action.getCommand().execute();
-				action.cleanState();
-			}		
+			}			
 		}		
 	}
 
