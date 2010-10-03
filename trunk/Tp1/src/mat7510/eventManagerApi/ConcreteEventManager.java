@@ -1,5 +1,6 @@
 package mat7510.eventManagerApi;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,7 +10,13 @@ public class ConcreteEventManager implements EventManager {
 	
 	private List<EventCancel> eventsCancel;
 	
-	@Override
+	
+	public ConcreteEventManager (){
+		actions = new ArrayList<ActionHandler>();
+		eventsCancel = new ArrayList<EventCancel>();
+	}
+	
+	
 	public void eventOccurred(Event e) {
 		
 		Iterator<EventCancel> it = eventsCancel.iterator();
