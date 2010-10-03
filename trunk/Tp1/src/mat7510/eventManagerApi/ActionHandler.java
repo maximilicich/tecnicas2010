@@ -27,7 +27,16 @@ public class ActionHandler {
 	static public ActionHandler createActionGroupOrder ( ActionCommand command, List<Event> event){
 		return new ActionHandler(command ,event, true);
 	}
-	
+
+       private void createEvents() {
+	// Inicializa el array de eventos de control del comando
+		amountActivated=0;
+                eventsIndexs = new ArrayList();
+		for (int index = 0; index < events.size(); index++ ){
+                        eventsIndexs.add(index,false);
+		}
+	}
+       
 	private ActionHandler ( ActionCommand command, Event event){
 		
 		this.command = command;
@@ -47,14 +56,6 @@ public class ActionHandler {
                 amountActivated=0;
                 //TODO:crear el array
 	}	    
-
-        private void createEvents() {
-	// Inicializa el array de eventos de control del comando
-		amountActivated=0;
-		for (int index = 0; index < events.size(); index++ ){
-                        eventsIndexs.add(index,false);
-		}
-	}
 
 	private void clearEvents() {		
 	// Inicializa el array de eventos de control del comando
