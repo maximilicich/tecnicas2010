@@ -17,6 +17,7 @@ public class ActionHandler {
 
 	private boolean order;
 	
+	
 	static public ActionHandler createActionSingle ( ActionCommand command, Event event){
 		return new ActionHandler(command ,event);
 	}
@@ -41,6 +42,8 @@ public class ActionHandler {
 	private ActionHandler ( ActionCommand command, Event event){
 		
 		this.command = command;
+		events = new ArrayList<Event>();
+		eventsIndexs = new ArrayList<Boolean>();
 		this.events.add(event);
 		setOrder(false);
 		createEvents();
