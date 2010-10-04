@@ -29,7 +29,11 @@ public class ConcreteEventManager implements EventManager {
 			if ( e.equals(eventCancel.getEventSource())){				
 				notifyChange ( eventCancel.getEventToBeCancel(),false);
                                 isFound=true;
-			}			
+			
+                        }else if ( e.equals(eventCancel.getEventToBeCancel())){
+				notifyChange ( eventCancel.getEventSource(),false);
+                                isFound=true;
+			}
 		}
 		
 		notifyChange (e,true);
