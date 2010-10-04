@@ -114,8 +114,8 @@ public class ActionHandler {
         private void cancelEventsWithOrder (int index){
 
             for( int i=index ; i < eventsIndexs.size() ; i++){
-                if(eventsIndexs.get(index) == true){
-                    eventsIndexs.set(index,false);
+                if(eventsIndexs.get(i) == true){
+                    eventsIndexs.set(i,false);
                     amountActivated--;
                 }
             }
