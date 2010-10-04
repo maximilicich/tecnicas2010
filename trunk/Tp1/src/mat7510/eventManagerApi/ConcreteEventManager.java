@@ -98,7 +98,11 @@ public class ConcreteEventManager implements EventManager {
 
 	@Override
 	public void registerCancellables(Event event1, Event event2) {
-		
+
+                //TODO: ver de lanzar exepciones o que hacer en estos casos
+                if(event1.equals(event2))
+                    return;
+
 		EventCancel eventCancel = new EventCancel (event1, event2);
 		this.eventsCancel.add(eventCancel);
 	}
