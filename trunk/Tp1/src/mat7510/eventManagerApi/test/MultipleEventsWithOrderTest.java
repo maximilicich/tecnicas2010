@@ -130,11 +130,33 @@ public class MultipleEventsWithOrderTest {
 		mngr.registerWithOrder(new BasicAction(actionReceiver), events);
 
 		// El Source dispara el Evento...
-		eventSource.triggerEvent1();                
-                eventSource.triggerEvent2();        
-		eventSource.triggerEvent3();
+		eventSource.triggerEvent1();
+                eventSource.triggerEvent3();
+                eventSource.triggerEvent2();
+                eventSource.triggerEvent3();
+   
 		// Y si todo funciona bien, el Receiver deberia haber sufrido
 		// el cambio de estado, por la accion ejecutada...
 		assertTrue(actionReceiver.getState());
+
+                // Inicializo el estado nuevamente
+                actionReceiver.setState(false);
+                //Corroboro que los estados de los eventos no hayan quedado en true
+                eventSource.triggerEvent1();
+                assertFalse(actionReceiver.getState());                
+                eventSource.triggerEvent2();
+                eventSource.triggerEvent3();
+
+                assertTrue(actionReceiver.getState());
+
+                 // Inicializo el estado nuevamente
+                actionReceiver.setState(false);
+                eventSource.triggerEvent2();
+                eventSource.triggerEvent3();
+                eventSource.triggerEvent1();
+
+                //Corroboro que si los eventos no se dan en ese orden no se ejecuta el comando
+                assertFalse(actionReceiver.getState());
+        
 	}
 }
