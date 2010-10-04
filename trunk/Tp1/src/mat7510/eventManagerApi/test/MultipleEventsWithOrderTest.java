@@ -130,10 +130,9 @@ public class MultipleEventsWithOrderTest {
 		mngr.registerWithOrder(new BasicAction(actionReceiver), events);
 
 		// El Source dispara el Evento...
-		eventSource.triggerEvent1();
-                eventSource.triggerEvent3();
+		eventSource.triggerEvent1();                
                 eventSource.triggerEvent2();        
-
+		eventSource.triggerEvent3();
 		// Y si todo funciona bien, el Receiver deberia haber sufrido
 		// el cambio de estado, por la accion ejecutada...
 		assertTrue(actionReceiver.getState());
