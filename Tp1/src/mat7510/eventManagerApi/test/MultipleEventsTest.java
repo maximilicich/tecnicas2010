@@ -24,7 +24,7 @@ class BasicEvent1 implements Event {
 
 	public boolean equals(Event anotherEvent) {
 		// Asumimos que todo evento de esta clase es el mismo
-		if (!(anotherEvent instanceof BasicEvent)) {
+		if (!(anotherEvent instanceof BasicEvent1)) {
 			return false;
 		}
 		return true;
@@ -35,7 +35,7 @@ class BasicEvent2 implements Event {
 
 	public boolean equals(Event anotherEvent) {
 		// Asumimos que todo evento de esta clase es el mismo
-		if (!(anotherEvent instanceof BasicEvent1)) {
+		if (!(anotherEvent instanceof BasicEvent2)) {
 			return false;
 		}
 		return true;
@@ -46,7 +46,7 @@ class BasicEvent3 implements Event {
 
 	public boolean equals(Event anotherEvent) {
 		// Asumimos que todo evento de esta clase es el mismo
-		if (!(anotherEvent instanceof BasicEvent2)) {
+		if (!(anotherEvent instanceof BasicEvent3)) {
 			return false;
 		}
 		return true;
