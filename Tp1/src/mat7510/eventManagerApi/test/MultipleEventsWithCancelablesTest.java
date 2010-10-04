@@ -142,7 +142,7 @@ public class MultipleEventsWithCancelablesTest {
                 events.add(new BasicEvent3());
 
 		mngr.register(new BasicAction(actionReceiver), events);
-                mngr.registerCancellables(new BasicEvent1(),new BasicEvent4());
+                mngr.registerCancellables(new BasicEvent4(),new BasicEvent1());
 
 
 		// El Source dispara el Evento...
