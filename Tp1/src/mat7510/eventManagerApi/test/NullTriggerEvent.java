@@ -1,7 +1,6 @@
 package mat7510.eventManagerApi.test;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +60,6 @@ public class NullTriggerEvent {
                }          
 		
 
-		// Y si todo funciona bien, el Receiver deberia haber sufrido
-		// el cambio de estado, por la accion ejecutada...
-		assertFalse(actionReceiver.getState());
 	}
 
 }
