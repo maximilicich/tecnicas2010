@@ -58,6 +58,7 @@ public class ConcreteEventManager implements EventManager {
 				
 				actionEvent = itEvents.next();
 				if (event.equals(actionEvent) && marcar == true){
+                                    if(!action.isActivedEvent(index)){
 					// marca el evento 
 					action.activateEvent(index);
                                         
@@ -65,13 +66,15 @@ public class ConcreteEventManager implements EventManager {
                                             action.getCommand().execute();
                                             action.cleanState();
                                         }
-                                        return;
+                                        //Recorro toda la lista x si registran dos veces el mismo evento
+                                        if(action.getOrder()==true)
+                                            break;
+                                    }
 				}
 				
 				if (event.equals(actionEvent) && marcar == false){
-					// desmarca el evento
-					action.cancelEvent(index);
-                                        return;
+                                	// voy a desactivar todos los eventos que cumplan
+					action.cancelEvent(index);      
 				}
 				index ++;
 			}			

@@ -31,6 +31,7 @@ public class MultipleEventsTest {
 	private BasicEventSource eventSource2;
 	private BasicEventSource eventSource3;
 	private BasicActionReceiver actionReceiver;
+        private BasicActionReceiver actionReceiveRepeated;
 
 	
 	@Before
@@ -47,6 +48,7 @@ public class MultipleEventsTest {
 		eventSource3.addListener(mngr);
 
 		actionReceiver = new BasicActionReceiver();
+                actionReceiveRepeated = new BasicActionReceiver();
 	}
 
 	@After
@@ -63,18 +65,34 @@ public class MultipleEventsTest {
                 events.add(new BasicEvent(EVENTO2));
                 events.add(new BasicEvent(EVENTO3));
 
-                try{
-                    mngr.register(new BasicActionCommand(actionReceiver), events);
-                }catch(exceptionRegisterEvent e){
-                    System.out.println(e.toString());
-                }
+               try{
+                   mngr.register(new BasicActionCommand(actionReceiver), events);
+               }catch(exceptionRegisterEvent e){
+                   System.out.println(e.toString());
+               }
 		// El Source dispara el Evento...
 		eventSource1.triggerEvent();
-        eventSource2.triggerEvent();
-        eventSource3.triggerEvent();
+                eventSource2.triggerEvent();
+                eventSource3.triggerEvent();
 
 		// Y si todo funciona bien, el Receiver deberia haber sufrido
 		// el cambio de estado, por la accion ejecutada...
 		assertTrue(actionReceiver.getState());
+
+                //Eventos Repetidos
+                List<Event>eventsRepeated = new ArrayList<Event>();
+                eventsRepeated.add(new BasicEvent(EVENTO1));
+                eventsRepeated.add(new BasicEvent(EVENTO2));
+                eventsRepeated.add(new BasicEvent(EVENTO1));
+
+                try{
+                   mngr.register(new BasicActionCommand(actionReceiveRepeated), eventsRepeated);
+               }catch(exceptionRegisterEvent e){
+                   System.out.println(e.toString());
+               }
+
+               eventSource1.triggerEvent();
+               eventSource2.triggerEvent();
+               assertTrue(actionReceiveRepeated.getState());
 	}
 }
