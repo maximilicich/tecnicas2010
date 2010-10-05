@@ -1,5 +1,6 @@
 package mat7510.eventManagerApi.domainExamples.bombaDeAgua;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class Main {
 		EventManager mngr = EventManagerFactory.createEventManager();
 		
 		// LOS EVENT SOURCES:
-		TanqueDeAgua tanque = new TanqueDeAgua();
-		MedidorDePresionDeAgua medidor = new MedidorDePresionDeAgua();
+		TanqueDeAgua tanque = new TanqueDeAgua(new BigDecimal(10000));
+		MedidorDePresionDeAgua medidor = new MedidorDePresionDeAgua(RedDeAbastecimientoDeAgua.instance());
 
 		tanque.addEventListener(mngr);
 		medidor.addEventListener(mngr);
