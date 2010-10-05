@@ -79,34 +79,55 @@ public class ConcreteEventManager implements EventManager {
 	}
 
 	@Override
-	public void register(ActionCommand cmd, Event e) {
-		
+	public void register(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
+	        if(e==null)
+                    throw new exceptionRegisterEvent("Evento nulo");
+
+                if(cmd==null)
+                    throw new exceptionRegisterEvent("Comando nulo");
+
 		ActionHandler action = ActionHandler.createActionSingle (cmd, e);
 		this.actions.add(action);
 
 	}
 
 	@Override
-	public void register(ActionCommand cmd, List<Event> e) {
-		
+	public void register(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
+
+                if(e.isEmpty())
+                    throw new exceptionRegisterEvent("La lista de eventos esta vacia");
+
+                if(cmd==null)
+                    throw new exceptionRegisterEvent("Comando nulo");
+
 		ActionHandler action = ActionHandler.createActionGroup  (cmd, e);
 		this.actions.add(action);
 
 	}
 
 	@Override
-	public void registerWithOrder(ActionCommand cmd, List<Event> e) {
+	public void registerWithOrder(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
+
+                if(e.isEmpty())
+                    throw new exceptionRegisterEvent("La lista de eventos esta vacia");
+
+                if(cmd==null)
+                    throw new exceptionRegisterEvent("Comando nulo");
+
 		ActionHandler action = ActionHandler.createActionGroupOrder  (cmd, e);
 		this.actions.add(action);
 
 	}
 
 	@Override
-	public void registerCancellables(Event event1, Event event2) {
+	public void registerCancellables(Event event1, Event event2) throws exceptionRegisterEvent {
 
                 //TODO: ver de lanzar exepciones o que hacer en estos casos
+                if(event1==null || event2==null)
+                    throw new exceptionRegisterEvent("Evento null");
+
                 if(event1.equals(event2))
-                    return;
+                    throw new exceptionRegisterEvent("Los eventos que se desean registrar son iguales");
 
 		EventCancel eventCancel = new EventCancel (event1, event2);
 		this.eventsCancel.add(eventCancel);
@@ -115,7 +136,8 @@ public class ConcreteEventManager implements EventManager {
 	@Override
 	public void reset() {
 		// TODO Implementar el reset(). Deberia desregistrar todos los eventos-comandos y cancelables, dejando al manager en su estado inicial...
-		
+		actions.clear();
+                eventsCancel.clear();
 	}
 
 }

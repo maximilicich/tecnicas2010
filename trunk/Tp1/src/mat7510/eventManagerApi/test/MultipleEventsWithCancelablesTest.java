@@ -13,6 +13,7 @@ import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
+import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -65,10 +66,12 @@ public class MultipleEventsWithCancelablesTest {
                 events.add(new BasicEvent(EVENTO1));
                 events.add(new BasicEvent(EVENTO2));
                 events.add(new BasicEvent(EVENTO3));
-
-		mngr.register(new BasicActionCommand(actionReceiver), events);
-                mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent("evento 1"));
-
+                try{
+                    mngr.register(new BasicActionCommand(actionReceiver), events);
+                    mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent("evento 1"));
+                }catch(exceptionRegisterEvent e){
+                    System.out.println(e.toString());
+                }
 
 		// El Source dispara el Evento...
 		eventSource1.triggerEvent();
