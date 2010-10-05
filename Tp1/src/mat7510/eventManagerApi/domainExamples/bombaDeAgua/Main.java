@@ -6,6 +6,7 @@ import java.util.List;
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventManager;
 import mat7510.eventManagerApi.EventManagerFactory;
+import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 public class Main {
 
@@ -26,16 +27,19 @@ public class Main {
 		List<Event> eventList = new ArrayList<Event>();
 		eventList.add(new TanqueVacioEvent(tanque));
 		eventList.add(new HayPresionEvent(medidor));
-		
-		// REGISTRAMOS LOS COMANDOS - eVENTOS:
-		mngr.register(new EncenderBombaCmd(bomba), eventList);
-		mngr.register(new ApagarBombaCmd(bomba), new TanqueLlenoEvent(tanque));
-		mngr.register(new ApagarBombaCmd(bomba), new NoHayPresionEvent(medidor));
-		
-		// Las cancelaciones mutuas:
-		mngr.registerCancellables(new TanqueLlenoEvent(tanque), new TanqueVacioEvent(tanque));
-		mngr.registerCancellables(new HayPresionEvent(medidor), new NoHayPresionEvent(medidor));
 
+                try{
+                    // REGISTRAMOS LOS COMANDOS - eVENTOS:
+                    mngr.register(new EncenderBombaCmd(bomba), eventList);
+                    mngr.register(new ApagarBombaCmd(bomba), new TanqueLlenoEvent(tanque));
+                    mngr.register(new ApagarBombaCmd(bomba), new NoHayPresionEvent(medidor));
+
+                    // Las cancelaciones mutuas:
+                    mngr.registerCancellables(new TanqueLlenoEvent(tanque), new TanqueVacioEvent(tanque));
+                    mngr.registerCancellables(new HayPresionEvent(medidor), new NoHayPresionEvent(medidor));
+                }catch(exceptionRegisterEvent e){
+                    System.out.println(e.toString());
+                }
 		// LISTO PARA LA ACCION...
 		
 	}

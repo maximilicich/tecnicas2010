@@ -13,6 +13,7 @@ import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
+import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,8 +63,11 @@ public class MultipleEventsTest {
                 events.add(new BasicEvent(EVENTO2));
                 events.add(new BasicEvent(EVENTO3));
 
-		mngr.register(new BasicActionCommand(actionReceiver), events);
-
+                try{
+                    mngr.register(new BasicActionCommand(actionReceiver), events);
+                }catch(exceptionRegisterEvent e){
+                    System.out.println(e.toString());
+                }
 		// El Source dispara el Evento...
 		eventSource1.triggerEvent();
         eventSource2.triggerEvent();
