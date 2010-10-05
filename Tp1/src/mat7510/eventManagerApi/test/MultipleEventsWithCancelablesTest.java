@@ -68,16 +68,17 @@ public class MultipleEventsWithCancelablesTest {
                 events.add(new BasicEvent(EVENTO3));
                 try{
                     mngr.register(new BasicActionCommand(actionReceiver), events);
-                    mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent("evento 1"));
+                    mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent(EVENTO1));
                 }catch(exceptionRegisterEvent e){
                     System.out.println(e.toString());
                 }
 
 		// El Source dispara el Evento...
 		eventSource1.triggerEvent();
-        eventSource3.triggerEvent();
-        eventSource2.triggerEvent();
-        eventSource4.triggerEvent();        
+                eventSource3.triggerEvent();
+                eventSource4.triggerEvent();
+                eventSource2.triggerEvent();
+
 
 		// Y si todo funciona bien, el Receiver no deberia haber sufrido
 		// el cambio de estado, por la ejecucion del evento cancelable que deberia desactivar event1

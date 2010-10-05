@@ -95,6 +95,10 @@ public class ActionHandler {
 	private void setOrder(boolean order) {
 		this.order = order;		
 	}
+
+        public boolean getOrder() {
+		return order;
+	}
 	
 	public void activateEvent (int index){
 	// Cuando se activa se setea en el array como activo(true)
@@ -110,6 +114,10 @@ public class ActionHandler {
                     }
             }
 	}
+
+        public boolean isActivedEvent(int index){
+            return eventsIndexs.get(index);
+        }
 
         private void cancelEventsWithOrder (int index){
 
