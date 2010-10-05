@@ -1,13 +1,10 @@
 package mat7510.eventManagerApi.domainExamples.bombaDeAgua;
 
-import mat7510.eventManagerApi.ActionCommand;
 
-public class ApagarBombaCmd implements ActionCommand {
+public class ApagarBombaCmd extends BombaCmd {
 
-	private BombaDeAgua bomba;
-	
 	public ApagarBombaCmd(BombaDeAgua b) {
-		this.bomba = b;
+		super(b);
 	}
 
 	public void execute() {
