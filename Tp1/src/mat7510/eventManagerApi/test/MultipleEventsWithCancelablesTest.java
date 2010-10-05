@@ -59,7 +59,7 @@ public class MultipleEventsWithCancelablesTest {
 	}
 
 	@Test
-	public void testBasicContext() {
+	public void testBasicContext() throws exceptionRegisterEvent {
 
 		// Registramos en el Manager la accion - evento
                 List<Event>events = new ArrayList<Event>();

@@ -38,7 +38,7 @@ public class BasicTest {
 	}
 	
 	@Test
-	public void testBasicContext() {
+	public void testBasicContext() throws exceptionRegisterEvent {
 		
 		// Registramos en el Manager la accion - evento
 		try{
