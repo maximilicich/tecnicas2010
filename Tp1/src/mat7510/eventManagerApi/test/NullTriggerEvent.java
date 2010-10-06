@@ -74,13 +74,13 @@ public class NullTriggerEvent {
                    System.out.println(e.toString());
             }
             
-            
+           
           //Se verifica la validación de disparo de evento nulo
             try{
             	eventSource1.triggerEventNull();
             	fail("Excepted exeptionRegisterEvent");
             }
-            catch(exceptionRegisterEvent e){
+            catch(Exception e){
                    System.out.println(e.toString());
             }  
             
