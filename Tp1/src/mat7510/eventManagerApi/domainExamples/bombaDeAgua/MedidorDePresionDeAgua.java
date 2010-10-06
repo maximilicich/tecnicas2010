@@ -13,7 +13,7 @@ import mat7510.eventManagerApi.exceptionRegisterEvent;
  * @author MaMilicich
  *
  */
-public class MedidorDePresionDeAgua implements EventListener  {
+public class MedidorDePresionDeAgua {
 	
 	private List<EventListener> listeners = new ArrayList<EventListener>();
 
@@ -33,7 +33,6 @@ public class MedidorDePresionDeAgua implements EventListener  {
 	
 	public MedidorDePresionDeAgua(RedDeAbastecimientoDeAgua red) {
 		this.red = red;
-		this.red.addListener(this);
 	}
 	
 	public void addEventListener(EventListener eventListener) {
@@ -47,6 +46,10 @@ public class MedidorDePresionDeAgua implements EventListener  {
 	public BigDecimal getPresionMinima() {
 		return presionMinima;
 	}
+
+	public Boolean hayPresion() {
+		return (red.getPresionActual().compareTo(presionMinima) >= 0);
+	}
 	
 	/**
 	 * Cuando nos piden controlar la presion
@@ -57,19 +60,15 @@ public class MedidorDePresionDeAgua implements EventListener  {
 	 */
 	public void controlarPresion() throws exceptionRegisterEvent {
 		Event e;
-		if (red.getPresionActual().compareTo(presionMinima) < 0) {
-			e = new NoHayPresionEvent(this);
-		} else {
+		if (hayPresion()) {
 			e = new HayPresionEvent(this);
+		} else {
+			e = new NoHayPresionEvent(this);
 		}
 		for (EventListener listener : listeners) {
 			listener.eventOccurred(e);
 		}
 	}
 
-	@Override
-	public void eventOccurred(Event e) {
-		// TODO Auto-generated method stub
-	}
-	
+
 }

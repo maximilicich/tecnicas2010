@@ -1,18 +1,23 @@
 package mat7510.eventManagerApi.domainExamples.bombaDeAgua;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import mat7510.eventManagerApi.EventListener;
 import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 /**
  * Todas las cantidades son en LITROS
+ * El Tanque inicia VACIO 
+ * LimiteInferior default = 0
+ * LimiteSuperior default = capacidad maximoa
  * @author MaMilicich
  *
  */
 public class TanqueDeAgua {
 
-	private EventListener eventListener;
+	private List<EventListener> listeners = new ArrayList<EventListener>();
 
 	private BigDecimal capacidadMaxima;
 	private BigDecimal contenido;
@@ -30,29 +35,34 @@ public class TanqueDeAgua {
 		this.capacidadMaxima = capacidadMaxima;
 		this.limiteInferior = limiteInferior;
 		this.limiteSuperior = limiteSuperior;
+		this.contenido = BigDecimal.ZERO;
 	}
 	
 	public void addEventListener(EventListener eventListener) {
-		this.eventListener = eventListener;
+		this.listeners.add(eventListener);
 	}
 
 	public void llenar(BigDecimal litros) throws exceptionRegisterEvent {
+		
 		contenido = 
 			contenido.add(litros).compareTo(capacidadMaxima) > 0 ? 
 					capacidadMaxima : contenido.add(litros);  
 		if(isTanqueLleno()) {
-			if (eventListener != null)
-				eventListener.eventOccurred(new TanqueLlenoEvent(this));
+			for (EventListener listener : listeners) {
+				listener.eventOccurred(new TanqueLlenoEvent(this));
+			}
 		}
 	}
 	
-	public void substractAgua(BigDecimal litros) throws exceptionRegisterEvent {
+	public void vaciar(BigDecimal litros) throws exceptionRegisterEvent {
+		
 		contenido = 
 			contenido.subtract(litros).compareTo(BigDecimal.ZERO) < 0 ? 
 					BigDecimal.ZERO : contenido.subtract(litros);  
 		if(isTanqueVacio()) {
-			if (eventListener != null)
-				eventListener.eventOccurred(new TanqueVacioEvent(this));
+			for (EventListener listener : listeners) {
+				listener.eventOccurred(new TanqueVacioEvent(this));
+			}
 		}
 	}
 	
