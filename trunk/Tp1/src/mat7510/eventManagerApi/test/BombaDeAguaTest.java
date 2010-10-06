@@ -120,35 +120,60 @@ public class BombaDeAguaTest {
 	public void tearDown() throws Exception {
 	}
 
+        private void printEstado(String str1, String str2){
+               System.out.println("");
+                if(str1.length() >0)
+                    System.out.println("Acción: "+str1);
+                else System.out.println("Estado Inicial:");
+                System.out.println("Limite inferior del tanque: "+tanque.getLimiteInferior());
+                System.out.println("Limite superior del tanque: "+tanque.getLimiteSuperior());
+                System.out.println("Litros en el tanque: "+tanque.getContenido());
+
+                System.out.println("Presión Mínima: "+medidor.getPresionMinima());
+                System.out.println("Presión: "+RedDeAbastecimientoDeAgua.instance().getPresionActual());
+                if(str2.length() >0)
+                    System.out.println("Resultado: "+str2);
+        }
+
 	@Test
 	public void testBombaDeAguaTanqueLlenoYPresion() throws exceptionRegisterEvent  {
 
 		// La presion minima para detectar presion sera 50 PSI
 		medidor.setPresionMinima(new BigDecimal(50));
 
+                printEstado("","");
 		assertTrue(! bomba.isEncendida());
 		assertTrue(tanque.isTanqueVacio());
 		
 		// llenamos el tanque un poquito...
-		tanque.llenar(new BigDecimal(4000));
+		tanque.llenar(new BigDecimal(80));
 		
 		// El tanque no se lleno, y la bomba sigue apagada
 		assertTrue(! tanque.isTanqueLleno());
 		assertTrue(! bomba.isEncendida());
-		
+		assertTrue(tanque.isTanqueVacio());
+
+                printEstado("Lleno un ponco el tanque","El tanque sigue con bajo caudal pero no hay presión para encender la bomba.");
+                
 		// Damos un poquito de presion a la Red:
 		RedDeAbastecimientoDeAgua.instance().setPresionActual(new BigDecimal(10));
 		
 		// El medidor aun no detecto presion y la bomba sigue apagada:
 		assertTrue(! medidor.hayPresion());
 		assertTrue(! bomba.isEncendida());
-		
+
+                printEstado("Subo un poco la presión","El tanque esta vacio y la presión sigue siendo insuficiente para encender la bomba.");
+
 		// Ahora le damos suficiente presion a la Red,
 		// cosa que arranque la bomba:
-		RedDeAbastecimientoDeAgua.instance().setPresionActual(new BigDecimal(60));
+		RedDeAbastecimientoDeAgua.instance().setPresionActual(new BigDecimal(110));
 		
 		// El medidor debe haber detectado la presion
 		// y la bomba DEBE HABER ENCENDIDO:
+   
+                printEstado("Subo la presión","Enciendo la bomba");
+                
+                assertTrue(tanque.isTanqueVacio());
 		assertTrue(medidor.hayPresion());
 		assertTrue(bomba.isEncendida());
 		

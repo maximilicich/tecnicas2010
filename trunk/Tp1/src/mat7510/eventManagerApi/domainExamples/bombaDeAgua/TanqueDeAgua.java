@@ -51,7 +51,11 @@ public class TanqueDeAgua {
 			for (EventListener listener : listeners) {
 				listener.eventOccurred(new TanqueLlenoEvent(this));
 			}
-		}
+		}else if(isTanqueVacio()){
+   			for (EventListener listener : listeners) {
+				listener.eventOccurred(new TanqueVacioEvent(this));
+			}
+                }
 	}
 	
 	public void vaciar(BigDecimal litros) {
@@ -62,6 +66,10 @@ public class TanqueDeAgua {
 		if(isTanqueVacio()) {
 			for (EventListener listener : listeners) {
 				listener.eventOccurred(new TanqueVacioEvent(this));
+			}
+		}else if(isTanqueLleno()) {
+			for (EventListener listener : listeners) {
+				listener.eventOccurred(new TanqueLlenoEvent(this));
 			}
 		}
 	}
