@@ -1,11 +1,11 @@
 package mat7510.eventManagerApi.domainExamples.bombaDeAgua;
 
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import mat7510.eventManagerApi.EventListener;
-import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 /**
  * Todas las cantidades son en LITROS
@@ -42,7 +42,7 @@ public class TanqueDeAgua {
 		this.listeners.add(eventListener);
 	}
 
-	public void llenar(BigDecimal litros) throws exceptionRegisterEvent {
+	public void llenar(BigDecimal litros) {
 		
 		contenido = 
 			contenido.add(litros).compareTo(capacidadMaxima) > 0 ? 
@@ -54,7 +54,7 @@ public class TanqueDeAgua {
 		}
 	}
 	
-	public void vaciar(BigDecimal litros) throws exceptionRegisterEvent {
+	public void vaciar(BigDecimal litros) {
 		
 		contenido = 
 			contenido.subtract(litros).compareTo(BigDecimal.ZERO) < 0 ? 

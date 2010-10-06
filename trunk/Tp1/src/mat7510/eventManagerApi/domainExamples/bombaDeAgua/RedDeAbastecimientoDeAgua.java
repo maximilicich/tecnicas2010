@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import mat7510.eventManagerApi.EventListener;
-import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 /**
  * SINGLETON
@@ -43,7 +42,7 @@ public class RedDeAbastecimientoDeAgua {
 		this.listeners.add(listener);
 	}
 
-	public void setPresionActual(BigDecimal presionActual) throws exceptionRegisterEvent {
+	public void setPresionActual(BigDecimal presionActual) {
 		this.presionActual = presionActual;
 		for (Iterator<EventListener> iterator = listeners.iterator(); iterator.hasNext();) {
 			EventListener listener = iterator.next();

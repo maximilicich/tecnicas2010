@@ -6,7 +6,6 @@ import java.util.List;
 
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventListener;
-import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 /**
  * Trabaja en PSI
@@ -56,7 +55,6 @@ public class MedidorDePresionDeAgua {
 	 * Nos fijamos cual es la presion de la red
 	 * E informamos si hay presion o no, en base al indicador 
 	 * de presionMinima
-	 * @throws exceptionRegisterEvent 
 	 */
 	public void controlarPresion() {
 		Event e;
