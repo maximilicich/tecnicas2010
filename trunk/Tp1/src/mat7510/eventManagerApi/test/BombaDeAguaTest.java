@@ -136,7 +136,7 @@ public class BombaDeAguaTest {
         }
 
 	@Test
-	public void testBombaDeAguaTanqueLlenoYPresion() throws exceptionRegisterEvent  {
+	public void testBombaDeAguaTanqueLlenoYPresion()  {
 
 		// La presion minima para detectar presion sera 50 PSI
 		medidor.setPresionMinima(new BigDecimal(50));
