@@ -12,7 +12,7 @@ public class NoHayPresionEvent implements Event {
 	
 	@Override
 	public boolean equals(Event anotherEvent) {
-		if (!(anotherEvent instanceof HayPresionEvent)) {
+		if (!(anotherEvent instanceof NoHayPresionEvent)) {
 			return false;
 		}
 		if (this.medidor.equals(((NoHayPresionEvent)anotherEvent).medidor)) {

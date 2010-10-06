@@ -8,10 +8,8 @@ public class CambioDePresionDeAguaEvent implements Event {
 		if (!(anotherEvent instanceof CambioDePresionDeAguaEvent)) {
 			return false;
 		}
-		if (this.equals(((CambioDePresionDeAguaEvent)anotherEvent))) {
-			return true;
-		}
-		return false;	
+		// Un cambio de presion es siempre lo mismo...
+		return true;	
 	}
 
 }
