@@ -17,10 +17,10 @@ public class ConcreteEventManager implements EventManager {
 	}
 	
 	
-	public void eventOccurred(Event e) throws exceptionRegisterEvent {
+	public void eventOccurred(Event e) {
 		
 		if(e==null)
-              throw new exceptionRegisterEvent("Evento nulo");	
+              throw new NullPointerException("Evento nulo");	
 		
 		Iterator<EventCancel> it = eventsCancel.iterator();
 		EventCancel eventCancel;
@@ -43,7 +43,7 @@ public class ConcreteEventManager implements EventManager {
 		notifyChange (e,true);
 	}
 
-	private void notifyChange(Event event, boolean marcar) throws exceptionRegisterEvent {
+	private void notifyChange(Event event, boolean marcar) {
 		
 		Iterator<ActionHandler> itActions = actions.iterator();
 		Iterator<Event> itEvents;

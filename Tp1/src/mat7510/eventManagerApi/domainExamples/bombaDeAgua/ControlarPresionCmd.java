@@ -1,7 +1,6 @@
 package mat7510.eventManagerApi.domainExamples.bombaDeAgua;
 
 import mat7510.eventManagerApi.ActionCommand;
-import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 public class ControlarPresionCmd implements ActionCommand {
 
@@ -11,7 +10,7 @@ public class ControlarPresionCmd implements ActionCommand {
 		this.medidor = medidor;
 	}
 	
-	public void execute() throws exceptionRegisterEvent {
+	public void execute() {
 		this.medidor.controlarPresion();
 	}
 

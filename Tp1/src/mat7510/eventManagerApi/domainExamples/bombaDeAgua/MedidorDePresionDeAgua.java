@@ -58,7 +58,7 @@ public class MedidorDePresionDeAgua {
 	 * de presionMinima
 	 * @throws exceptionRegisterEvent 
 	 */
-	public void controlarPresion() throws exceptionRegisterEvent {
+	public void controlarPresion() {
 		Event e;
 		if (hayPresion()) {
 			e = new HayPresionEvent(this);
