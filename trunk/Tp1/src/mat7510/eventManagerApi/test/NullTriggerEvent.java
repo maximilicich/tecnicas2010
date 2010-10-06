@@ -2,14 +2,12 @@ package mat7510.eventManagerApi.test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventManager;
 import mat7510.eventManagerApi.EventManagerFactory;
 import mat7510.eventManagerApi.exceptionRegisterEvent;
-import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
 
 import org.junit.After;
