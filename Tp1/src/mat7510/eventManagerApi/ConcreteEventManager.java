@@ -100,7 +100,7 @@ public class ConcreteEventManager implements EventManager {
 	@Override
 	public void register(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
 
-                if(e.isEmpty())
+                if(e== null || e.isEmpty())
                     throw new exceptionRegisterEvent("La lista de eventos esta vacia");
 
                 if(cmd==null)
@@ -114,9 +114,9 @@ public class ConcreteEventManager implements EventManager {
 	@Override
 	public void registerWithOrder(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
 
-                if(e.isEmpty())
+                if(e== null || e.isEmpty())
                     throw new exceptionRegisterEvent("La lista de eventos esta vacia");
-
+                
                 if(cmd==null)
                     throw new exceptionRegisterEvent("Comando nulo");
 
