@@ -64,7 +64,7 @@ public class ConcreteEventManager implements EventManager {
                                     if(!action.isActivedEvent(index)){
 					// marca el evento 
 					action.activateEvent(index);
-                                        
+                              
                                         if (action.isActive()){
                                             action.getCommand().execute();
                                             action.cleanState();
