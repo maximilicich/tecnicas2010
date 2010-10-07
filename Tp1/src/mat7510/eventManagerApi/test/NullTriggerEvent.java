@@ -16,9 +16,9 @@ import org.junit.Test;
 
 
 public class NullTriggerEvent {
-	
+
 	private static final String EVENTO1 = "evento 1";
-	
+
 	private EventManager mngr;
 	private BasicEventSource eventSource1;
 
@@ -38,52 +38,52 @@ public class NullTriggerEvent {
 	@Test
 	public void testBasicContext() throws exceptionRegisterEvent {
 
-            // Registramos en el Manager la accion - evento
-            List<Event>events = null;
-            Event eventTest = null;
-            
-            try{
-                mngr.registerWithOrder(null, events);
-                fail("Excepted exeptionRegisterEvent");
-            }catch(exceptionRegisterEvent e){
-                   System.out.println(e.toString());
-            }
-            
-          //Se verifica la validación del registro de eventos con orden
-            try{
-                mngr.registerWithOrder(null, null);
-                fail("Excepted exeptionRegisterEvent");
-            }catch(exceptionRegisterEvent e){
-                   System.out.println(e.toString());
-            }
-            
-            //Se verifica la validación del registro de eventos sin orden
-            try{
-                mngr.register(null, events);
-                fail("Excepted exeptionRegisterEvent");
-            }catch(exceptionRegisterEvent e){
-                   System.out.println(e.toString());
-            }
-            
-            
-            //Se verifica la validación del registro de evento simple
-            try{
-                mngr.register(null, eventTest);
-                fail("Excepted exeptionRegisterEvent");
-            }catch(exceptionRegisterEvent e){
-                   System.out.println(e.toString());
-            }
-            
-           
-          //Se verifica la validación de disparo de evento nulo
-            try{
-            	eventSource1.triggerEventNull();
-            	fail("Excepted exeptionRegisterEvent");
-            }
-            catch(Exception e){
-                   System.out.println(e.toString());
-            }  
-            
+		// Registramos en el Manager la accion - evento
+		List<Event>events = null;
+		Event eventTest = null;
+
+		try{
+			mngr.registerWithOrder(null, events);
+			fail("Excepted exeptionRegisterEvent");
+		}catch(exceptionRegisterEvent e){
+			System.out.println(e.toString());
+		}
+
+		//Se verifica la validación del registro de eventos con orden
+		try{
+			mngr.registerWithOrder(null, null);
+			fail("Excepted exeptionRegisterEvent");
+		}catch(exceptionRegisterEvent e){
+			System.out.println(e.toString());
+		}
+
+		//Se verifica la validación del registro de eventos sin orden
+		try{
+			mngr.register(null, events);
+			fail("Excepted exeptionRegisterEvent");
+		}catch(exceptionRegisterEvent e){
+			System.out.println(e.toString());
+		}
+
+
+		//Se verifica la validación del registro de evento simple
+		try{
+			mngr.register(null, eventTest);
+			fail("Excepted exeptionRegisterEvent");
+		}catch(exceptionRegisterEvent e){
+			System.out.println(e.toString());
+		}
+
+
+		//Se verifica la validación de disparo de evento nulo
+		try{
+			eventSource1.triggerEventNull();
+			fail("Excepted exeptionRegisterEvent");
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}  
+
 	}
 
 }

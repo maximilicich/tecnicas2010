@@ -27,8 +27,8 @@ public class MultipleEventsWithCancelablesTest {
 	private static final String EVENTO2 = "evento 2";
 	private static final String EVENTO3 = "evento 3";
 	private static final String EVENTO4 = "evento 4";
-	
-	
+
+
 	private EventManager mngr;
 	private BasicEventSource eventSource1;
 	private BasicEventSource eventSource2;
@@ -44,7 +44,7 @@ public class MultipleEventsWithCancelablesTest {
 		eventSource2 = new BasicEventSource(EVENTO2);
 		eventSource3 = new BasicEventSource(EVENTO3);
 		eventSource4 = new BasicEventSource(EVENTO4);
-		
+
 		eventSource1.addListener(mngr);
 		eventSource2.addListener(mngr);
 		eventSource3.addListener(mngr);
@@ -62,22 +62,22 @@ public class MultipleEventsWithCancelablesTest {
 	public void testBasicContext() throws exceptionRegisterEvent {
 
 		// Registramos en el Manager la accion - evento
-                List<Event>events = new ArrayList<Event>();
-                events.add(new BasicEvent(EVENTO1));
-                events.add(new BasicEvent(EVENTO2));
-                events.add(new BasicEvent(EVENTO3));
-                try{
-                    mngr.register(new BasicActionCommand(actionReceiver), events);
-                    mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent(EVENTO1));
-                }catch(exceptionRegisterEvent e){
-                    System.out.println(e.toString());
-                }
+		List<Event>events = new ArrayList<Event>();
+		events.add(new BasicEvent(EVENTO1));
+		events.add(new BasicEvent(EVENTO2));
+		events.add(new BasicEvent(EVENTO3));
+		try{
+			mngr.register(new BasicActionCommand(actionReceiver), events);
+			mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent(EVENTO1));
+		}catch(exceptionRegisterEvent e){
+			System.out.println(e.toString());
+		}
 
 		// El Source dispara el Evento...
 		eventSource1.triggerEvent();
-                eventSource3.triggerEvent();
-                eventSource4.triggerEvent();
-                eventSource2.triggerEvent();
+		eventSource3.triggerEvent();
+		eventSource4.triggerEvent();
+		eventSource2.triggerEvent();
 
 
 		// Y si todo funciona bien, el Receiver no deberia haber sufrido
