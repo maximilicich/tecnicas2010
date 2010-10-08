@@ -20,7 +20,7 @@ public class ConcreteEventManager implements EventManager {
 	public void eventOccurred(Event e) {
 
 		if(e==null)
-			throw new NullPointerException("Evento nulo");	
+                    throw new NullPointerException("Evento nulo");
 
 		Iterator<EventCancel> it = eventsCancel.iterator();
 		EventCancel eventCancel;
@@ -40,85 +40,104 @@ public class ConcreteEventManager implements EventManager {
 
 	private void notifyChange(Event event, boolean marcar) {
 
-		Iterator<ActionHandler> itActions = actions.iterator();
-		Iterator<Event> itEvents;
+		Iterator<ActionHandler> itActions = actions.iterator();		
 		ActionHandler action;
-		Event actionEvent;
-		int index;
-
+				
 		while (itActions.hasNext()){
-
 			action = itActions.next();	
-			itEvents = action.getEventIterator();
-			index = 0;
-
-			while (itEvents.hasNext()){
-
-				actionEvent = itEvents.next();
-				if (event.equals(actionEvent) && marcar == true){
-					if(!action.isActivedEvent(index)){
-						// marca el evento 
-						action.activateEvent(index);
-
-						if (action.isActive()){
-							action.getCommand().execute();
-							action.cleanState();
-						}
-						//Se recorre toda la lista para verificar si registran dos veces el mismo evento
-						if(action.getOrder()==true)
-							break;
-					}
-				}
-
-				if (event.equals(actionEvent) && marcar == false){
-					// Se desactivan todos los eventos que cumplan
-					action.cancelEvent(index);      
-				}
-				index ++;
-			}			
+			action.notifyEvent(event,marcar);
 		}		
 	}
 
 	@Override
-	public void register(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
+	public void registerEventWithCancellations(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
 		if(e==null)
 			throw new exceptionRegisterEvent("Evento nulo");
 
 		if(cmd==null)
 			throw new exceptionRegisterEvent("Comando nulo");
 
-		ActionHandler action = ActionHandler.createActionSingle (cmd, e);
+		ActionHandler action = ActionHandler.createActionSingleWithCancellations (cmd, e);
 		this.actions.add(action);
 
 	}
 
-	@Override
-	public void register(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
-
-		if(e== null || e.isEmpty())
-			throw new exceptionRegisterEvent("La lista de eventos esta vacia");
+       	@Override
+	public void registerEventWithNoCancellations(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
+		if(e==null)
+			throw new exceptionRegisterEvent("Evento nulo");
 
 		if(cmd==null)
 			throw new exceptionRegisterEvent("Comando nulo");
 
-		ActionHandler action = ActionHandler.createActionGroup  (cmd, e);
+		ActionHandler action = ActionHandler.createActionSingleWithNoCancellations (cmd, e);
 		this.actions.add(action);
 
 	}
 
-	@Override
-	public void registerWithOrder(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
-
-		if(e== null || e.isEmpty())
+	private void validate(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent{
+        	if(e== null || e.isEmpty())
 			throw new exceptionRegisterEvent("La lista de eventos esta vacia");
 
 		if(cmd==null)
 			throw new exceptionRegisterEvent("Comando nulo");
+        }
 
-		ActionHandler action = ActionHandler.createActionGroupOrder  (cmd, e);
+        @Override
+        public void registerEventsContinuousWithCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+            	validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupContinousWithCancellations  (cmd, e);
 		this.actions.add(action);
+        }
 
-	}
+        @Override
+        public void registerEventsContinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+                validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupContinousWithNoCancellations  (cmd, e);
+		this.actions.add(action);
+        }
+
+        @Override
+        public void registerEventsDiscontinuousWithCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+                validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupDiscontinuousWithCancellations  (cmd, e);
+		this.actions.add(action);
+        }
+
+        @Override
+        public void registerEventsDiscontinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+                 validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupDiscontinuousWithNoCancellations  (cmd, e);
+		this.actions.add(action);
+        }
+
+        @Override
+	public void registerEventsWithOrderContinuousWithCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+                validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupOrderContinousWithCancellations  (cmd, e);
+		this.actions.add(action);
+        }
+
+        @Override
+        public void registerEventsWithOrderContinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+                validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupOrderContinousWithNoCancellations  (cmd, e);
+		this.actions.add(action);
+        }
+
+        @Override
+        public void registerEventsWithOrderDiscontinuousWithCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+                validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupOrderDiscontinuousWithCancellations  (cmd, e);
+		this.actions.add(action);
+        }
+
+        @Override
+        public void registerEventsWithOrderDiscontinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
+                validate(cmd,e);
+                ActionHandler action = ActionHandler.createActionGroupOrderDiscontinuousWithNoCancellations  (cmd, e);
+		this.actions.add(action);
+        }
 
 	@Override
 	public void registerCancellables(Event event1, Event event2) throws exceptionRegisterEvent {

@@ -64,7 +64,7 @@ public class MultipleEventsWithOrderTest {
 		events.add(new BasicEvent(EVENTO2));
 		events.add(new BasicEvent(EVENTO3));
 		try{
-			mngr.registerWithOrder(new BasicActionCommand(actionReceiver), events);
+			mngr.registerEventsWithOrderDiscontinuousWithCancellations(new BasicActionCommand(actionReceiver), events);
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}
@@ -104,7 +104,7 @@ public class MultipleEventsWithOrderTest {
 		eventsRepeated.add(new BasicEvent(EVENTO2));
 		eventsRepeated.add(new BasicEvent(EVENTO1));
 		try{
-			mngr.registerWithOrder(new BasicActionCommand(actionReceiveRepeated), eventsRepeated);
+			mngr.registerEventsWithOrderDiscontinuousWithCancellations(new BasicActionCommand(actionReceiveRepeated), eventsRepeated);
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}

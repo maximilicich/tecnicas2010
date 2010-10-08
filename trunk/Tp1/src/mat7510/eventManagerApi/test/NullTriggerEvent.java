@@ -43,7 +43,7 @@ public class NullTriggerEvent {
 		Event eventTest = null;
 
 		try{
-			mngr.registerWithOrder(null, events);
+			mngr.registerEventsWithOrderDiscontinuousWithCancellations(null, events);
 			fail("Excepted exeptionRegisterEvent");
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
@@ -51,7 +51,7 @@ public class NullTriggerEvent {
 
 		//Se verifica la validación del registro de eventos con orden
 		try{
-			mngr.registerWithOrder(null, null);
+			mngr.registerEventsWithOrderDiscontinuousWithCancellations(null, null);
 			fail("Excepted exeptionRegisterEvent");
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
@@ -59,7 +59,7 @@ public class NullTriggerEvent {
 
 		//Se verifica la validación del registro de eventos sin orden
 		try{
-			mngr.register(null, events);
+			mngr.registerEventsDiscontinuousWithCancellations(null, events);
 			fail("Excepted exeptionRegisterEvent");
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
@@ -68,7 +68,7 @@ public class NullTriggerEvent {
 
 		//Se verifica la validación del registro de evento simple
 		try{
-			mngr.register(null, eventTest);
+			mngr.registerEventWithCancellations(null, eventTest);
 			fail("Excepted exeptionRegisterEvent");
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());

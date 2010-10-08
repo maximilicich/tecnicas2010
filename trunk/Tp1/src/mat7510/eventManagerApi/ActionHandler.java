@@ -12,22 +12,55 @@ public class ActionHandler {
 
 	private ArrayList<Boolean> eventsIndexs;
 
+        private boolean ContinousWith;
+
+        private boolean acceptCancellables;
+
 	int amountActivated;
 
 	private boolean order;
 
 
-	static public ActionHandler createActionSingle ( ActionCommand command, Event event){
-		return new ActionHandler(command ,event);
+	static public ActionHandler createActionSingleWithCancellations ( ActionCommand command, Event event){
+		return new ActionHandler(command ,event,true);
 	}
 
-	static public ActionHandler createActionGroup ( ActionCommand command, List<Event> event){
-		return new ActionHandler(command ,event, false);
+	static public ActionHandler createActionSingleWithNoCancellations ( ActionCommand command, Event event){
+		return new ActionHandler(command ,event,false);
 	}
 
-	static public ActionHandler createActionGroupOrder ( ActionCommand command, List<Event> event){
-		return new ActionHandler(command ,event, true);
+	static public ActionHandler createActionGroupContinousWithCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, false,true,true);
 	}
+
+	static public ActionHandler createActionGroupContinousWithNoCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, false,true,false);
+	}
+
+        static public ActionHandler createActionGroupDiscontinuousWithCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, false,false,true);
+	}
+
+	static public ActionHandler createActionGroupDiscontinuousWithNoCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, false,false,false);
+	}
+
+        static public ActionHandler createActionGroupOrderContinousWithCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, true,true,true);
+	}
+
+	static public ActionHandler createActionGroupOrderContinousWithNoCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, true,true,false);
+	}
+
+        static public ActionHandler createActionGroupOrderDiscontinuousWithCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, true,false,true);
+	}
+
+	static public ActionHandler createActionGroupOrderDiscontinuousWithNoCancellations( ActionCommand command, List<Event> event){
+		return new ActionHandler(command ,event, true,false,false);
+	}
+
 
 	private void createEvents() {
 		// Inicializa el array de eventos de control del comando
@@ -38,7 +71,7 @@ public class ActionHandler {
 		}
 	}
 
-	private ActionHandler ( ActionCommand command, Event event){
+	private ActionHandler ( ActionCommand command, Event event, boolean acceptCancellables){
 
 		this.command = command;
 		events = new ArrayList<Event>();
@@ -47,15 +80,19 @@ public class ActionHandler {
 		setOrder(false);
 		createEvents();
 		amountActivated=0;
+                this.acceptCancellables=acceptCancellables;
+                this.ContinousWith=false;
 	}
 
-	private ActionHandler ( ActionCommand command, List<Event> events, boolean order){
+	private ActionHandler ( ActionCommand command, List<Event> events, boolean order,boolean ContinousWith, boolean acceptCancellables){
 
 		this.command = command;
 		this.events = events;
 		setOrder(order);
 		createEvents();
 		amountActivated=0;
+                this.acceptCancellables=acceptCancellables;
+                this.ContinousWith=ContinousWith;
 	}	    
 
 	private void clearEvents() {		
@@ -163,5 +200,55 @@ public class ActionHandler {
 		// Vuelve los eventos al momento inicial	
 		clearEvents();
 	}
+
+        public boolean isContinuos(){
+            return ContinousWith;
+        }
+
+        public boolean acceptCancellables(){
+            return acceptCancellables;
+        }
+
+        public void notifyEvent(Event event,boolean marcar){
+            int index=0;
+            boolean changeState=false;
+            Event actionEvent;
+            Iterator<Event> itEvents = getEventIterator();
+
+            if (!(!acceptCancellables() && marcar==false)){
+                  while (itEvents.hasNext()){
+                       actionEvent = itEvents.next();
+                       if (event.equals(actionEvent) && marcar == true){
+                           if(!isActivedEvent(index)){
+                              // marca el evento
+                              activateEvent(index);
+                              changeState=true;
+
+                              if (isActive()){
+                                  getCommand().execute();
+                                  cleanState();
+                              }
+                              //Se recorre toda la lista para verificar si registran dos veces el mismo evento
+                              if(getOrder()==true)
+                                 break;
+                              }
+                        }
+
+                        if (event.equals(actionEvent) && marcar == false){
+                            // Se desactivan todos los eventos que cumplan
+                             if(isContinuos())
+                                cleanState();
+                             else cancelEvent(index);
+                        }
+                            index ++;
+                 }
+
+                 if(isContinuos() && !changeState)
+                      cleanState();
+                 }else{
+                        if(isContinuos())
+                            cleanState();
+                 }
+        }
 
 }
