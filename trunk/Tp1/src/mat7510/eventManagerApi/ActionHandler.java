@@ -245,10 +245,10 @@ public class ActionHandler {
 
                  if(isContinuos() && !changeState)
                       cleanState();
-                 }else{
-                        if(isContinuos())
-                            cleanState();
-                 }
+           }else{
+               if(isContinuos())
+                 cleanState();
+           }
         }
 
 }
