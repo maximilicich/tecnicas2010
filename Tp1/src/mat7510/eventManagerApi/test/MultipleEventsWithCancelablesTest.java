@@ -67,7 +67,7 @@ public class MultipleEventsWithCancelablesTest {
 		events.add(new BasicEvent(EVENTO2));
 		events.add(new BasicEvent(EVENTO3));
 		try{
-			mngr.register(new BasicActionCommand(actionReceiver), events);
+			mngr.registerEventsDiscontinuousWithCancellations(new BasicActionCommand(actionReceiver), events);
 			mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent(EVENTO1));
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());

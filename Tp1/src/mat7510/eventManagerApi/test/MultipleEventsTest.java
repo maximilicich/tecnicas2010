@@ -66,7 +66,7 @@ public class MultipleEventsTest {
 		events.add(new BasicEvent(EVENTO3));
 
 		try{
-			mngr.register(new BasicActionCommand(actionReceiver), events);
+			mngr.registerEventsDiscontinuousWithCancellations(new BasicActionCommand(actionReceiver), events);
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}
@@ -86,7 +86,7 @@ public class MultipleEventsTest {
 		eventsRepeated.add(new BasicEvent(EVENTO1));
 
 		try{
-			mngr.register(new BasicActionCommand(actionReceiveRepeated), eventsRepeated);
+			mngr.registerEventsDiscontinuousWithCancellations(new BasicActionCommand(actionReceiveRepeated), eventsRepeated);
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}

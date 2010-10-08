@@ -89,7 +89,7 @@ public class BombaDeAguaTest {
 
 		// Cuando cambia la presion de la Red (evento), 
 		// el medidor debe testear la presion (action)
-		mngr.register(new ControlarPresionCmd(medidor), 
+		mngr.registerEventWithCancellations(new ControlarPresionCmd(medidor),
 				new CambioDePresionDeAguaEvent());
 
 		// Cuando el Medidor detecta que hay presion y ademas
@@ -98,12 +98,12 @@ public class BombaDeAguaTest {
 		List<Event> eventosParaEncenderLaBomba = new ArrayList<Event>(2);
 		eventosParaEncenderLaBomba.add(new HayPresionEvent(medidor));
 		eventosParaEncenderLaBomba.add(new TanqueVacioEvent(tanque));
-		mngr.register(new EncenderBombaCmd(bomba), eventosParaEncenderLaBomba);
+		mngr.registerEventsDiscontinuousWithCancellations(new EncenderBombaCmd(bomba), eventosParaEncenderLaBomba);
 
 		// Ahora, si no hay presion, o bien si el tanque se llena
 		// entonces la bomba debe apagarse:
-		mngr.register(new ApagarBombaCmd(bomba), new NoHayPresionEvent(medidor));
-		mngr.register(new ApagarBombaCmd(bomba), new TanqueLlenoEvent(tanque));
+		mngr.registerEventWithCancellations(new ApagarBombaCmd(bomba), new NoHayPresionEvent(medidor));
+		mngr.registerEventWithCancellations(new ApagarBombaCmd(bomba), new TanqueLlenoEvent(tanque));
 
 		// Pot ultimo, indicamos los Eventos Cancelables entre si
 		// Si el Tanque esta lleno, entonces no esta vacio

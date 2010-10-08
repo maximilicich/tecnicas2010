@@ -42,7 +42,7 @@ public class BasicTest {
 		
 		// Registramos en el Manager la accion - evento
 		try{
-                    mngr.register(new BasicActionCommand(actionReceiver), new BasicEvent(EVENTO));
+                    mngr.registerEventWithCancellations(new BasicActionCommand(actionReceiver), new BasicEvent(EVENTO));
                 }catch(exceptionRegisterEvent e){
                     System.out.println(e.toString());
                 }
