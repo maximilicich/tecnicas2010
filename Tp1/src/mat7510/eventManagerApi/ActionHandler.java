@@ -215,6 +215,7 @@ public class ActionHandler {
             Event actionEvent;
             Iterator<Event> itEvents = getEventIterator();
 
+            //Si no acepto cancelables  y voy a cancelar (marcar==false) entonces no entro
             if (!(!acceptCancellables() && marcar==false)){
                   while (itEvents.hasNext()){
                        actionEvent = itEvents.next();
@@ -231,7 +232,7 @@ public class ActionHandler {
                               //Se recorre toda la lista para verificar si registran dos veces el mismo evento
                               if(getOrder()==true)
                                  break;
-                              }
+                           }
                         }
 
                         if (event.equals(actionEvent) && marcar == false){
@@ -243,11 +244,13 @@ public class ActionHandler {
                             index ++;
                  }
 
+                  //Si es continuo y no hubo cambios entonces se rompio la continuidad
                  if(isContinuos() && !changeState)
                       cleanState();
            }else{
-               if(isContinuos())
-                 cleanState();
+                   // No acepto cancelables y voy a cancelar -> si es continuo se  rompe la continuidad
+                  if(isContinuos())
+                     cleanState();
            }
         }
 
