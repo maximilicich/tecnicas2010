@@ -12,9 +12,9 @@ public class ActionHandler {
 
 	private ArrayList<Boolean> eventsIndexs;
 
-        private boolean ContinousWith;
+	private boolean ContinousWith;
 
-        private boolean acceptCancellables;
+	private boolean acceptCancellables;
 
 	int amountActivated;
 
@@ -37,7 +37,7 @@ public class ActionHandler {
 		return new ActionHandler(command ,event, false,true,false);
 	}
 
-        static public ActionHandler createActionGroupDiscontinuousWithCancellations( ActionCommand command, List<Event> event){
+	static public ActionHandler createActionGroupDiscontinuousWithCancellations( ActionCommand command, List<Event> event){
 		return new ActionHandler(command ,event, false,false,true);
 	}
 
@@ -45,7 +45,7 @@ public class ActionHandler {
 		return new ActionHandler(command ,event, false,false,false);
 	}
 
-        static public ActionHandler createActionGroupOrderContinousWithCancellations( ActionCommand command, List<Event> event){
+	static public ActionHandler createActionGroupOrderContinousWithCancellations( ActionCommand command, List<Event> event){
 		return new ActionHandler(command ,event, true,true,true);
 	}
 
@@ -53,7 +53,7 @@ public class ActionHandler {
 		return new ActionHandler(command ,event, true,true,false);
 	}
 
-        static public ActionHandler createActionGroupOrderDiscontinuousWithCancellations( ActionCommand command, List<Event> event){
+	static public ActionHandler createActionGroupOrderDiscontinuousWithCancellations( ActionCommand command, List<Event> event){
 		return new ActionHandler(command ,event, true,false,true);
 	}
 
@@ -80,8 +80,8 @@ public class ActionHandler {
 		setOrder(false);
 		createEvents();
 		amountActivated=0;
-                this.acceptCancellables=acceptCancellables;
-                this.ContinousWith=false;
+		this.acceptCancellables=acceptCancellables;
+		this.ContinousWith=false;
 	}
 
 	private ActionHandler ( ActionCommand command, List<Event> events, boolean order,boolean ContinousWith, boolean acceptCancellables){
@@ -91,8 +91,8 @@ public class ActionHandler {
 		setOrder(order);
 		createEvents();
 		amountActivated=0;
-                this.acceptCancellables=acceptCancellables;
-                this.ContinousWith=ContinousWith;
+		this.acceptCancellables=acceptCancellables;
+		this.ContinousWith=ContinousWith;
 	}	    
 
 	private void clearEvents() {		
@@ -201,57 +201,57 @@ public class ActionHandler {
 		clearEvents();
 	}
 
-        public boolean isContinuos(){
-            return ContinousWith;
-        }
+	public boolean isContinuos(){
+		return ContinousWith;
+	}
 
-        public boolean acceptCancellables(){
-            return acceptCancellables;
-        }
+	public boolean acceptCancellables(){
+		return acceptCancellables;
+	}
 
-        public void notifyEvent(Event event,boolean marcar){
-            int index=0;
-            boolean changeState=false;
-            Event actionEvent;
-            Iterator<Event> itEvents = getEventIterator();
+	public void notifyEvent(Event event,boolean marcar){
+		int index=0;
+		boolean changeState=false;
+		Event actionEvent;
+		Iterator<Event> itEvents = getEventIterator();
 
-            //Si no acepto cancelables  y voy a cancelar (marcar==false) entonces no entro
-            if (!(!acceptCancellables() && marcar==false)){
-                  while (itEvents.hasNext()){
-                       actionEvent = itEvents.next();
-                       if (event.equals(actionEvent) && marcar == true){
-                           if(!isActivedEvent(index)){
-                              // marca el evento
-                              activateEvent(index);
-                              changeState=true;
+		//Si no acepto cancelables  y voy a cancelar (marcar==false) entonces no entro
+		if (!(!acceptCancellables() && marcar==false)){
+			while (itEvents.hasNext()){
+				actionEvent = itEvents.next();
+				if (event.equals(actionEvent) && marcar == true){
+					if(!isActivedEvent(index)){
+						// marca el evento
+						activateEvent(index);
+						changeState=true;
 
-                              if (isActive()){
-                                  getCommand().execute();
-                                  cleanState();
-                              }
-                              //Se recorre toda la lista para verificar si registran dos veces el mismo evento
-                              if(getOrder()==true)
-                                 break;
-                           }
-                        }
+						if (isActive()){
+							getCommand().execute();
+							cleanState();
+						}
+						//Se recorre toda la lista para verificar si registran dos veces el mismo evento
+						if(getOrder()==true)
+							break;
+					}
+				}
 
-                        if (event.equals(actionEvent) && marcar == false){
-                            // Se desactivan todos los eventos que cumplan
-                             if(isContinuos())
-                                cleanState();
-                             else cancelEvent(index);
-                        }
-                            index ++;
-                 }
+				if (event.equals(actionEvent) && marcar == false){
+					// Se desactivan todos los eventos que cumplan
+					if(isContinuos())
+						cleanState();
+					else cancelEvent(index);
+				}
+				index ++;
+			}
 
-                  //Si es continuo y no hubo cambios entonces se rompio la continuidad
-                 if(isContinuos() && !changeState)
-                      cleanState();
-           }else{
-                   // No acepto cancelables y voy a cancelar -> si es continuo se  rompe la continuidad
-                  if(isContinuos())
-                     cleanState();
-           }
-        }
+			//Si es continuo y no hubo cambios entonces se rompio la continuidad
+			if(isContinuos() && !changeState)
+				cleanState();
+		}else{
+			// No acepto cancelables y voy a cancelar -> si es continuo se  rompe la continuidad
+			if(isContinuos())
+				cleanState();
+		}
+	}
 
 }
