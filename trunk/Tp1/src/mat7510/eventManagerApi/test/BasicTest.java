@@ -24,7 +24,7 @@ public class BasicTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		mngr = EventManagerFactory.getInstance();
+		mngr = EventManagerFactory.getInstance().createEventManager();
 		
 		eventSource = new BasicEventSource(EVENTO);
 		eventSource.addListener(mngr);
