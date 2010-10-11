@@ -1,7 +1,6 @@
 package mat7510.eventManagerApi.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,63 +49,89 @@ public class ContinuousEventsTest {
 
 	@Test
 	public void testContinuousEventsWithOrderABCD() throws exceptionRegisterEvent {
-		
-		// Hacemos ocurrir los eventos en el orden esperado 
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("A"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("B"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("C"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("D"));
 
-		// el receiver debe haber recibido la accion
-		assertTrue(receiver.getState());
+		List<String> cadenaDeEventos = new ArrayList<String>(4);
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("D");
 
+		Boolean initialState = false;
+		Boolean finalState = true;
+				
+		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
 		
 	}
-	
+
+	@Test
+	public void testContinuousEventsWithOrderABCDABCD() throws exceptionRegisterEvent {
+
+		List<String> cadenaDeEventos = new ArrayList<String>(4);
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("D");
+
+		Boolean initialState = false;
+		Boolean finalState = true;
+				
+		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+
+		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		
+	}
+
 	@Test
 	public void testContinuousEventsWithOrderABCXD() throws exceptionRegisterEvent {
 
-		// ejecutamos la secuencia
-		// Pero esta vez con un evento X en el medio
+		List<String> cadenaDeEventos = new ArrayList<String>(4);
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("X");
+		cadenaDeEventos.add("D");
 
-		receiver.setState(false);
-		
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("A"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("B"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("C"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("X"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("D"));
-
-		// Pero esta vez el receiver no debe haber recibido la accion
-		assertFalse(receiver.getState());
-
+		Boolean initialState = false;
+		Boolean finalState = false;
+				
+		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
 		
 	}
+
+	@Test
+	public void testContinuousEventsWithOrderABCXABCD() throws exceptionRegisterEvent {
+
+		List<String> cadenaDeEventos = new ArrayList<String>(4);
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("X");
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("D");
+
+		Boolean initialState = false;
+		Boolean finalState = true;
+				
+		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		
+	}
+
 
 	@Test
 	public void testContinuousEventsWithOrderACBD() throws exceptionRegisterEvent {
 		
-		// Hacemos ocurrir los eventos pero en otro orden 
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("A"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("C"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("B"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("D"));
+		List<String> cadenaDeEventos = new ArrayList<String>(4);
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("D");
 
-		// el receiver NO debe haber recibido la accion
-		assertFalse(receiver.getState());
+		Boolean initialState = false;
+		Boolean finalState = false;
+				
+		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
 
 		
 	}
@@ -119,29 +144,61 @@ public class ContinuousEventsTest {
 		// ejecutamos la secuencia
 		// Pero esta vez duplicando los eventos
 
-		receiver.setState(false);
-		assertFalse(receiver.getState());
+		List<String> cadenaDeEventos = new ArrayList<String>(4);
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("A");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("B");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("C");
+		cadenaDeEventos.add("D");
+		cadenaDeEventos.add("D");
 
-		mngr.eventOccurred(new BasicEvent("A"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("A"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("B"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("B"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("C"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("C"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("D"));
-		assertFalse(receiver.getState());
-		mngr.eventOccurred(new BasicEvent("D"));
-
-		// receiver no debe haber recidibo la accion
-		assertFalse(receiver.getState());
-
+		Boolean initialState = false;
+		Boolean finalState = false;
+				
+		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
 		
 	}
 
+	/**
+	 * Setea el estado inicial del receiver segun el valor recibido
+	 * como estado inicial
+	 * 
+	 * Luego "Hace suceder" la serie de eventos recibidos en la lista
+	 * informando al manager via eventOcurred()
+	 * Y luego de cada evento chequea que el estado no haya cambiado
+	 * 
+	 * Al finalizar el ultimo evento verifica que el estado sea 
+	 * al valor recibido como estado final
+	 *  
+	 * @param events
+	 * @param initialState
+	 * @param finalState
+	 */
+	
+	private void makeItHappenAndTest(List<String> events, Boolean initialState, Boolean finalState) {
+		
+		// Armamos un string con la secuencia de mensajes
+		// en caso de tener que informar un error
+		String secuencia = "";
+		for (String string : events) {
+			secuencia = secuencia.concat(string == null ? "null" : string);
+			secuencia = secuencia.concat("-");
+		}
+		
+		receiver.setState(initialState);
+		
+		for (String string : events) {
+			assertEquals("Secuencia: " + secuencia + " > El receiver no tiene el estado que esperábamos (estado inicial)...", 
+					initialState, receiver.getState());
+			mngr.eventOccurred(new BasicEvent(string));
+			
+		}
+		// El estado final debe ser como lo esperamos:
+		assertEquals("Secuencia: " + secuencia + " > El receiver no tiene el estado que esperábamos (estado inicial)...", 
+				finalState, receiver.getState());
+	}
+	
 }
+
