@@ -1,0 +1,58 @@
+
+=======================================
+con orden, continuo
+a b c d e 
+
+condiciones:
+a b c d e (no hay otra)
+
+cuando aborta:
+x / x <> a
+a x / x <> b
+a b x / x <> c
+a b c x / x <> d
+a b c d x / x <> e
+
+=======================================
+con orden, discontinuo
+a b c d e 
+
+condiciones :
+[x/x<>a]* a [x/x<>b]* b [x/x<>c]* c [x/x<>d]* d [x/x<>e]* e
+
+cuando aborta:
+-- No hay ya que mientras en algun momento ocurra la secuencia
+   no se va a anular
+
+=======================================
+sin orden, continuo
+a b c d e 
+
+que si:
+[x/x in a b c d e] [y/y in a b c d e ^ y not in x] [z/z in a b c d e ^ z not in x y] [w/w in a b c d e ^ w not in x y z] [t/t in a b c d e ^ t not in x y z w]  
+
+que no:
+x / x not in a b c d e
+[x/x in a b c d e] [y/y not in a b c d e || y == x]
+y subsiguientes...
+
+=======================================
+sin orden, discontinuo
+a b c d e 
+
+condiciones :
+[x/x not in abcde]* 
+f in [abcde] 
+[x/x not in abcde || x==f]* 
+g in [abcde] 
+[x/x not in abcde || x in f g]* 
+h in [abcde] 
+[x/x not in abcde || x in fgh]* 
+i in [abcde] 
+[x/x not in abcde || x in fghi]* 
+j in [abcde]
+
+
+cuando aborta:
+-- No hay ya que mientras en algun momento ocurra la secuencia
+   no se va a anular
