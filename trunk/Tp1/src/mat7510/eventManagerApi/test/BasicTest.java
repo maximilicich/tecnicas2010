@@ -19,16 +19,16 @@ public class BasicTest {
 	private EventManager mngr;
 	private BasicEventSource eventSource;
 	private BasicActionReceiver actionReceiver;
-	
+
 	private static final String EVENTO = "evento";
-	
+
 	@Before
 	public void setUp() throws Exception {
 		mngr = EventManagerFactory.getInstance().createEventManager();
-		
+
 		eventSource = new BasicEventSource(EVENTO);
 		eventSource.addListener(mngr);
-		
+
 		actionReceiver = new BasicActionReceiver();
 	}
 
@@ -36,22 +36,22 @@ public class BasicTest {
 	public void tearDown() {
 		// nada por ahora...
 	}
-	
+
 	@Test
 	public void testBasicContext() throws exceptionRegisterEvent {
-		
+
 		// Registramos en el Manager la accion - evento
 		try{
-                    mngr.registerEventWithCancellations(new BasicActionCommand(actionReceiver), new BasicEvent(EVENTO));
-                }catch(exceptionRegisterEvent e){
-                    System.out.println(e.toString());
-                }
+			mngr.registerEventWithCancellations(new BasicActionCommand(actionReceiver), new BasicEvent(EVENTO));
+		}catch(exceptionRegisterEvent e){
+			System.out.println(e.toString());
+		}
 		// El Source dispara el Evento...
 		eventSource.triggerEvent();
-		
+
 		// Y si todo funciona bien, el Receiver deberia haber sufrido
 		// el cambio de estado, por la accion ejecutada...
 		assertTrue(actionReceiver.getState());
 	}
-	
+
 }
