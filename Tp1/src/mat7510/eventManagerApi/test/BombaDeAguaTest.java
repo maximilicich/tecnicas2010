@@ -39,7 +39,7 @@ public class BombaDeAguaTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		mngr = EventManagerFactory.getInstance();
+		mngr = EventManagerFactory.getInstance().createEventManager();
 	}
 
 	@AfterClass

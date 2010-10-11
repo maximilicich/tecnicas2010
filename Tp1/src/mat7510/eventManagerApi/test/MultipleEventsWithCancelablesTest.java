@@ -38,7 +38,7 @@ public class MultipleEventsWithCancelablesTest {
 
 	@Before
 	public void setUp() throws Exception {
-		mngr = EventManagerFactory.getInstance();
+		mngr = EventManagerFactory.getInstance().createEventManager();
 
 		eventSource1 = new BasicEventSource(EVENTO1);
 		eventSource2 = new BasicEventSource(EVENTO2);
