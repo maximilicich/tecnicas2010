@@ -1,6 +1,6 @@
 package mat7510.eventManagerApi.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,142 +24,174 @@ public class ContinuousEventsTest {
 	private BasicActionCommand cmd = new BasicActionCommand(receiver);
 	
 	public ContinuousEventsTest() throws exceptionRegisterEvent {
+		
 		mngr = EventManagerFactory.getInstance().createEventManager();
 		mngr.reset();
-
-		// Registramos la secuencia A B C D 
-		List<Event> list = new ArrayList<Event>();
-		list.add(new BasicEvent("A"));
-		list.add(new BasicEvent("B"));
-		list.add(new BasicEvent("C"));
-		list.add(new BasicEvent("D"));
-		
-		mngr.registerEventsWithOrderContinuousWithNoCancellations(cmd, list);
 		
 	}
 	
 	@Before
 	public void setUp() throws Exception {
-		receiver.setState(false);
+		register_ABCD_WithOrderContinuousWithNoCancellations();
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
+	
+	
 	@Test
-	public void testContinuousEventsWithOrderABCD() throws exceptionRegisterEvent {
+	public void testABCXABCD() throws exceptionRegisterEvent {
 
-		List<String> cadenaDeEventos = new ArrayList<String>(4);
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("D");
+		List<String> eventChain = new ArrayList<String>();
+		Boolean initialState;
+		Boolean finalState;
 
-		Boolean initialState = false;
-		Boolean finalState = true;
-				
-		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		eventChain.clear();
+		eventChain.add("A");
+		eventChain.add("B");
+		eventChain.add("C");
+		eventChain.add("X");
+		eventChain.add("A");
+		eventChain.add("B");
+		eventChain.add("C");
+		eventChain.add("D");
+		
+		initialState = false;
+		finalState = true;
+		
+		makeItHappenAndTest(eventChain, initialState, finalState);
 		
 	}
 
 	@Test
-	public void testContinuousEventsWithOrderABCDABCD() throws exceptionRegisterEvent {
+	public void testABCD() throws exceptionRegisterEvent {
 
-		List<String> cadenaDeEventos = new ArrayList<String>(4);
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("D");
+		// El caso mas facil y el unico positivo: A B C D
 
-		Boolean initialState = false;
-		Boolean finalState = true;
-				
-		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		List<String> eventChain = new ArrayList<String>();
+		Boolean initialState;
+		Boolean finalState;
 
-		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		eventChain.clear();
+		eventChain.add("A");
+		eventChain.add("B");
+		eventChain.add("C");
+		eventChain.add("D");
 		
+		initialState = false;
+		finalState = true;
+		
+		makeItHappenAndTest(eventChain, initialState, finalState);
+
+		// Repetimos la situacion tal cual...deberia volver a dar 
+		makeItHappenAndTest(eventChain, initialState, finalState);
+
 	}
 
+	
 	@Test
-	public void testContinuousEventsWithOrderABCXD() throws exceptionRegisterEvent {
+	public void testABCXD() throws exceptionRegisterEvent {
 
-		List<String> cadenaDeEventos = new ArrayList<String>(4);
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("X");
-		cadenaDeEventos.add("D");
+		List<String> eventChain = new ArrayList<String>();
+		Boolean initialState;
+		Boolean finalState;
 
-		Boolean initialState = false;
-		Boolean finalState = false;
-				
-		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		eventChain.clear();
+		eventChain.add("A");
+		eventChain.add("B");
+		eventChain.add("C");
+		eventChain.add("X");
+		eventChain.add("D");
 		
-	}
-
-	@Test
-	public void testContinuousEventsWithOrderABCXABCD() throws exceptionRegisterEvent {
-
-		List<String> cadenaDeEventos = new ArrayList<String>(4);
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("X");
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("D");
-
-		Boolean initialState = false;
-		Boolean finalState = true;
-				
-		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		initialState = false;
+		finalState = false;
+		
+		makeItHappenAndTest(eventChain, initialState, finalState);
 		
 	}
 
 
 	@Test
-	public void testContinuousEventsWithOrderACBD() throws exceptionRegisterEvent {
+	public void testACBD() throws exceptionRegisterEvent {
+
+		List<String> eventChain = new ArrayList<String>();
+		Boolean initialState;
+		Boolean finalState;
+
+		eventChain.clear();
+		eventChain.add("A");
+		eventChain.add("C");
+		eventChain.add("B");
+		eventChain.add("D");
 		
-		List<String> cadenaDeEventos = new ArrayList<String>(4);
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("D");
-
-		Boolean initialState = false;
-		Boolean finalState = false;
-				
-		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
-
+		initialState = false;
+		finalState = false;
+		
+		makeItHappenAndTest(eventChain, initialState, finalState);
 		
 	}
 
 	
-	
 	@Test
-	public void testContinuousEventsWithOrderAABCCDD() throws exceptionRegisterEvent {
+	public void testAABBCCDD() throws exceptionRegisterEvent {
 
-		// ejecutamos la secuencia
-		// Pero esta vez duplicando los eventos
+		List<String> eventChain = new ArrayList<String>();
+		Boolean initialState;
+		Boolean finalState;
 
-		List<String> cadenaDeEventos = new ArrayList<String>(4);
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("A");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("B");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("C");
-		cadenaDeEventos.add("D");
-		cadenaDeEventos.add("D");
-
-		Boolean initialState = false;
-		Boolean finalState = false;
-				
-		makeItHappenAndTest(cadenaDeEventos, initialState, finalState);
+		eventChain.clear();
+		eventChain.add("A");
+		eventChain.add("A");
+		eventChain.add("B");
+		eventChain.add("B");
+		eventChain.add("C");
+		eventChain.add("C");
+		eventChain.add("D");
+		eventChain.add("D");
+		
+		initialState = false;
+		finalState = false;
+		
+		makeItHappenAndTest(eventChain, initialState, finalState);
 		
 	}
+
+	@Test
+	public void testAllAtOnce() throws exceptionRegisterEvent {
+
+		testABCD();
+		testABCXD();
+		testABCXABCD();
+		testACBD();
+		testAABBCCDD();
+		
+	}
+
+
+
+	/**
+	 * @throws exceptionRegisterEvent 
+	 * 
+	 */
+	private void register_ABCD_WithOrderContinuousWithNoCancellations() throws exceptionRegisterEvent {
+		
+		mngr.reset();
+		
+		// Registramos la secuencia A B C D
+		// Sera la secuencia asociada al comando
+		List<Event> eventList = new ArrayList<Event>();
+		eventList.add(new BasicEvent("A"));
+		eventList.add(new BasicEvent("B"));
+		eventList.add(new BasicEvent("C"));
+		eventList.add(new BasicEvent("D"));
+
+		mngr.registerEventsWithOrderContinuousWithNoCancellations(cmd, eventList);
+		
+	}
+	
+	
 
 	/**
 	 * Setea el estado inicial del receiver segun el valor recibido
