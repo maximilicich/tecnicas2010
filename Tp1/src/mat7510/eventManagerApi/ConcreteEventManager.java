@@ -50,20 +50,7 @@ public class ConcreteEventManager implements EventManager {
 	}
 
 	@Override
-	public void registerEventWithCancellations(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
-		if(e==null)
-			throw new exceptionRegisterEvent("Evento nulo");
-
-		if(cmd==null)
-			throw new exceptionRegisterEvent("Comando nulo");
-
-		ActionHandler action = ActionHandler.createActionSingleWithCancellations (cmd, e);
-		this.actions.add(action);
-
-	}
-
-	@Override
-	public void registerEventWithNoCancellations(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
+	public void registerEvent(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
 		if(e==null)
 			throw new exceptionRegisterEvent("Evento nulo");
 
@@ -108,13 +95,6 @@ public class ConcreteEventManager implements EventManager {
 	public void registerEventsDiscontinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
 		validate(cmd,e);
 		ActionHandler action = ActionHandler.createActionGroupDiscontinuousWithNoCancellations  (cmd, e);
-		this.actions.add(action);
-	}
-
-	@Override
-	public void registerEventsWithOrderContinuousWithCancellations(ActionCommand cmd, List<Event> e) throws exceptionRegisterEvent {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupOrderContinousWithCancellations  (cmd, e);
 		this.actions.add(action);
 	}
 

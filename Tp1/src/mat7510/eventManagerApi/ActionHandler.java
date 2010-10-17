@@ -136,9 +136,9 @@ public class ActionHandler {
 
 	public void activateEvent (int index){
 		// Cuando se activa se setea en el array como activo(true)
-		if(eventsIndexs.get(index)!=true){
-			if ( order == true ){
-				if(verifyOrder( index ) == true){
+		if(!eventsIndexs.get(index)){
+			if ( order){
+				if(verifyOrder( index )){
 					eventsIndexs.set(index, true);
 					amountActivated++;
 				}
@@ -156,7 +156,7 @@ public class ActionHandler {
 	private void cancelEventsWithOrder (int index){
 
 		for( int i=index ; i < eventsIndexs.size() ; i++){
-			if(eventsIndexs.get(i) == true){
+			if(eventsIndexs.get(i)){
 				eventsIndexs.set(i,false);
 				amountActivated--;
 			}
@@ -166,7 +166,7 @@ public class ActionHandler {
 	public void cancelEvent (int index){
 		// Cuando se cancela seteo el estado a desactivado
 
-		if (eventsIndexs.get(index) == true){
+		if (eventsIndexs.get(index)){
 			if(order)
 				cancelEventsWithOrder (index);
 			else{
@@ -182,7 +182,7 @@ public class ActionHandler {
 
 		if(amountActivated==index-1){
 			while(i<index){
-				if(eventsIndexs.get(i)==false)
+				if(!eventsIndexs.get(i))
 					return false;
 				i++;
 			}
