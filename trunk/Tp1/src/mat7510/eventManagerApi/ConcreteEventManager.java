@@ -11,6 +11,16 @@ public class ConcreteEventManager implements EventManager {
 	private List<EventCancel> eventsCancel;
 
 
+        private void EnsureEventIsNotNull(Event e)throws registerEventException{
+        	if(e==null)
+			throw new registerEventException("Evento nulo");
+        }
+
+        private void EnsureCommandIsNotNull(ActionCommand cmd)throws registerEventException{
+        	if(cmd==null)
+			throw new registerEventException("Comando nulo");
+        }
+
 	public ConcreteEventManager (){
 		actions = new ArrayList<ActionHandler>();
 		eventsCancel = new ArrayList<EventCancel>();
@@ -51,11 +61,9 @@ public class ConcreteEventManager implements EventManager {
 
 	@Override
 	public void registerEvent(ActionCommand cmd, Event e)  throws registerEventException {
-		if(e==null)
-			throw new registerEventException("Evento nulo");
-
-		if(cmd==null)
-			throw new registerEventException("Comando nulo");
+		
+                EnsureEventIsNotNull(e);
+                EnsureCommandIsNotNull(cmd);
 
 		ActionHandler action = ActionHandler.createActionSingle (cmd, e);
 		this.actions.add(action);
@@ -63,11 +71,10 @@ public class ConcreteEventManager implements EventManager {
 	}
 
 	private void validate(ActionCommand cmd, List<Event> e) throws registerEventException{
-		if(e== null || e.isEmpty())
+ 		if(e== null || e.isEmpty())
 			throw new registerEventException("La lista de eventos esta vacia");
 
-		if(cmd==null)
-			throw new registerEventException("Comando nulo");
+		EnsureCommandIsNotNull(cmd);
 	}
 
 	@Override
@@ -121,13 +128,9 @@ public class ConcreteEventManager implements EventManager {
 
 	@Override
 	public void registerCancellables(Event event1, Event event2) throws registerEventException {
-
-		if(event1==null || event2==null)
-			throw new registerEventException("Evento null");
-
-		if(event1.equals(event2))
-			throw new registerEventException("Los eventos que se desean registrar son iguales");
-
+                EnsureEventIsNotNull(event1);
+                EnsureEventIsNotNull(event2);
+ 
 		EventCancel eventCancel = new EventCancel (event1, event2);
 		this.eventsCancel.add(eventCancel);
 	}
