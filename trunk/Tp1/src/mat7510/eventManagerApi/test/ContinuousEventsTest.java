@@ -8,7 +8,7 @@ import java.util.List;
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventManager;
 import mat7510.eventManagerApi.EventManagerFactory;
-import mat7510.eventManagerApi.exceptionRegisterEvent;
+import mat7510.eventManagerApi.registerEventException;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
@@ -23,7 +23,7 @@ public class ContinuousEventsTest {
 	private BasicActionReceiver receiver = new BasicActionReceiver();
 	private BasicActionCommand cmd = new BasicActionCommand(receiver);
 	
-	public ContinuousEventsTest() throws exceptionRegisterEvent {
+	public ContinuousEventsTest() throws registerEventException {
 		
 		mngr = EventManagerFactory.getInstance().createEventManager();
 		mngr.reset();
@@ -42,7 +42,7 @@ public class ContinuousEventsTest {
 	
 	
 	@Test
-	public void testABCXABCD() throws exceptionRegisterEvent {
+	public void testABCXABCD() throws registerEventException {
 
 		List<String> eventChain = new ArrayList<String>();
 		Boolean initialState;
@@ -66,7 +66,7 @@ public class ContinuousEventsTest {
 	}
 
 	@Test
-	public void testABCD() throws exceptionRegisterEvent {
+	public void testABCD() throws registerEventException {
 
 		// El caso mas facil y el unico positivo: A B C D
 
@@ -92,7 +92,7 @@ public class ContinuousEventsTest {
 
 	
 	@Test
-	public void testABCXD() throws exceptionRegisterEvent {
+	public void testABCXD() throws registerEventException {
 
 		List<String> eventChain = new ArrayList<String>();
 		Boolean initialState;
@@ -114,7 +114,7 @@ public class ContinuousEventsTest {
 
 
 	@Test
-	public void testACBD() throws exceptionRegisterEvent {
+	public void testACBD() throws registerEventException {
 
 		List<String> eventChain = new ArrayList<String>();
 		Boolean initialState;
@@ -135,7 +135,7 @@ public class ContinuousEventsTest {
 
 	
 	@Test
-	public void testAABBCCDD() throws exceptionRegisterEvent {
+	public void testAABBCCDD() throws registerEventException {
 
 		List<String> eventChain = new ArrayList<String>();
 		Boolean initialState;
@@ -159,7 +159,7 @@ public class ContinuousEventsTest {
 	}
 
 	@Test
-	public void testAllAtOnce() throws exceptionRegisterEvent {
+	public void testAllAtOnce() throws registerEventException {
 
 		testABCD();
 		testABCXD();
@@ -175,7 +175,7 @@ public class ContinuousEventsTest {
 	 * @throws exceptionRegisterEvent 
 	 * 
 	 */
-	private void register_ABCD_WithOrderContinuousWithNoCancellations() throws exceptionRegisterEvent {
+	private void register_ABCD_WithOrderContinuousWithNoCancellations() throws registerEventException {
 		
 		mngr.reset();
 		

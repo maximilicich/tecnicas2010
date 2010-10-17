@@ -10,7 +10,7 @@ import java.util.List;
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventManager;
 import mat7510.eventManagerApi.EventManagerFactory;
-import mat7510.eventManagerApi.exceptionRegisterEvent;
+import mat7510.eventManagerApi.registerEventException;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.ApagarBombaCmd;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.BombaDeAgua;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.CambioDePresionDeAguaEvent;
@@ -85,7 +85,7 @@ public class BombaDeAguaTest {
 		// LISTO PARA LA ACCION!
 	}
 
-	private void registrarAccionesYEventos() throws exceptionRegisterEvent {
+	private void registrarAccionesYEventos() throws registerEventException {
 
 		// Cuando cambia la presion de la Red (evento), 
 		// el medidor debe testear la presion (action)

@@ -7,7 +7,7 @@ import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
-import mat7510.eventManagerApi.exceptionRegisterEvent;
+import mat7510.eventManagerApi.registerEventException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,12 +38,12 @@ public class BasicTest {
 	}
 
 	@Test
-	public void testBasicContext() throws exceptionRegisterEvent {
+	public void testBasicContext() throws registerEventException {
 
 		// Registramos en el Manager la accion - evento
 		try{
 			mngr.registerEvent(new BasicActionCommand(actionReceiver), new BasicEvent(EVENTO));
-		}catch(exceptionRegisterEvent e){
+		}catch(registerEventException e){
 			System.out.println(e.toString());
 		}
 		// El Source dispara el Evento...
