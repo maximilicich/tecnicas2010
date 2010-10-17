@@ -219,6 +219,12 @@ public class ActionHandler {
 		if (!(!acceptCancellables() && marcar==false)){
 			while (itEvents.hasNext()){
 				actionEvent = itEvents.next();
+
+                                if(isContinuos() && !event.equals(actionEvent)  && !isActivedEvent(index)){
+                                    cleanState();
+                                    break;
+                                }
+
 				if (event.equals(actionEvent) && marcar == true){
 					if(!isActivedEvent(index)){
 						// marca el evento
