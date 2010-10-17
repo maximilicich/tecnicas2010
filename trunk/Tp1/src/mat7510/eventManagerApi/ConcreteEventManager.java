@@ -57,7 +57,7 @@ public class ConcreteEventManager implements EventManager {
 		if(cmd==null)
 			throw new exceptionRegisterEvent("Comando nulo");
 
-		ActionHandler action = ActionHandler.createActionSingleWithNoCancellations (cmd, e);
+		ActionHandler action = ActionHandler.createActionSingle (cmd, e);
 		this.actions.add(action);
 
 	}
