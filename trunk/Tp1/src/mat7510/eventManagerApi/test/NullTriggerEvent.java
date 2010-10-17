@@ -68,7 +68,7 @@ public class NullTriggerEvent {
 
 		//Se verifica la validación del registro de evento simple
 		try{
-			mngr.registerEventWithCancellations(null, eventTest);
+			mngr.registerEvent(null, eventTest);
 			fail("Excepted exeptionRegisterEvent");
 		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
