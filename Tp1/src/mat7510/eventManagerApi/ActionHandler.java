@@ -21,12 +21,8 @@ public class ActionHandler {
 	private boolean order;
 
 
-	static public ActionHandler createActionSingleWithCancellations ( ActionCommand command, Event event){
+	static public ActionHandler createActionSingle( ActionCommand command, Event event){
 		return new ActionHandler(command ,event,true);
-	}
-
-	static public ActionHandler createActionSingleWithNoCancellations ( ActionCommand command, Event event){
-		return new ActionHandler(command ,event,false);
 	}
 
 	static public ActionHandler createActionGroupContinousWithCancellations( ActionCommand command, List<Event> event){
@@ -43,10 +39,6 @@ public class ActionHandler {
 
 	static public ActionHandler createActionGroupDiscontinuousWithNoCancellations( ActionCommand command, List<Event> event){
 		return new ActionHandler(command ,event, false,false,false);
-	}
-
-	static public ActionHandler createActionGroupOrderContinousWithCancellations( ActionCommand command, List<Event> event){
-		return new ActionHandler(command ,event, true,true,true);
 	}
 
 	static public ActionHandler createActionGroupOrderContinousWithNoCancellations( ActionCommand command, List<Event> event){
