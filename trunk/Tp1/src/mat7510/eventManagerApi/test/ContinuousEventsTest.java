@@ -224,6 +224,7 @@ public class ContinuousEventsTest {
 		for (String string : events) {
 			assertEquals("Secuencia: " + secuencia + " > El receiver no tiene el estado que esperábamos (estado inicial)...", 
 					initialState, receiver.getState());
+                        System.out.println(string);
 			mngr.eventOccurred(new BasicEvent(string));
 			
 		}
