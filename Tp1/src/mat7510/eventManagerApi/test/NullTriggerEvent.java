@@ -7,7 +7,7 @@ import java.util.List;
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventManager;
 import mat7510.eventManagerApi.EventManagerFactory;
-import mat7510.eventManagerApi.registerEventException;
+import mat7510.eventManagerApi.RegisterEventException;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
 
 import org.junit.After;
@@ -36,7 +36,7 @@ public class NullTriggerEvent {
 	}
 
 	@Test
-	public void testBasicContext() throws registerEventException {
+	public void testBasicContext() throws RegisterEventException {
 
 		// Registramos en el Manager la accion - evento
 		List<Event>events = null;
@@ -45,7 +45,7 @@ public class NullTriggerEvent {
 		try{
 			mngr.registerEventsWithOrderDiscontinuousWithCancellations(null, events);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(registerEventException e){
+		}catch(RegisterEventException e){
 			System.out.println(e.toString());
 		}
 
@@ -53,7 +53,7 @@ public class NullTriggerEvent {
 		try{
 			mngr.registerEventsWithOrderDiscontinuousWithCancellations(null, null);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(registerEventException e){
+		}catch(RegisterEventException e){
 			System.out.println(e.toString());
 		}
 
@@ -61,7 +61,7 @@ public class NullTriggerEvent {
 		try{
 			mngr.registerEventsDiscontinuousWithCancellations(null, events);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(registerEventException e){
+		}catch(RegisterEventException e){
 			System.out.println(e.toString());
 		}
 
@@ -70,7 +70,7 @@ public class NullTriggerEvent {
 		try{
 			mngr.registerEvent(null, eventTest);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(registerEventException e){
+		}catch(RegisterEventException e){
 			System.out.println(e.toString());
 		}
 

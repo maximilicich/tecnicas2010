@@ -3,8 +3,6 @@ package mat7510.eventManagerApi;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ActionHandler {
 
@@ -201,8 +199,7 @@ public class ActionHandler {
 
         private void notifyCancelEventForActionHandlerContinous(){
                 if(acceptCancellables){
-                    // throw new eventOcurredException();
-                    return;
+                     throw new EventOcurredException();
                 }else{
                     cleanState();
                     return;
@@ -261,7 +258,6 @@ public class ActionHandler {
 				//Se recorre toda la lista para verificar si registran dos veces el mismo evento
 				if(getOrder())
                                     break;
-				
 			}
 
 			index++;

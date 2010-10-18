@@ -14,7 +14,7 @@ import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
-import mat7510.eventManagerApi.registerEventException;
+import mat7510.eventManagerApi.RegisterEventException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -56,7 +56,7 @@ public class MultipleEventsWithOrderTest {
 	}
 
 	@Test
-	public void testBasicContext() throws registerEventException {
+	public void testBasicContext() throws RegisterEventException {
 
 		// Registramos en el Manager la accion - evento
 		List<Event>events = new ArrayList<Event>();
@@ -65,7 +65,7 @@ public class MultipleEventsWithOrderTest {
 		events.add(new BasicEvent(EVENTO3));
 		try{
 			mngr.registerEventsWithOrderDiscontinuousWithCancellations(new BasicActionCommand(actionReceiver), events);
-		}catch(registerEventException e){
+		}catch(RegisterEventException e){
 			System.out.println(e.toString());
 		}
 		// El Source dispara el Evento...
@@ -105,7 +105,7 @@ public class MultipleEventsWithOrderTest {
 		eventsRepeated.add(new BasicEvent(EVENTO1));
 		try{
 			mngr.registerEventsWithOrderDiscontinuousWithCancellations(new BasicActionCommand(actionReceiveRepeated), eventsRepeated);
-		}catch(registerEventException e){
+		}catch(RegisterEventException e){
 			System.out.println(e.toString());
 		}
 
