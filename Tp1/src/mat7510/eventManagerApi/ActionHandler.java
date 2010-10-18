@@ -234,57 +234,43 @@ public class ActionHandler {
              }
         }   
 
-
 	public void notifyEvent(Event event){
-                boolean marcar=true;
-		int index=0;
+          	int index=0;
 		boolean changeState=false;
 		Event actionEvent;
 		Iterator<Event> itEvents = getEventIterator();
+          
+		while (itEvents.hasNext()){
+			actionEvent = itEvents.next();
 
-		//Si no acepto cancelables  y voy a cancelar (marcar==false) entonces no entro
-		if (!(!acceptCancellables() && marcar==false)){
-			while (itEvents.hasNext()){
-				actionEvent = itEvents.next();
+                        if(isContinuos() && !event.equals(actionEvent)  && !isActivedEvent(index)){
+                              cleanState();
+                              break;
+                        }
 
-                                if(isContinuos() && !event.equals(actionEvent)  && !isActivedEvent(index)){
-                                    cleanState();
+			if (event.equals(actionEvent) && !isActivedEvent(index)){
+                              	activateEvent(index);
+				changeState=true;
+
+				if (isActive()){
+               				getCommand().execute();
+					cleanState();
+                                        break;
+				}
+                                
+				//Se recorre toda la lista para verificar si registran dos veces el mismo evento
+				if(getOrder())
                                     break;
-                                }
-
-				if (event.equals(actionEvent) && marcar == true){
-					if(!isActivedEvent(index)){
-						// marca el evento
-						activateEvent(index);
-						changeState=true;
-
-						if (isActive()){
-							getCommand().execute();
-							cleanState();
-						}
-						//Se recorre toda la lista para verificar si registran dos veces el mismo evento
-						if(getOrder()==true)
-							break;
-					}
-				}
-
-				if (event.equals(actionEvent) && marcar == false){
-					// Se desactivan todos los eventos que cumplan
-					if(isContinuos())
-						cleanState();
-					else cancelEvent(index);
-				}
-				index ++;
+				
 			}
 
-			//Si es continuo y no hubo cambios entonces se rompio la continuidad
-			if(isContinuos() && !changeState)
-				cleanState();
-		}else{
-			// No acepto cancelables y voy a cancelar -> si es continuo se  rompe la continuidad
-			if(isContinuos())
-				cleanState();
+			index++;
 		}
+
+		//Si es continuo y no hubo cambios entonces se rompio la continuidad
+		if(isContinuos() && !changeState)
+                    cleanState();
+
 	}
 
 }
