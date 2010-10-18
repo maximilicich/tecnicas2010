@@ -15,8 +15,8 @@ public class OrderedEventChainFilter extends EventChainFilter {
 
 	/**
 	 * Recordar que un filtro ante un evento ocurrido
-	 * O bien sigue la cadena (haciendo super.eventOccurred(e)
-	 * O bien corta la cadena (haciendo simplemente return)
+	 * O bien sigue el Circuito (haciendo super.eventOccurred(e)
+	 * O bien lo corta (haciendo simplemente return)
 	 * 
 	 */
 	public void eventOccurred(Event e) {
