@@ -68,10 +68,13 @@ public class EventManager implements EventListener, EventContext {
 
 	@Override
 	/**
-	 * 
+	 * Registra un EventChain como un Listener
+	 * De manera que le comunica luego los Eventos a medida que ocurren
+	 * El EventChain recibe a este Manager como Contexto 
 	 */
 	public void registerEventChain(EventChain eventChain) {
 		chains.add(eventChain);
+		eventChain.setContext(this);
 	}
 	
 	@Override
