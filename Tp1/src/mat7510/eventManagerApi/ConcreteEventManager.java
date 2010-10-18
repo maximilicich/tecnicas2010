@@ -27,24 +27,27 @@ public class ConcreteEventManager implements EventManager {
 	}
 
 
+        private void notifyCancelEvent(Event e){
+        	Iterator<EventCancel> it = eventsCancel.iterator();
+		EventCancel eventCancel;
+
+		while (it.hasNext()){
+
+			eventCancel = it.next();
+			if ( e.equals(eventCancel.getEventSource())){
+				notifyChange ( eventCancel.getEventToBeCancel(),false);
+				break;
+			}
+		}
+
+        }
+
 	public void eventOccurred(Event e) {
 
 		if(e==null)
 			throw new NullPointerException("Evento nulo");
 
-		Iterator<EventCancel> it = eventsCancel.iterator();
-		EventCancel eventCancel;
-		boolean isFound=false;
-
-		while (it.hasNext() && !isFound){
-
-			eventCancel = it.next();
-			if ( e.equals(eventCancel.getEventSource())){				
-				notifyChange ( eventCancel.getEventToBeCancel(),false);
-				isFound=true;
-			}
-		}
-
+                notifyCancelEvent( e);
 		notifyChange (e,true);
 	}
 
@@ -54,8 +57,10 @@ public class ConcreteEventManager implements EventManager {
 		ActionHandler action;
 
 		while (itActions.hasNext()){
-			action = itActions.next();	
-			action.notifyEvent(event,marcar);
+			action = itActions.next();
+                        if(marcar)
+                            action.notifyEvent(event);
+                        else action.notifyCancelEvent(event);
 		}		
 	}
 
@@ -77,12 +82,6 @@ public class ConcreteEventManager implements EventManager {
 		EnsureCommandIsNotNull(cmd);
 	}
 
-	@Override
-	public void registerEventsContinuousWithCancellations(ActionCommand cmd, List<Event> e) throws registerEventException {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupContinousWithCancellations  (cmd, e);
-		this.actions.add(action);
-	}
 
 	@Override
 	public void registerEventsContinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws registerEventException {

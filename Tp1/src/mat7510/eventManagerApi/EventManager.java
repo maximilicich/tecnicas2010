@@ -8,7 +8,6 @@ public interface EventManager extends EventListener {
 
         public void registerEvent(ActionCommand cmd, Event e) throws registerEventException ;
 
-	public void registerEventsContinuousWithCancellations(ActionCommand cmd, List<Event> e) throws registerEventException ;
 	public void registerEventsContinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws registerEventException ;
 	public void registerEventsDiscontinuousWithCancellations(ActionCommand cmd, List<Event> e) throws registerEventException ;
 	public void registerEventsDiscontinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws registerEventException ;
