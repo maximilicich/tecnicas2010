@@ -13,7 +13,7 @@ import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
-import mat7510.eventManagerApi.registerEventException;
+import mat7510.eventManagerApi.RegisterEventException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,7 +59,7 @@ public class MultipleEventsWithCancelablesTest {
 	}
 
 	@Test
-	public void testBasicContext() throws registerEventException {
+	public void testBasicContext() throws RegisterEventException {
 
 		// Registramos en el Manager la accion - evento
 		List<Event>events = new ArrayList<Event>();
@@ -69,7 +69,7 @@ public class MultipleEventsWithCancelablesTest {
 		try{
 			mngr.registerEventsDiscontinuousWithCancellations(new BasicActionCommand(actionReceiver), events);
 			mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent(EVENTO1));
-		}catch(registerEventException e){
+		}catch(RegisterEventException e){
 			System.out.println(e.toString());
 		}
 
