@@ -1,6 +1,5 @@
 package mat7510.eventManagerApi.version2.domainExamples.basicDomain;
 
-import mat7510.eventManagerApi.exceptionRegisterEvent;
 import mat7510.eventManagerApi.version2.EventListener;
 
 
@@ -17,11 +16,11 @@ public class BasicEventSource {
 		this.listener = listener;
 	}
 	
-	public void triggerEvent() throws exceptionRegisterEvent {
+	public void triggerEvent()  {
 		listener.eventOccurred(new BasicEvent(eventToTrigger));
 	}
 	
-	public void triggerEventNull() throws exceptionRegisterEvent {
+	public void triggerEventNull() {
 		BasicEvent event = null;
 		listener.eventOccurred(event);
 	}
