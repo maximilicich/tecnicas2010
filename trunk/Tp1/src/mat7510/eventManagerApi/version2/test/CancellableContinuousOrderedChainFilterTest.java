@@ -4,8 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import mat7510.eventManagerApi.version2.ActionEventChain;
 import mat7510.eventManagerApi.version2.CancellableEventChainFilter;
+import mat7510.eventManagerApi.version2.ContinuousEventChainFilter;
 import mat7510.eventManagerApi.version2.EventChain;
 import mat7510.eventManagerApi.version2.EventManager;
+import mat7510.eventManagerApi.version2.OrderedEventChainFilter;
 import mat7510.eventManagerApi.version2.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.version2.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.version2.domainExamples.basicDomain.BasicEvent;
@@ -15,9 +17,7 @@ import org.junit.Test;
 
 
 /**
- * Aplicamos solo un filtro CAncellable sobre un EventChain ABC-
- * Tener en cuenta que por default el EventChain
- * es Discontinuo y No Ordenado
+ * Aplicamos los 3 filtros a una cadena !
  * 
  * K cancela a A, a B y a C
  * H cancela a A
@@ -25,11 +25,11 @@ import org.junit.Test;
  * @author Grupo 10 
  *
  */
-public class CancellableChainFilterTest {
+public class CancellableContinuousOrderedChainFilterTest {
 
 	private BasicActionReceiver actionReceiver;
 	private EventChain chain;
-	private final String ASSERT_MSG_PREFIX = "[A-B-C Continuo] ";
+	private final String ASSERT_MSG_PREFIX = "[A-B-C Cancelable Continuo y Ordenado] ";
 
 	
 	@Before
@@ -46,7 +46,10 @@ public class CancellableChainFilterTest {
 
 		actionReceiver = new BasicActionReceiver();
 
-		chain = new CancellableEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiver)));
+		chain = new CancellableEventChainFilter(
+					new ContinuousEventChainFilter(
+						new OrderedEventChainFilter(
+							new ActionEventChain(new BasicActionCommand(actionReceiver)))));
 		
 		chain.addEvent(EventCatalog.EVENT_A);
 		chain.addEvent(EventCatalog.EVENT_B);
@@ -56,7 +59,7 @@ public class CancellableChainFilterTest {
 	}
 	
 	@Test
-	public void testCancellableChainWithNoCancellations() {
+	public void testContinuousOrderedChainWithNoCancellations() {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiver.getState());
@@ -70,7 +73,51 @@ public class CancellableChainFilterTest {
 	}
 
 	@Test
-	public void testCancellableChainWithOneCancellation() {
+	public void testContinuousOrderedChainCancellationAndRepeat() {
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiver.getState());
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AB y la accion ya ocurrio!",actionReceiver.getState());
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABC y la accion no ocurrio!",actionReceiver.getState());
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_K);
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK y la accion ocurrio!",actionReceiver.getState());
+
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|A y la accion ya ocurrio!",actionReceiver.getState());
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|AB y la accion ya ocurrio!",actionReceiver.getState());
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ABCK|ABC y la accion no ocurrio!",actionReceiver.getState());
+
+	}
+
+	
+	
+	@Test
+	public void testContinuousUnOrderedChainWithNoCancellations() {
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiver.getState());
+		
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AC y la accion ocurrio!",actionReceiver.getState());
+
+		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ACB y la accion ocurrio!",actionReceiver.getState());
+
+	}
+
+	
+	
+	@Test
+	public void testDiscontinuousUnorderedChainWithOneCancellation() {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B y la accion ya ocurrio!",actionReceiver.getState());
@@ -87,7 +134,7 @@ public class CancellableChainFilterTest {
 	}
 
 	@Test
-	public void testCancellableChainWithCancellationAtFirst() {
+	public void testContinuousUnorderedChainWithCancellationAtFirst() {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_K);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio K y la accion ocurrio!",actionReceiver.getState());
@@ -99,12 +146,12 @@ public class CancellableChainFilterTest {
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBC y la accion ya ocurrio!",actionReceiver.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
-		assertTrue(ASSERT_MSG_PREFIX + "ocurrio KBCA y la accion NO ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBCA y la accion ocurrio!",actionReceiver.getState());
 		
 	}
 	
 	@Test
-	public void testCancellableChainWithIrrelevantCancellers() {
+	public void testDiscontinuousUnorderedChainWithIrrelevantCancellers() {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_J);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio J y la accion ya ocurrio!",actionReceiver.getState());
@@ -119,43 +166,7 @@ public class CancellableChainFilterTest {
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCL y la accion ocurrio!",actionReceiver.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
-		assertTrue(ASSERT_MSG_PREFIX + "ocurrio JBCLA y la accion NO ocurrio!",actionReceiver.getState());
-		
-	}
-
-	
-	@Test
-	public void testCancellableChainRepeatAfterCancelling() {
-		
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_J);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio J y la accion ya ocurrio!",actionReceiver.getState());
-
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JB y la accion ya ocurrio!",actionReceiver.getState());
-		
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBC y la accion ya ocurrio!",actionReceiver.getState());
-		
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_K);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCK y la accion ocurrio!",actionReceiver.getState());
-		
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCKA y la accion ocurrio!",actionReceiver.getState());
-
-		// Ahora ocurren de nuevo B y C para que la accion se dispare
-		// En el medio ocurren L y J que son irrelevantes
-		
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_J);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCKAJ y la accion ya ocurrio!",actionReceiver.getState());
-
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCKAJB y la accion ya ocurrio!",actionReceiver.getState());
-		
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_L);
-		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCKAJBL y la accion ya ocurrio!",actionReceiver.getState());
-
-		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
-		assertTrue(ASSERT_MSG_PREFIX + "ocurrio JBCKAJBLC y la accion NO ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCLA y la accion ocurrio!",actionReceiver.getState());
 		
 	}
 
