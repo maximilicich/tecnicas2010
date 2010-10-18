@@ -3,6 +3,8 @@ package mat7510.eventManagerApi;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ActionHandler {
 
@@ -12,7 +14,7 @@ public class ActionHandler {
 
 	private ArrayList<Boolean> eventsIndexs;
 
-	private boolean ContinousWith;
+	private boolean isContinous;
 
 	private boolean acceptCancellables;
 
@@ -23,10 +25,6 @@ public class ActionHandler {
 
 	static public ActionHandler createActionSingle( ActionCommand command, Event event){
 		return new ActionHandler(command ,event,true);
-	}
-
-	static public ActionHandler createActionGroupContinousWithCancellations( ActionCommand command, List<Event> event){
-		return new ActionHandler(command ,event, false,true,true);
 	}
 
 	static public ActionHandler createActionGroupContinousWithNoCancellations( ActionCommand command, List<Event> event){
@@ -73,10 +71,10 @@ public class ActionHandler {
 		createEvents();
 		amountActivated=0;
 		this.acceptCancellables=acceptCancellables;
-		this.ContinousWith=false;
+		this.isContinous=false;
 	}
 
-	private ActionHandler ( ActionCommand command, List<Event> events, boolean order,boolean ContinousWith, boolean acceptCancellables){
+	private ActionHandler ( ActionCommand command, List<Event> events, boolean order,boolean isContinous, boolean acceptCancellables){
 
 		this.command = command;
 		this.events = events;
@@ -84,7 +82,7 @@ public class ActionHandler {
 		createEvents();
 		amountActivated=0;
 		this.acceptCancellables=acceptCancellables;
-		this.ContinousWith=ContinousWith;
+		this.isContinous=isContinous;
 	}	    
 
 	private void clearEvents() {		
@@ -194,14 +192,51 @@ public class ActionHandler {
 	}
 
 	public boolean isContinuos(){
-		return ContinousWith;
+		return isContinous;
 	}
 
 	public boolean acceptCancellables(){
 		return acceptCancellables;
 	}
 
-	public void notifyEvent(Event event,boolean marcar){
+        private void notifyCancelEventForActionHandlerContinous(){
+                if(acceptCancellables){
+                    // throw new eventOcurredException();
+                    return;
+                }else{
+                    cleanState();
+                    return;
+                }
+        }
+
+     	public void notifyCancelEvent(Event event){
+
+                if(isContinous){
+                    notifyCancelEventForActionHandlerContinous();
+                }else{
+
+                    if (acceptCancellables()){
+                            int index=0;
+                            Event actionEvent;
+                            Iterator<Event> itEvents = getEventIterator();
+
+                            while (itEvents.hasNext()){
+                                    actionEvent = itEvents.next();
+
+                                    if (event.equals(actionEvent)){
+                                         cancelEvent(index);
+                                    }
+                                    
+                                    index ++;
+                            }
+
+                    }
+             }
+        }   
+
+
+	public void notifyEvent(Event event){
+                boolean marcar=true;
 		int index=0;
 		boolean changeState=false;
 		Event actionEvent;
