@@ -5,6 +5,7 @@ import java.util.List;
 
 
 /**
+ * Es un Singleton
  * 
  * @author Grupo 10 
  */
