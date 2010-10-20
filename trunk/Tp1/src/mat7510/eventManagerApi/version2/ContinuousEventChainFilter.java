@@ -17,22 +17,26 @@ public class ContinuousEventChainFilter extends EventChainFilter {
 	 */
 	public void eventOccurred(Event e) {
 		
+		Boolean found = searchEventInChain(e);
+		if (found)
+			super.eventOccurred(e);
+		else
+			resetOccurrences();
+	}
+
+
+	private Boolean searchEventInChain(Event e) {
 		Boolean found = false;
 		for (Iterator<Element> iterator = this.iterator(); iterator.hasNext();) {
 			Element element = iterator.next();
 			// Si encontramos el evento en la cadena y aun no ocurrio
-			// entonces podemos decir que se cumple la continuidad
+			// entonces se cumple la continuidad
 			if (element.getEvent().equals(e) && ! element.hasOccurred() ) {
 				found = true;
 				break;
 			}
 		}
-		if (found)
-			// Si se cumple la continuidad Seguimos la cadena:
-			super.eventOccurred(e);
-		else
-			// si no se cumple, reseteamos las ocurrencias y CORTAMOS LA CADENA:
-			resetOccurrences();
+		return found;
 	}
 	
 	
