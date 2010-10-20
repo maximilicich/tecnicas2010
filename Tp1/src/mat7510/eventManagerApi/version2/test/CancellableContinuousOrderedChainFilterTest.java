@@ -18,7 +18,7 @@ import org.junit.Test;
 
 /**
  * Aplicamos los 3 filtros a una cadena !
- * 
+ * Se prueba a su vez el intercambio del orden de los filtros
  * K cancela a A, a B y a C
  * H cancela a A
  * 
@@ -28,7 +28,11 @@ import org.junit.Test;
 public class CancellableContinuousOrderedChainFilterTest {
 
 	private BasicActionReceiver actionReceiver;
+	private BasicActionReceiver actionReceiverChangeOrder1;
+	private BasicActionReceiver actionReceiverChangeOrder2;
 	private EventChain chain;
+	private EventChain chainChangeOrder1;
+	private EventChain chainChangeOrder2;
 	private final String ASSERT_MSG_PREFIX = "[A-B-C Cancelable Continuo y Ordenado] ";
 
 	
@@ -45,17 +49,30 @@ public class CancellableContinuousOrderedChainFilterTest {
 		EventManager.getInstance().setCancellableFor(EventCatalog.EVENT_L, EventCatalog.EVENT_K);
 
 		actionReceiver = new BasicActionReceiver();
+		actionReceiverChangeOrder1 = new BasicActionReceiver();
+		actionReceiverChangeOrder2 = new BasicActionReceiver();
 
-		chain = new CancellableEventChainFilter(
-					new ContinuousEventChainFilter(
-						new OrderedEventChainFilter(
-							new ActionEventChain(new BasicActionCommand(actionReceiver)))));
+		chain = new CancellableEventChainFilter(new ContinuousEventChainFilter(new OrderedEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiver)))));
 		
 		chain.addEvent(EventCatalog.EVENT_A);
 		chain.addEvent(EventCatalog.EVENT_B);
 		chain.addEvent(EventCatalog.EVENT_C);
+		
+		chainChangeOrder1 = new ContinuousEventChainFilter(new CancellableEventChainFilter(new OrderedEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiverChangeOrder1)))));
+	
+		chainChangeOrder1.addEvent(EventCatalog.EVENT_A);
+		chainChangeOrder1.addEvent(EventCatalog.EVENT_B);
+		chainChangeOrder1.addEvent(EventCatalog.EVENT_C);
+		
+		chainChangeOrder2 = new OrderedEventChainFilter(new ContinuousEventChainFilter(new CancellableEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiverChangeOrder2)))));
+		
+		chainChangeOrder2.addEvent(EventCatalog.EVENT_A);
+		chainChangeOrder2.addEvent(EventCatalog.EVENT_B);
+		chainChangeOrder2.addEvent(EventCatalog.EVENT_C);
 
 		EventManager.getInstance().registerEventChain(chain);
+		EventManager.getInstance().registerEventChain(chainChangeOrder1);
+		EventManager.getInstance().registerEventChain(chainChangeOrder2);
 	}
 	
 	@Test
@@ -63,12 +80,18 @@ public class CancellableContinuousOrderedChainFilterTest {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A-B y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A-B y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A-B y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
 		assertTrue(ASSERT_MSG_PREFIX + "ocurrio A-B-C y la accion no ocurrio!",actionReceiver.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio A-B-C y la accion no ocurrio!",actionReceiverChangeOrder1.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio A-B-C y la accion no ocurrio!",actionReceiverChangeOrder2.getState());
 		
 	}
 
@@ -77,24 +100,38 @@ public class CancellableContinuousOrderedChainFilterTest {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AB y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AB y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AB y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
 		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABC y la accion no ocurrio!",actionReceiver.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABC y la accion no ocurrio!",actionReceiverChangeOrder1.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABC y la accion no ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_K);
 		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK y la accion ocurrio!",actionReceiver.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|A y la accion ya ocurrio!",actionReceiver.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|A y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|A y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|AB y la accion ya ocurrio!",actionReceiver.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|AB y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertTrue(ASSERT_MSG_PREFIX + "ocurrio ABCK|AB y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ABCK|ABC y la accion no ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ABCK|ABC y la accion no ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ABCK|ABC y la accion no ocurrio!",actionReceiverChangeOrder2.getState());
 
 	}
 
@@ -105,12 +142,18 @@ public class CancellableContinuousOrderedChainFilterTest {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio A y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AC y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AC y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio AC y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ACB y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ACB y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio ACB y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 
 	}
 
@@ -121,15 +164,23 @@ public class CancellableContinuousOrderedChainFilterTest {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_K);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C-K y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C-K y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C-K y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C-K-A y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C-K-A y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio B-C-K-A y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 		
 	}
 
@@ -138,15 +189,23 @@ public class CancellableContinuousOrderedChainFilterTest {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_K);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio K y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio K y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio K y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KB y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KB y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KB y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBC y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBC y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBC y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBCA y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBCA y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio KBCA y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 		
 	}
 	
@@ -155,18 +214,28 @@ public class CancellableContinuousOrderedChainFilterTest {
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_J);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio J y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio J y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio J y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_B);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JB y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JB y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JB y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_C);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBC y la accion ya ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBC y la accion ya ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBC y la accion ya ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_L);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCL y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCL y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCL y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 		
 		EventManager.getInstance().eventOccurred(EventCatalog.EVENT_A);
 		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCLA y la accion ocurrio!",actionReceiver.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCLA y la accion ocurrio!",actionReceiverChangeOrder1.getState());
+		assertFalse(ASSERT_MSG_PREFIX + "ocurrio JBCLA y la accion ocurrio!",actionReceiverChangeOrder2.getState());
 		
 	}
 
