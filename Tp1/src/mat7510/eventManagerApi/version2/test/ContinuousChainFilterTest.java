@@ -2,8 +2,12 @@ package mat7510.eventManagerApi.version2.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import mat7510.eventManagerApi.version2.ActionEventChain;
-import mat7510.eventManagerApi.version2.ContinuousEventChainFilter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import mat7510.eventManagerApi.version2.ActionEventChainFactory;
+import mat7510.eventManagerApi.version2.Event;
 import mat7510.eventManagerApi.version2.EventChain;
 import mat7510.eventManagerApi.version2.EventManager;
 import mat7510.eventManagerApi.version2.domainExamples.basicDomain.BasicActionCommand;
@@ -18,18 +22,23 @@ public class ContinuousChainFilterTest {
 	private BasicActionReceiver actionReceiver;
 	private EventChain chain;
 	private final String ASSERT_MSG_PREFIX = "[A-B-C Continuo] ";
+	private ActionEventChainFactory actionEventChainFactory;
 	
 	@Before
 	public void setUp() {
 		
+		List <Event> eventList =new ArrayList<Event>();
+		
+		eventList.add(EventCatalog.EVENT_A);
+		eventList.add(EventCatalog.EVENT_B);
+		eventList.add(EventCatalog.EVENT_C);
+
+		actionEventChainFactory = ActionEventChainFactory.getInstance();
 		actionReceiver = new BasicActionReceiver();
 		
 		EventManager.getInstance().reset();
 		
-		chain = new ContinuousEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiver)));
-		chain.addEvent(EventCatalog.EVENT_A);
-		chain.addEvent(EventCatalog.EVENT_B);
-		chain.addEvent(EventCatalog.EVENT_C);
+		chain = actionEventChainFactory.createContinousChain(new BasicActionCommand(actionReceiver), eventList);
 
 		EventManager.getInstance().registerEventChain(chain);
 	}
