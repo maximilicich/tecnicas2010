@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package mat7510.eventManagerApi;
 
 /**
@@ -11,10 +6,12 @@ package mat7510.eventManagerApi;
  */
 public class EventOcurredException extends RuntimeException{
 
+	private static final long serialVersionUID = 1L;
+
 	private String text;
+
 	public EventOcurredException() {
-		text = "Ocurrio un evento inesperado";
-                throw new RuntimeException(text);
+		super("Ocurrio un evento inesperado");
 	}
 
 	@Override
