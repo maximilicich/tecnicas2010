@@ -58,7 +58,7 @@ public class CancellableChainFilterTest {
 		actionReceiver = new BasicActionReceiver();
 		actionEventChainFactory = ActionEventChainFactory.getInstance();
 
-		chain = actionEventChainFactory.createCancellableChain(new BasicActionCommand(actionReceiver), eventList);//new CancellableEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiver)));
+		chain = actionEventChainFactory.createCancellableChain(new BasicActionCommand(actionReceiver), eventList);
 		
 		EventManager.getInstance().registerEventChain(chain);
 	}
