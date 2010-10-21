@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ActionHandler {
+/**
+ * Clase con visibilidad de Package
+ * Colabora estrechamente con ConcreteEventManager 
+ * 
+ * @author Grupo 10 
+ *
+ */
+class ActionHandler {
 
 	private ActionCommand command;
 
@@ -94,7 +101,7 @@ public class ActionHandler {
 		}		
 	}
 
-	public void addEvento( Event event) {
+	public void addEvent( Event event) {
 		this.events.add(event);
 	}
 
@@ -197,67 +204,67 @@ public class ActionHandler {
 		return acceptCancellables;
 	}
 
-        private void notifyCancelEventForActionHandlerContinous(){
-                if(acceptCancellables){
-                     throw new EventOcurredException();
-                }else{
-                    cleanState();
-                    return;
-                }
-        }
+	private void notifyCancelEventForActionHandlerContinous(){
+		if(acceptCancellables){
+			throw new EventOcurredException();
+		}else{
+			cleanState();
+			return;
+		}
+	}
 
-     	public void notifyCancelEvent(Event event){
+	public void notifyCancelEvent(Event event){
 
-                if(isContinous){
-                    notifyCancelEventForActionHandlerContinous();
-                }else{
+		if(isContinous){
+			notifyCancelEventForActionHandlerContinous();
+		}else{
 
-                    if (acceptCancellables()){
-                            int index=0;
-                            Event actionEvent;
-                            Iterator<Event> itEvents = getEventIterator();
+			if (acceptCancellables()){
+				int index=0;
+				Event actionEvent;
+				Iterator<Event> itEvents = getEventIterator();
 
-                            while (itEvents.hasNext()){
-                                    actionEvent = itEvents.next();
+				while (itEvents.hasNext()){
+					actionEvent = itEvents.next();
 
-                                    if (event.equals(actionEvent)){
-                                         cancelEvent(index);
-                                    }
-                                    
-                                    index ++;
-                            }
+					if (event.equals(actionEvent)){
+						cancelEvent(index);
+					}
 
-                    }
-             }
-        }   
+					index ++;
+				}
+
+			}
+		}
+	}   
 
 	public void notifyEvent(Event event){
-          	int index=0;
+		int index=0;
 		boolean changeState=false;
 		Event actionEvent;
 		Iterator<Event> itEvents = getEventIterator();
-          
+
 		while (itEvents.hasNext()){
 			actionEvent = itEvents.next();
 
-                        if(isContinuos() && !event.equals(actionEvent)  && !isActivedEvent(index)){
-                              cleanState();
-                              break;
-                        }
+			if(isContinuos() && !event.equals(actionEvent)  && !isActivedEvent(index)){
+				cleanState();
+				break;
+			}
 
 			if (event.equals(actionEvent) && !isActivedEvent(index)){
-                              	activateEvent(index);
+				activateEvent(index);
 				changeState=true;
 
 				if (isActive()){
-               				getCommand().execute();
+					getCommand().execute();
 					cleanState();
-                                        break;
+					break;
 				}
-                                
+
 				//Se recorre toda la lista para verificar si registran dos veces el mismo evento
 				if(getOrder())
-                                    break;
+					break;
 			}
 
 			index++;
@@ -265,7 +272,7 @@ public class ActionHandler {
 
 		//Si es continuo y no hubo cambios entonces se rompio la continuidad
 		if(isContinuos() && !changeState)
-                    cleanState();
+			cleanState();
 
 	}
 
