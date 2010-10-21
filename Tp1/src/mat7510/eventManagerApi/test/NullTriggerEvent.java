@@ -7,7 +7,7 @@ import java.util.List;
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventManager;
 import mat7510.eventManagerApi.EventManagerFactory;
-import mat7510.eventManagerApi.RegisterEventException;
+import mat7510.eventManagerApi.exceptionRegisterEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
 
 import org.junit.After;
@@ -24,7 +24,7 @@ public class NullTriggerEvent {
 
 	@Before
 	public void setUp() throws Exception {
-		mngr = EventManagerFactory.getInstance().createEventManager();
+		mngr = EventManagerFactory.getInstance();
 
 		eventSource1 = new BasicEventSource(EVENTO1);		
 		eventSource1.addListener(mngr);
@@ -36,41 +36,41 @@ public class NullTriggerEvent {
 	}
 
 	@Test
-	public void testBasicContext() throws RegisterEventException {
+	public void testBasicContext() throws exceptionRegisterEvent {
 
 		// Registramos en el Manager la accion - evento
 		List<Event>events = null;
 		Event eventTest = null;
 
 		try{
-			mngr.registerEventsWithOrderDiscontinuousWithCancellations(null, events);
+			mngr.registerWithOrder(null, events);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(RegisterEventException e){
+		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}
 
 		//Se verifica la validación del registro de eventos con orden
 		try{
-			mngr.registerEventsWithOrderDiscontinuousWithCancellations(null, null);
+			mngr.registerWithOrder(null, null);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(RegisterEventException e){
+		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}
 
 		//Se verifica la validación del registro de eventos sin orden
 		try{
-			mngr.registerEventsDiscontinuousWithCancellations(null, events);
+			mngr.register(null, events);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(RegisterEventException e){
+		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}
 
 
 		//Se verifica la validación del registro de evento simple
 		try{
-			mngr.registerEvent(null, eventTest);
+			mngr.register(null, eventTest);
 			fail("Excepted exeptionRegisterEvent");
-		}catch(RegisterEventException e){
+		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}
 

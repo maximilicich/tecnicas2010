@@ -11,7 +11,7 @@ public class BasicActionCommand implements ActionCommand {
 	}
 
 	public void execute() {
-		receiver.setState(!(receiver.getState()));
+		receiver.setState(true);
 	}
 
 }

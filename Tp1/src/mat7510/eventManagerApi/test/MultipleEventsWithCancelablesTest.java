@@ -13,7 +13,7 @@ import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
-import mat7510.eventManagerApi.RegisterEventException;
+import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public class MultipleEventsWithCancelablesTest {
 
 	@Before
 	public void setUp() throws Exception {
-		mngr = EventManagerFactory.getInstance().createEventManager();
+		mngr = EventManagerFactory.getInstance();
 
 		eventSource1 = new BasicEventSource(EVENTO1);
 		eventSource2 = new BasicEventSource(EVENTO2);
@@ -59,7 +59,7 @@ public class MultipleEventsWithCancelablesTest {
 	}
 
 	@Test
-	public void testBasicContext() throws RegisterEventException {
+	public void testBasicContext() throws exceptionRegisterEvent {
 
 		// Registramos en el Manager la accion - evento
 		List<Event>events = new ArrayList<Event>();
@@ -67,9 +67,9 @@ public class MultipleEventsWithCancelablesTest {
 		events.add(new BasicEvent(EVENTO2));
 		events.add(new BasicEvent(EVENTO3));
 		try{
-			mngr.registerEventsDiscontinuousWithCancellations(new BasicActionCommand(actionReceiver), events);
+			mngr.register(new BasicActionCommand(actionReceiver), events);
 			mngr.registerCancellables(new BasicEvent(EVENTO4),new BasicEvent(EVENTO1));
-		}catch(RegisterEventException e){
+		}catch(exceptionRegisterEvent e){
 			System.out.println(e.toString());
 		}
 

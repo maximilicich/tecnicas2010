@@ -1,22 +1,22 @@
 package mat7510.eventManagerApi;
 
-/**
- * 
- *
- */
+
 public class EventManagerFactory {
-	
-	private static EventManagerFactory instance = null;
+	private static EventManager eventManager = null;
 
 	private EventManagerFactory(){};
 
-	public EventManager createEventManager() {
-		return new ConcreteEventManager();
+	public static EventManager createEventManager() {
+		if (eventManager == null) {
+			eventManager = new ConcreteEventManager();
+		}
+		return eventManager;
 	}
 
-	public static EventManagerFactory getInstance(){
-		if (instance == null)
-			instance = new EventManagerFactory();
-		return instance;
+	public static EventManager getInstance(){
+		if (eventManager == null)
+			return createEventManager();
+
+		return eventManager;
 	}
 }

@@ -11,165 +11,125 @@ public class ConcreteEventManager implements EventManager {
 	private List<EventCancel> eventsCancel;
 
 
-	private void ensureEventIsNotNull(Event e)throws RegisterEventException{
-		if(e==null)
-			throw new RegisterEventException("Evento nulo");
-	}
-
-	private void ensureCommandIsNotNull(ActionCommand cmd)throws RegisterEventException{
-		if(cmd==null)
-			throw new RegisterEventException("Comando nulo");
-	}
-
-	/** Permite inicializar una instancia del ConcreteEventmanager
-	 */
 	public ConcreteEventManager (){
 		actions = new ArrayList<ActionHandler>();
 		eventsCancel = new ArrayList<EventCancel>();
 	}
 
 
-	private void notifyCancelEvent(Event e){
-		Iterator<EventCancel> it = eventsCancel.iterator();
-		EventCancel eventCancel;
-
-		while (it.hasNext()){
-
-			eventCancel = it.next();
-			if ( e.equals(eventCancel.getEventSource())){
-				notifyChange ( eventCancel.getEventToBeCancel(),false);
-				break;
-			}
-		}
-
-	}
-
-	/**Permite notificar la ocurrencia de un evento
-	 * @param  e Evento que a de notificarse
-	 */
 	public void eventOccurred(Event e) {
 
 		if(e==null)
-			throw new NullPointerException("Evento nulo");
+			throw new NullPointerException("Evento nulo");	
 
-		notifyCancelEvent( e);
+		Iterator<EventCancel> it = eventsCancel.iterator();
+		EventCancel eventCancel;
+		boolean isFound=false;
+
+		while (it.hasNext() && !isFound){
+
+			eventCancel = it.next();
+			if ( e.equals(eventCancel.getEventSource())){				
+				notifyChange ( eventCancel.getEventToBeCancel(),false);
+				isFound=true;
+			}
+		}
+
 		notifyChange (e,true);
 	}
 
 	private void notifyChange(Event event, boolean marcar) {
 
-		Iterator<ActionHandler> itActions = actions.iterator();		
+		Iterator<ActionHandler> itActions = actions.iterator();
+		Iterator<Event> itEvents;
 		ActionHandler action;
+		Event actionEvent;
+		int index;
 
 		while (itActions.hasNext()){
-			action = itActions.next();
-			if(marcar)
-				action.notifyEvent(event);
-			else action.notifyCancelEvent(event);
+
+			action = itActions.next();	
+			itEvents = action.getEventIterator();
+			index = 0;
+
+			while (itEvents.hasNext()){
+
+				actionEvent = itEvents.next();
+				if (event.equals(actionEvent) && marcar == true){
+					if(!action.isActivedEvent(index)){
+						// marca el evento 
+						action.activateEvent(index);
+
+						if (action.isActive()){
+							action.getCommand().execute();
+							action.cleanState();
+						}
+						//Se recorre toda la lista para verificar si registran dos veces el mismo evento
+						if(action.getOrder()==true)
+							break;
+					}
+				}
+
+				if (event.equals(actionEvent) && marcar == false){
+					// Se desactivan todos los eventos que cumplan
+					action.cancelEvent(index);      
+				}
+				index ++;
+			}			
 		}		
 	}
 
-	/**Permite registrar un evento y su comando asociado.
-	 * @param  e Evento que se va a escuchar
-	 * @param cmd Comando asociado al evento. Es la accion a ejecutar al ocurrir el evento.
-	 * @exception RegisterEventException se lanza la excepcion si el comando o el evento son nulos
-	 */
 	@Override
-	public void registerEvent(ActionCommand cmd, Event e)  throws RegisterEventException {
+	public void register(ActionCommand cmd, Event e)  throws exceptionRegisterEvent {
+		if(e==null)
+			throw new exceptionRegisterEvent("Evento nulo");
 
-		ensureEventIsNotNull(e);
-		ensureCommandIsNotNull(cmd);
+		if(cmd==null)
+			throw new exceptionRegisterEvent("Comando nulo");
 
 		ActionHandler action = ActionHandler.createActionSingle (cmd, e);
 		this.actions.add(action);
 
 	}
 
-	private void validate(ActionCommand cmd, List<Event> e) throws RegisterEventException{
+	@Override
+	public void register(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
+
 		if(e== null || e.isEmpty())
-			throw new RegisterEventException("La lista de eventos esta vacia");
+			throw new exceptionRegisterEvent("La lista de eventos esta vacia");
 
-		ensureCommandIsNotNull(cmd);
-	}
+		if(cmd==null)
+			throw new exceptionRegisterEvent("Comando nulo");
 
-	/**Permite registrar una lista de eventos continuos que deben darse para ejecutar el comando asociado. No permite ser cancelados por otros eventos.
-	 * @param  e Lista de eventos que se van a escuchar
-	 * @param cmd Comando asociado a la lista de eventos. Es la accion a ejecutar al ocurrir de forma continua todos los eventos de la lista.
-	 * @exception RegisterEventException se lanza la excepcion si el comando o los eventos son nulos
-	 */
-	@Override
-	public void registerEventsContinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws RegisterEventException {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupContinousWithNoCancellations  (cmd, e);
+		ActionHandler action = ActionHandler.createActionGroup  (cmd, e);
 		this.actions.add(action);
+
 	}
 
-	/**Permite registrar una lista de eventos discontinuos que deben ocurrir para ejecutar el comando asociado. Permite ser cancelados por otros eventos.
-	 * @param  e Lista de eventos que se van a escuchar
-	 * @param cmd Comando asociado a la lista de eventos. Es la accion a ejecutar al ocurrir todos los eventos de la lista.
-	 * @exception RegisterEventException se lanza la excepcion si el comando o los eventos son nulos
-	 */
 	@Override
-	public void registerEventsDiscontinuousWithCancellations(ActionCommand cmd, List<Event> e) throws RegisterEventException {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupDiscontinuousWithCancellations  (cmd, e);
-		this.actions.add(action);
-	}
-	/**Permite registrar una lista de eventos discontinuos que deben ocurrir para ejecutar el comando asociado. No permite ser cancelados por otros eventos.
-	 * @param  e Lista de eventos que se van a escuchar
-	 * @param cmd Comando asociado a la lista de eventos. Es la accion a ejecutar al ocurrir todos los eventos de la lista.
-	 * @exception RegisterEventException se lanza la excepcion si el comando o los eventos son nulos
-	 */
-	@Override
-	public void registerEventsDiscontinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws RegisterEventException {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupDiscontinuousWithNoCancellations  (cmd, e);
-		this.actions.add(action);
-	}
-	/**Permite registrar una lista de eventos continuos que deben ocurrir en order para ejecutar el comando asociado. No permite ser cancelados por otros eventos.
-	 * @param  e Lista de eventos en orden que se van a escuchar
-	 * @param cmd Comando asociado a la lista de eventos. Es la accion a ejecutar al ocurrir todos los eventos de la lista en el orden .
-	 * @exception RegisterEventException se lanza la excepcion si el comando o los eventos son nulos
-	 */
-	@Override
-	public void registerEventsWithOrderContinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws RegisterEventException {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupOrderContinousWithNoCancellations  (cmd, e);
-		this.actions.add(action);
-	}
-	/**Permite registrar una lista de eventos discontinuos que deben ocurrir en order para ejecutar el comando asociado. Permite ser cancelados por otros eventos.
-	 * @param  e Lista de eventos sin orden que se van a escuchar
-	 * @param cmd Comando asociado a la lista de eventos. Es la accion a ejecutar al ocurrir todos los eventos de la lista.
-	 * @exception RegisterEventException se lanza la excepcion si el comando o los eventos son nulos
-	 */
-	@Override
-	public void registerEventsWithOrderDiscontinuousWithCancellations(ActionCommand cmd, List<Event> e) throws RegisterEventException {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupOrderDiscontinuousWithCancellations  (cmd, e);
-		this.actions.add(action);
-	}
-	/**Permite registrar una lista de eventos discontinuos que deben ocurrir en order para ejecutar el comando asociado. No permite ser cancelados por otros eventos.
-	 * @param  e Lista de eventos sin orden que se van a escuchar
-	 * @param cmd Comando asociado a la lista de eventos. Es la accion a ejecutar al ocurrir todos los eventos de la lista.
-	 * @exception RegisterEventException se lanza la excepcion si el comando o los eventos son nulos
-	 */
-	@Override
-	public void registerEventsWithOrderDiscontinuousWithNoCancellations(ActionCommand cmd, List<Event> e) throws RegisterEventException {
-		validate(cmd,e);
-		ActionHandler action = ActionHandler.createActionGroupOrderDiscontinuousWithNoCancellations  (cmd, e);
-		this.actions.add(action);
-	}
-	/**Permite registrar eventos cancelables es decir que la ocurrencia de un evento cancele un evento que haya surgido anteriormente.
-	 * @param  eventSource Evento que va a cancelar.
-	 * @param eventToBeCancel Evento que es cancelado
-	 * @exception RegisterEventException se lanza la excepcion si los eventos son nulos
-	 */
-	@Override
-	public void registerCancellables(Event eventSource, Event eventToBeCancel) throws RegisterEventException {
-		ensureEventIsNotNull(eventSource);
-		ensureEventIsNotNull(eventToBeCancel);
+	public void registerWithOrder(ActionCommand cmd, List<Event> e)  throws exceptionRegisterEvent {
 
-		EventCancel eventCancel = new EventCancel (eventSource, eventToBeCancel);
+		if(e== null || e.isEmpty())
+			throw new exceptionRegisterEvent("La lista de eventos esta vacia");
+
+		if(cmd==null)
+			throw new exceptionRegisterEvent("Comando nulo");
+
+		ActionHandler action = ActionHandler.createActionGroupOrder  (cmd, e);
+		this.actions.add(action);
+
+	}
+
+	@Override
+	public void registerCancellables(Event event1, Event event2) throws exceptionRegisterEvent {
+
+		if(event1==null || event2==null)
+			throw new exceptionRegisterEvent("Evento null");
+
+		if(event1.equals(event2))
+			throw new exceptionRegisterEvent("Los eventos que se desean registrar son iguales");
+
+		EventCancel eventCancel = new EventCancel (event1, event2);
 		this.eventsCancel.add(eventCancel);
 	}
 

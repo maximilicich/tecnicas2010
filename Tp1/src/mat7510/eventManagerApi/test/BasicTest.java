@@ -7,7 +7,7 @@ import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
-import mat7510.eventManagerApi.RegisterEventException;
+import mat7510.eventManagerApi.exceptionRegisterEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,16 +19,16 @@ public class BasicTest {
 	private EventManager mngr;
 	private BasicEventSource eventSource;
 	private BasicActionReceiver actionReceiver;
-
+	
 	private static final String EVENTO = "evento";
-
+	
 	@Before
 	public void setUp() throws Exception {
-		mngr = EventManagerFactory.getInstance().createEventManager();
-
+		mngr = EventManagerFactory.getInstance();
+		
 		eventSource = new BasicEventSource(EVENTO);
 		eventSource.addListener(mngr);
-
+		
 		actionReceiver = new BasicActionReceiver();
 	}
 
@@ -36,22 +36,22 @@ public class BasicTest {
 	public void tearDown() {
 		// nada por ahora...
 	}
-
+	
 	@Test
-	public void testBasicContext() throws RegisterEventException {
-
+	public void testBasicContext() throws exceptionRegisterEvent {
+		
 		// Registramos en el Manager la accion - evento
 		try{
-			mngr.registerEvent(new BasicActionCommand(actionReceiver), new BasicEvent(EVENTO));
-		}catch(RegisterEventException e){
-			System.out.println(e.toString());
-		}
+                    mngr.register(new BasicActionCommand(actionReceiver), new BasicEvent(EVENTO));
+                }catch(exceptionRegisterEvent e){
+                    System.out.println(e.toString());
+                }
 		// El Source dispara el Evento...
 		eventSource.triggerEvent();
-
+		
 		// Y si todo funciona bien, el Receiver deberia haber sufrido
 		// el cambio de estado, por la accion ejecutada...
 		assertTrue(actionReceiver.getState());
 	}
-
+	
 }

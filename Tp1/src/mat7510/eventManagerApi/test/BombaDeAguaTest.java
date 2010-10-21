@@ -10,7 +10,7 @@ import java.util.List;
 import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.EventManager;
 import mat7510.eventManagerApi.EventManagerFactory;
-import mat7510.eventManagerApi.RegisterEventException;
+import mat7510.eventManagerApi.exceptionRegisterEvent;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.ApagarBombaCmd;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.BombaDeAgua;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.CambioDePresionDeAguaEvent;
@@ -39,7 +39,7 @@ public class BombaDeAguaTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		mngr = EventManagerFactory.getInstance().createEventManager();
+		mngr = EventManagerFactory.getInstance();
 	}
 
 	@AfterClass
@@ -85,11 +85,11 @@ public class BombaDeAguaTest {
 		// LISTO PARA LA ACCION!
 	}
 
-	private void registrarAccionesYEventos() throws RegisterEventException {
+	private void registrarAccionesYEventos() throws exceptionRegisterEvent {
 
 		// Cuando cambia la presion de la Red (evento), 
 		// el medidor debe testear la presion (action)
-		mngr.registerEvent(new ControlarPresionCmd(medidor),
+		mngr.register(new ControlarPresionCmd(medidor), 
 				new CambioDePresionDeAguaEvent());
 
 		// Cuando el Medidor detecta que hay presion y ademas
@@ -98,12 +98,12 @@ public class BombaDeAguaTest {
 		List<Event> eventosParaEncenderLaBomba = new ArrayList<Event>(2);
 		eventosParaEncenderLaBomba.add(new HayPresionEvent(medidor));
 		eventosParaEncenderLaBomba.add(new TanqueVacioEvent(tanque));
-		mngr.registerEventsDiscontinuousWithCancellations(new EncenderBombaCmd(bomba), eventosParaEncenderLaBomba);
+		mngr.register(new EncenderBombaCmd(bomba), eventosParaEncenderLaBomba);
 
 		// Ahora, si no hay presion, o bien si el tanque se llena
 		// entonces la bomba debe apagarse:
-		mngr.registerEvent(new ApagarBombaCmd(bomba), new NoHayPresionEvent(medidor));
-		mngr.registerEvent(new ApagarBombaCmd(bomba), new TanqueLlenoEvent(tanque));
+		mngr.register(new ApagarBombaCmd(bomba), new NoHayPresionEvent(medidor));
+		mngr.register(new ApagarBombaCmd(bomba), new TanqueLlenoEvent(tanque));
 
 		// Pot ultimo, indicamos los Eventos Cancelables entre si
 		// Si el Tanque esta lleno, entonces no esta vacio
