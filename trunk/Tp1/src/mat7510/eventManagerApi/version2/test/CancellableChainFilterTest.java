@@ -2,8 +2,12 @@ package mat7510.eventManagerApi.version2.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import mat7510.eventManagerApi.version2.ActionEventChain;
-import mat7510.eventManagerApi.version2.CancellableEventChainFilter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import mat7510.eventManagerApi.version2.ActionEventChainFactory;
+import mat7510.eventManagerApi.version2.Event;
 import mat7510.eventManagerApi.version2.EventChain;
 import mat7510.eventManagerApi.version2.EventManager;
 import mat7510.eventManagerApi.version2.domainExamples.basicDomain.BasicActionCommand;
@@ -30,6 +34,7 @@ public class CancellableChainFilterTest {
 	private BasicActionReceiver actionReceiver;
 	private EventChain chain;
 	private final String ASSERT_MSG_PREFIX = "[A-B-C Continuo] ";
+	private ActionEventChainFactory actionEventChainFactory;
 
 	
 	@Before
@@ -44,14 +49,17 @@ public class CancellableChainFilterTest {
 		EventManager.getInstance().setCancellableFor(EventCatalog.EVENT_A, EventCatalog.EVENT_J);
 		EventManager.getInstance().setCancellableFor(EventCatalog.EVENT_L, EventCatalog.EVENT_K);
 
-		actionReceiver = new BasicActionReceiver();
-
-		chain = new CancellableEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiver)));
+		List <Event> eventList =new ArrayList<Event>();
 		
-		chain.addEvent(EventCatalog.EVENT_A);
-		chain.addEvent(EventCatalog.EVENT_B);
-		chain.addEvent(EventCatalog.EVENT_C);
+		eventList.add(EventCatalog.EVENT_A);
+		eventList.add(EventCatalog.EVENT_B);
+		eventList.add(EventCatalog.EVENT_C);
+		
+		actionReceiver = new BasicActionReceiver();
+		actionEventChainFactory = ActionEventChainFactory.getInstance();
 
+		chain = actionEventChainFactory.createCancellableChain(new BasicActionCommand(actionReceiver), eventList);//new CancellableEventChainFilter(new ActionEventChain(new BasicActionCommand(actionReceiver)));
+		
 		EventManager.getInstance().registerEventChain(chain);
 	}
 	
