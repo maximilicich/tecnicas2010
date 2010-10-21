@@ -37,27 +37,25 @@ public class CancellableEventChainFilter extends EventChainFilter {
 			return;
 		}
 		
-		Boolean hasCancelled = searchAndExecuteCancellables(cancellables);
+		// Buscamos los Cancelables en nuestra cadena:
+		// Si estan y ya ocurrieron, se los resetea (se los CANCELA)
+		processCancellables(cancellables);
 		
-		//El cancelable no esta en la cadena o bien aun no ocurrio, se continua el circuito
-		if (! hasCancelled)
-			super.eventOccurred(e);
+		// SEGUIMOS EL CIRCUITO INCONDICIONALMENTE
+		super.eventOccurred(e);
 		
 	}
 
 
-	private Boolean searchAndExecuteCancellables(List<Event> cancellables) {
-		Boolean hasCancelled = false;
+	private void processCancellables(List<Event> cancellables) {
 		for (Event cancellableEvent : cancellables) {
 			for (Iterator<Element> it = iterator(); it.hasNext();) {
 				Element element = it.next();
 				if (element.getEvent().equals(cancellableEvent) && element.hasOccurred()) {
 					element.setOccurred(false);
-					hasCancelled = true;
 				}
 			}
 		}
-		return hasCancelled;
 	}
 	
 	

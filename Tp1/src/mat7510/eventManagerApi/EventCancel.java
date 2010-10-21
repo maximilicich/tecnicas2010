@@ -1,6 +1,6 @@
 package mat7510.eventManagerApi;
 
-public class EventCancel {
+class EventCancel {
 
 	private Event eventSource;
 
