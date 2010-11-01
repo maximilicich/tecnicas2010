@@ -11,7 +11,7 @@ import java.util.List;
  * @author Grupo 10 
  *
  */
-class ActionHandler {
+public class ActionHandler {
 
 	private ActionCommand command;
 
