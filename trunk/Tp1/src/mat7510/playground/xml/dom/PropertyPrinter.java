@@ -34,6 +34,11 @@ public class PropertyPrinter {
 			// starting a new document, reset the node count
 			nodeCount = 1; 
 		}
+		// evitamos imprimir los textos en blank y newlines
+		if (node.getNodeType() == Node.TEXT_NODE) {
+			if (node.getTextContent().trim().equalsIgnoreCase(""))
+				return;
+		}
 
 		String name      = node.getNodeName(); // never null
 		String type      = NodeTyper.getTypeName(node); // never null
@@ -41,6 +46,7 @@ public class PropertyPrinter {
 		String uri       = node.getNamespaceURI();
 		String prefix    = node.getPrefix();
 		String value     = node.getNodeValue();
+		String textCont	 = node.getTextContent();
 
 		StringBuffer result = new StringBuffer();
 		result.append("Node " + nodeCount + ":\r\n");
@@ -58,7 +64,10 @@ public class PropertyPrinter {
 		if (value != null) {
 			result.append("  Value: " + value + "\r\n");
 		}
-
+		if (textCont != null) {
+			result.append("  Text Content: " + textCont + "\r\n");
+		}
+		
 		out.write(result.toString());
 		out.write("\r\n");
 		out.flush();
@@ -66,5 +75,5 @@ public class PropertyPrinter {
 		nodeCount++;
 
 	}
-
+	
 }
