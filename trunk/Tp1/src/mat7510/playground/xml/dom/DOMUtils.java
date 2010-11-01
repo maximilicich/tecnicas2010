@@ -4,6 +4,7 @@ import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 
@@ -41,5 +42,29 @@ public class DOMUtils implements java.io.Serializable {
 		Document doc = db.parse(file);
 		return doc;
 	}      
+
+	
+	/**
+	 * Using JAXP in implementation independent manner create a document object
+	 * using which we create a xml tree in memory
+	 * 
+	 * Tomado directamente de:
+	 * http://www.totheriver.com/learn/xml/xmltutorial.html
+	 * 
+	 * @throws ParserConfigurationException 
+	 */
+	public static Document createDocument() throws ParserConfigurationException {
+
+		//get an instance of factory
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+		//get an instance of builder
+		DocumentBuilder db = dbf.newDocumentBuilder();
+
+		//create an instance of DOM
+		return db.newDocument();
+
+	}
+
 	
 }
