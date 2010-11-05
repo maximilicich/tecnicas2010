@@ -2,8 +2,17 @@ package mat7510.eventManagerApi.version2;
 
 import java.util.Iterator;
 
+/**
+ * 
+ * @author Grupo 10
+ *
+ */
 public class ContinuousEventChainFilter extends EventChainFilter {
 
+	/**
+	 * 
+	 * @param filteredChain
+	 */
 	public ContinuousEventChainFilter(EventChain filteredChain) {
 		super(filteredChain);
 	}
@@ -25,6 +34,11 @@ public class ContinuousEventChainFilter extends EventChainFilter {
 	}
 
 
+	/**
+	 * 
+	 * @param e
+	 * @return
+	 */
 	private Boolean searchEventInChain(Event e) {
 		Boolean found = false;
 		for (Iterator<Element> iterator = this.iterator(); iterator.hasNext();) {
@@ -38,6 +52,5 @@ public class ContinuousEventChainFilter extends EventChainFilter {
 		}
 		return found;
 	}
-	
 	
 }
