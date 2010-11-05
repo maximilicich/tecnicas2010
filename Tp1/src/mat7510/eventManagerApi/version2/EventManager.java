@@ -9,11 +9,21 @@ import java.util.List;
  * 
  * @author Grupo 10 
  */
-public class EventManager implements EventListener, EventContext {
+public class EventManager implements EventContext {
 	
+	/**
+	 * 
+	 */
 	private static EventManager instance = null;
 
+	/**
+	 * 
+	 */
 	private List<EventChain> chains = new ArrayList<EventChain>();
+	
+	/**
+	 * 
+	 */
 	private List<CancellablePair> cancellables = new ArrayList<CancellablePair>();
 	
 	/**
@@ -118,7 +128,4 @@ public class EventManager implements EventListener, EventContext {
 		}
 	}
 
-
-	
 }
-

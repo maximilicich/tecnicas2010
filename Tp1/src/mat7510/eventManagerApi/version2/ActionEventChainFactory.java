@@ -4,15 +4,34 @@ import java.util.Iterator;
 import java.util.List;
 
 
+/**
+ * 
+ * @author Grupo 10
+ *
+ */
 public class ActionEventChainFactory {
 	
-	
+	/**
+	 * 
+	 */
 	private static ActionEventChainFactory instance = null;
 	
+	/**
+	 * 
+	 */
 	private EventChain eventChain;
 	
+	/**
+	 * 
+	 */
 	private ActionEventChainFactory(){};
 
+	/**
+	 * 
+	 * @param action
+	 * @param events
+	 * @return
+	 */
 	public EventChain createCancellableChain(ActionCommand action, List <Event> events) {
 		
 		eventChain = new CancellableEventChainFilter(new ActionEventChain(action));
@@ -21,7 +40,13 @@ public class ActionEventChainFactory {
 		
 		return eventChain;
 	}
-	
+
+	/**
+	 * 
+	 * @param action
+	 * @param events
+	 * @return
+	 */
 	public EventChain createCancellableContinuosOrderedChain(ActionCommand action, List <Event> events) {
 		
 		eventChain = new CancellableEventChainFilter(new ContinuousEventChainFilter(new OrderedEventChainFilter(new ActionEventChain(action))));
@@ -31,6 +56,12 @@ public class ActionEventChainFactory {
 		return eventChain;
 	}
 	
+	/**
+	 * 
+	 * @param action
+	 * @param events
+	 * @return
+	 */
 	public EventChain createContinousOrderedChain(ActionCommand action, List <Event> events) {
 		eventChain = new ContinuousEventChainFilter(new OrderedEventChainFilter(new ActionEventChain(action)));
 
@@ -39,6 +70,12 @@ public class ActionEventChainFactory {
 		return eventChain;
 	}
 	
+	/**
+	 * 
+	 * @param action
+	 * @param events
+	 * @return
+	 */
 	public EventChain createContinousChain(ActionCommand action, List <Event> events) {
 		eventChain = new ContinuousEventChainFilter(new ActionEventChain(action));
 
@@ -47,6 +84,12 @@ public class ActionEventChainFactory {
 		return eventChain;
 	}
 	
+	/**
+	 * 
+	 * @param action
+	 * @param events
+	 * @return
+	 */
 	public EventChain createOrderedCancellableChain(ActionCommand action, List <Event> events) {
 		eventChain = new OrderedEventChainFilter(new CancellableEventChainFilter(new ActionEventChain(action)));
 
@@ -55,6 +98,12 @@ public class ActionEventChainFactory {
 		return eventChain;
 	}
 	
+	/**
+	 * 
+	 * @param action
+	 * @param events
+	 * @return
+	 */
 	public EventChain createOrderedChain(ActionCommand action, List <Event> events) {
 		eventChain = new OrderedEventChainFilter(new ActionEventChain(action));
 

@@ -9,6 +9,10 @@ import java.util.Iterator;
  */
 public class OrderedEventChainFilter extends EventChainFilter {
 
+	/**
+	 * 
+	 * @param filteredChain
+	 */
 	public OrderedEventChainFilter(EventChain filteredChain) {
 		super(filteredChain);
 	}
@@ -65,6 +69,11 @@ public class OrderedEventChainFilter extends EventChainFilter {
 		
 	}
 
+	/**
+	 * 
+	 * @param iterator
+	 * @return
+	 */
 	private Event searchNextEventExpected(Iterator<Element> iterator) {
 		Event nextEventExpected = null;
 		while (iterator.hasNext() && nextEventExpected == null) {
@@ -75,6 +84,4 @@ public class OrderedEventChainFilter extends EventChainFilter {
 		return nextEventExpected;
 	}
 
-	
-	
-}
+	}

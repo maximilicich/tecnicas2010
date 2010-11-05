@@ -9,12 +9,22 @@ import java.util.Iterator;
  */
 public class ActionEventChain extends EventChain {
 
+	/**
+	 * 
+	 */
 	private ActionCommand action;
 
+	/**
+	 * 
+	 * @param action
+	 */
 	public ActionEventChain(ActionCommand action) {
 		this.action = action;
 	}
 	
+	/**
+	 * 
+	 */
 	public void eventOccurred(Event e) {
 		for (Iterator<Element> iterator = this.iterator(); iterator.hasNext();) {
 			Element element = iterator.next();
@@ -29,6 +39,10 @@ public class ActionEventChain extends EventChain {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ActionCommand getAction() {
 		return action;
 	}

@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class CancellableEventChainFilter extends EventChainFilter {
 
+	/**
+	 * 
+	 * @param filteredChain
+	 */
 	public CancellableEventChainFilter(EventChain filteredChain) {
 		super(filteredChain);
 	}
@@ -47,6 +51,10 @@ public class CancellableEventChainFilter extends EventChainFilter {
 	}
 
 
+	/**
+	 * 
+	 * @param cancellables
+	 */
 	private void processCancellables(List<Event> cancellables) {
 		for (Event cancellableEvent : cancellables) {
 			for (Iterator<Element> it = iterator(); it.hasNext();) {

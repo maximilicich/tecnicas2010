@@ -11,26 +11,52 @@ import java.util.List;
  */
 public abstract class EventChain implements EventListener {
 
+	/**
+	 * 
+	 */
 	private EventContext context;
+	
+	/**
+	 * 
+	 */
 	private List<Element> chain = new ArrayList<Element>();
 
+	/**
+	 * 
+	 * @param cxt
+	 */
 	public void setContext(EventContext cxt) {
 		this.context = cxt;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public EventContext getContext() {
 		return context;
 	}
 	
+	/**
+	 * 
+	 * @param e
+	 */
 	public void addEvent(Event e) {
 		chain.add(new Element(e));
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Iterator<Element> iterator() {
 		return chain.iterator();
 	}
 
 
+	/**
+	 * 
+	 */
 	public void resetOccurrences() {
 		for (Iterator<Element> iterator = this.iterator(); iterator.hasNext();) {
 			Element element = iterator.next();
@@ -38,6 +64,10 @@ public abstract class EventChain implements EventListener {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Boolean isAccomplished() {
 		Boolean accomplished = true;
 		for (Iterator<Element> iterator = this.iterator(); iterator.hasNext();) {
@@ -47,15 +77,27 @@ public abstract class EventChain implements EventListener {
 		return accomplished;
 	}
 	
+	/**
+	 * 
+	 * @param chain
+	 */
 	protected void setChain(List<Element> chain) {
 		this.chain = chain;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	protected List<Element> getChain() {
 		return this.chain;
 	}
 	
-	
+	/**
+	 * 
+	 * @author Grupo 10
+	 *
+	 */
 	public class Element {
 		private Event event;
 		private Boolean occurred;
