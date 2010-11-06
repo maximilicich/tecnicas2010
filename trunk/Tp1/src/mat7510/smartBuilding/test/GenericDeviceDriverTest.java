@@ -1,9 +1,9 @@
 package mat7510.smartBuilding.test;
 
+import mat7510.smartBuilding.DeviceDriver;
+
 import org.junit.After;
 import org.junit.Before;
-
-import mat7510.smartBuilding.GenericDeviceDriver;
 
 /**
  * Test de la Interfaz GenericDeviceDriver
@@ -12,7 +12,7 @@ import mat7510.smartBuilding.GenericDeviceDriver;
  */
 public class GenericDeviceDriverTest {
 
-	private GenericDeviceDriver driver;
+	private DeviceDriver driver;
 	
 	@Before
 	public void setUp() throws Exception {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<deviceDrivers>
+	<deviceDriver>
+		<name>Mock 01 Device Driver</name>
+		<class>mat7510.smartBuilding.test.DeviceDriverMock01</class>
+	</deviceDriver>
+	<deviceDriver>
+		<name>Mock 02 Device Driver</name>
+		<class>mat7510.smartBuilding.test.DeviceDriverMock02</class>
+	</deviceDriver>
+</deviceDrivers>

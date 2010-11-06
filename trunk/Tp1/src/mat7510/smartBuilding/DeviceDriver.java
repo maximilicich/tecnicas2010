@@ -29,7 +29,7 @@ import mat7510.eventManagerApi.version2.EventListener;
  * @author Grupo 10 
  *
  */
-public interface GenericDeviceDriver {
+public interface DeviceDriver {
 
 	/**
 	 * Las {@link mat7510.smartBuilding.DeviceAction acciones } que pueden realizarse sobre el dispositivo
