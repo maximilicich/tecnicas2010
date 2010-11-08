@@ -1,6 +1,6 @@
 package mat7510.smartBuilding.test;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +32,7 @@ public class DeviceDriverMock01 implements DeviceDriver {
 	@Override
 	public Map<String, String> getState() {
 		// TODO Auto-generated method stub
-		Map<String, String> state = new HashMap<String, String>();
+		Map<String, String> state = new LinkedHashMap<String, String>();
 		state.put("Mock01 attr a", "Mock01 value a");
 		state.put("Mock01 attr b", "Mock01 value b");
 		state.put("Mock01 attr c", "Mock01 value c");

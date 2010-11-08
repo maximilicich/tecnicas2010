@@ -2,7 +2,7 @@ package mat7510.smartBuilding;
 
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +51,7 @@ public class DeviceDriverLoader {
 		
 		try {
 			domXml = DOMUtils.getInstance().getDocument(xml);
+			// DOMUtils.getInstance().printDomToXml(domXml, System.out);
 			
 		} catch (Exception e) {
 			throw new SmartBuildingException(e);
@@ -63,7 +64,7 @@ public class DeviceDriverLoader {
 		if (devDriverElements.isEmpty()) 
 			throw new SmartBuildingException("No existen Drivers de Dispositivos configurados en el XML");
 
-		Map<String, DeviceDriver> map = new HashMap<String, DeviceDriver>();
+		Map<String, DeviceDriver> map = new LinkedHashMap<String, DeviceDriver>();
 		
 		for (Element element : devDriverElements) {
 			String devDriverName = getDeviceDriverName(element);

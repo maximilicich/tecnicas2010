@@ -5,7 +5,6 @@ import java.util.Map;
 
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceDriverLoader;
-import mat7510.xml.DOMUtils;
 
 public class DeviceDriverLoaderTest {
 
@@ -33,15 +32,14 @@ public class DeviceDriverLoaderTest {
 			System.out.println("");
 		}
 		
-		
 	}
 	
 	String formatState(DeviceDriver driver) {
 		StringBuffer out = new StringBuffer("");
 		Map<String, String> state = driver.getState();
 		for (Map.Entry<String, String> entry : state.entrySet()) {
-			out.append("key  : " + entry.getKey() + "\n");
-			out.append("value: " + entry.getValue());
+			out.append("key  : " + entry.getKey() + " | ");
+			out.append("value: " + entry.getValue() + "\n");
 		}
 		return out.toString();
 	}
