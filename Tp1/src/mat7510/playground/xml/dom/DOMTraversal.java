@@ -26,8 +26,9 @@ public class DOMTraversal {
 							 NodeProcessor processor, 
 							 NodeFilter filter) throws Exception {
 		
-		NodeIterator iter =
-			((DocumentTraversal)node.getOwnerDocument()).createNodeIterator(
+		Document doc = node.getNodeType() == Node.DOCUMENT_TYPE_NODE ? (Document)node : node.getOwnerDocument();
+		
+		NodeIterator iter = ((DocumentTraversal)doc).createNodeIterator(
 					node, 
 					NodeFilter.SHOW_ALL, 
 					filter, 

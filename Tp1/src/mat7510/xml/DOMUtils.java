@@ -147,7 +147,7 @@ public class DOMUtils implements java.io.Serializable {
 	 * @param out
 	 * @throws TransformerException
 	 */
-	public void printDomToXml(Document dom, OutputStream out) throws XmlException {
+	public void printDomToXml(Node dom, OutputStream out) throws XmlException {
 
 		try {
 			// Use a Transformer for output

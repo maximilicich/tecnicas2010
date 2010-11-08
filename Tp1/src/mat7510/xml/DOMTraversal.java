@@ -50,9 +50,11 @@ public class DOMTraversal {
 	 * @throws Exception
 	 */
 	public void traverseNode(Node node) throws XmlException {
-		
-		NodeIterator iter =
-			((DocumentTraversal)node.getOwnerDocument()).createNodeIterator(
+	
+		// Si el nodo ES un documento, getOwnerDocument() devuelve null =(
+		Document doc = node.getNodeType() == Node.DOCUMENT_NODE ? (Document)node : node.getOwnerDocument();
+
+		NodeIterator iter = ((DocumentTraversal)doc).createNodeIterator(
 					node, 
 					NodeFilter.SHOW_ALL, 
 					filter, 
