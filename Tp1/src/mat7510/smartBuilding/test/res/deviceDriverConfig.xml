@@ -8,4 +8,4 @@
 		<name>Mock 02 Device Driver</name>
 		<class>mat7510.smartBuilding.test.DeviceDriverMock02</class>
 	</deviceDriver>
-</deviceDrivers>
+</deviceDrivers> 

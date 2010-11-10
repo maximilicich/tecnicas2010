@@ -1,0 +1,4 @@
+Este ejemplo de GUI
+esta basado en el
+EJEMPLO DE MEDIATOR DE PANTALEO
+(orgTrabajo.zip @ http://materias.fi.uba.ar/7510/)

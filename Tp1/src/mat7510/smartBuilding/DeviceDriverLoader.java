@@ -13,6 +13,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
+ * Clase Singleton que se encarga de leer el archivo XML de configuracion
+ * de los Drivers de Dispositivos e instanciar para cada uno la Clase
+ * Correspondiente.
  * 
  * @author Grupo 10
  *
@@ -25,25 +28,49 @@ public class DeviceDriverLoader {
 	
 	/**
 	 * LOS TAGS XML
+	 * Son Publicos para que el Usuario pueda consultar y 
+	 * entender la estructura del XML de Configuracion
 	 */
-	private static final String DEVICE_DRIVERS_SECTION_TAG = "deviceDrivers";
-	private static final String DEVICE_DRIVER_ELEMENT_TAG = "deviceDriver";
-	private static final String DEVICE_DRIVER_ELEMENT_NAME_TAG = "name";
-	private static final String DEVICE_DRIVER_ELEMENT_CLASS_TAG = "class";
+	public static final String DEVICE_DRIVERS_SECTION_TAG = "deviceDrivers";
+	public static final String DEVICE_DRIVER_ELEMENT_TAG = "deviceDriver";
+	public static final String DEVICE_DRIVER_ELEMENT_NAME_TAG = "name";
+	public static final String DEVICE_DRIVER_ELEMENT_CLASS_TAG = "class";
 	
 	/**
-	 * 
-	 * @return
+	 * DeviceDriverLoader Es un Singleton
+	 *  
+	 * @return la instancia Singleton de la Clase
 	 */
 	public static DeviceDriverLoader getInstance() {
 		return instance;
 	}
 
 	/**
+	 * Este metodo recibe como unico parametro el InputStream
+	 * correspondiente al XML de Configuracion de los DeviceDrivers
+	 * Realiza el parseo del mismo (determinando si esta bien conformado)
+	 * E instancia porf Reflection a cada Driver segun la clase configurada en el XML 
 	 * 
-	 * @param xmlFile
-	 * @return
-	 * @throws SmartBuildingException
+	 * La estructura del XML debe ser
+	 * <DEVICE_DRIVERS_SECTION_TAG>
+	 * 		<DEVICE_DRIVER_ELEMENT_TAG>
+	 * 				<DEVICE_DRIVER_ELEMENT_NAME_TAG>
+	 * 					nombre (identificador) del device driver
+	 * 				</DEVICE_DRIVER_ELEMENT_NAME_TAG>
+	 * 				<DEVICE_DRIVER_ELEMENT_CLASS_TAG>
+	 * 					fully-qualified name de la Clase del Device Driver
+	 * 				</DEVICE_DRIVER_ELEMENT_CLASS_TAG>
+	 * 		</DEVICE_DRIVER_ELEMENT_TAG>
+	 * </DEVICE_DRIVERS_SECTION_TAG>
+	 * 
+	 * El valor de cada TAG puede consultarse como atributo estatico de esta clase
+	 * 
+	 * @param xml El XML de configuracion
+	 * 
+	 * @return Un Map cuya key es el nombre del Driver definido en el XML
+	 * Y el valor asociado es la instancia del Driver correspondiente.
+	 *  
+	 * @throws SmartBuildingException Excepcion general 
 	 */
 	public Map<String, DeviceDriver> getDeviceDrivers(InputStream xml) throws SmartBuildingException {
 		
@@ -58,12 +85,12 @@ public class DeviceDriverLoader {
 		}
 		
 		Element devDriversSection = getDeviceDriversSection(domXml);
-
+	
 		List<Element> devDriverElements = getDeviceDriverElements(devDriversSection);
 		
 		if (devDriverElements.isEmpty()) 
 			throw new SmartBuildingException("No existen Drivers de Dispositivos configurados en el XML");
-
+	
 		Map<String, DeviceDriver> map = new LinkedHashMap<String, DeviceDriver>();
 		
 		for (Element element : devDriverElements) {
@@ -76,7 +103,6 @@ public class DeviceDriverLoader {
 		
 	}
 
-	
 	/**
 	 * 
 	 * @param domXml
@@ -84,7 +110,7 @@ public class DeviceDriverLoader {
 	 * @throws SmartBuildingException
 	 */
 	private Element getDeviceDriversSection(Document domXml) throws SmartBuildingException {
-
+	
 		List<Element> devDriversSection = null;
 		
 		try {
@@ -102,7 +128,7 @@ public class DeviceDriverLoader {
 		}
 		
 		return devDriversSection.iterator().next();
-
+	
 	}
 
 	/**
