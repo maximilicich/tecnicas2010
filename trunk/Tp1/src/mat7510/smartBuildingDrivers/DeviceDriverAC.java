@@ -38,9 +38,6 @@ public class DeviceDriverAC implements DeviceDriver{
 		deviceActions.add(new DeviceActionACOff(this));
 		
 		deviceEvents = new ArrayList<DeviceEvent>();
-	    deviceEvents.add(null);
-	    deviceEvents.add(null);
-	    deviceEvents.add(null);
 	    
 	    listeners = new ArrayList<EventListener>();
 	    
@@ -71,7 +68,7 @@ public class DeviceDriverAC implements DeviceDriver{
 		
 	}
 	
-	public void setEvents( DeviceEvent deviceEvent ) {
+	public void setEvent( DeviceEvent deviceEvent ) {
 		
 		deviceEvents.add(deviceEvent);
 		
