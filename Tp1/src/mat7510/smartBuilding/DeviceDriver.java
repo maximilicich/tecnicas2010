@@ -2,6 +2,7 @@ package mat7510.smartBuilding;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mat7510.eventManagerApi.version2.EventListener;
 
@@ -65,5 +66,12 @@ public interface DeviceDriver {
 	 */
 	void addEventListener(EventListener eventListener);
 	
+	
+	/**
+	 * Metodo para obtener el conjunto de EventListeners suscriptos.
+	 * 
+	 * @return el Conjunto de EventListeners suscriptos. Si no hubiera, debe devolverse el Conjunto Vacio. NO null 
+	 */
+	Set<EventListener> getEventListeners();
 	
 }

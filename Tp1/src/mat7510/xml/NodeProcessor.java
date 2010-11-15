@@ -11,7 +11,11 @@ import org.w3c.dom.Node;
 public interface NodeProcessor {
 
 	/**
-	 * Procesa un Nodo DOM 
+	 * DocumentTraversal recorre un DOM y "procesa" cada nodo
+	 * recorrido, utilizando un NodeProcessor
+	 * Cada implementacion de NodeProcessor define el comportamiento
+	 * para "procesar" un Nodo DOM
+	 * 
 	 * @param node
 	 * @throws Exception 
 	 */
