@@ -1,12 +1,10 @@
 package mat7510.smartBuildingDriverDoor;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
@@ -17,35 +15,57 @@ import mat7510.smartBuilding.DeviceEvent;
  * @author Grupo 10
  *
  */
-public class DeviceDriverDoor implements DeviceDriver {
+public class DeviceDriverDoor extends DeviceDriver {
 
-	private Set<EventListener> eventListeners = new LinkedHashSet<EventListener>();
 	private Map<String, String> state = new LinkedHashMap<String, String>();
+	private List<DeviceAction> actions = new ArrayList<DeviceAction>();
+	private List<DeviceEvent> events = new ArrayList<DeviceEvent>();
 	
+	static final String ATTR_OPEN_STATE = "OpenState";
 	
-	public DeviceDriverDoor() {
+	static final String ATTR_VALUE_OPENED = "OPENED";
+	static final String ATTR_VALUE_CLOSED = "CLOSED";
+	
+	static final String ATTR_LOCK_STATE = "LockState";
+
+	static final String ATTR_VALUE_LOCKED = "LOCKED";
+	static final String ATTR_VALUE_UNLOCKED = "UNLOCKED";
+
+
+	
+	public DeviceDriverDoor(String deviceID, String deviceDescription) {
 		
-		this.state.put("OpenState", "CLOSED");
-		this.state.put("LockState", "LOCKED");
+		super(deviceID, deviceDescription);
+		
+		this.state.put(ATTR_OPEN_STATE, ATTR_VALUE_CLOSED);
+		this.state.put(ATTR_LOCK_STATE, ATTR_VALUE_LOCKED);
 
+		DeviceEventDoor deviceEventDoorOpened = new DeviceEventDoorOpened(this);
+		DeviceEventDoor deviceEventDoorClosed = new DeviceEventDoorClosed(this);
+		DeviceEventDoor deviceEventDoorLocked = new DeviceEventDoorLocked(this);
+		DeviceEventDoor deviceEventDoorUnlocked = new DeviceEventDoorUnlocked(this);
+		
+		this.events.add(deviceEventDoorOpened);
+		this.events.add(deviceEventDoorClosed);
+		this.events.add(deviceEventDoorLocked);
+		this.events.add(deviceEventDoorUnlocked);
+		
+		this.actions.add(new DeviceActionDoor(this, "Open Door", ATTR_OPEN_STATE, ATTR_VALUE_OPENED, deviceEventDoorOpened));
+		this.actions.add(new DeviceActionDoor(this, "Close Door", ATTR_OPEN_STATE, ATTR_VALUE_CLOSED, deviceEventDoorClosed));
+		this.actions.add(new DeviceActionDoor(this, "Lock Door", ATTR_LOCK_STATE, ATTR_VALUE_LOCKED, deviceEventDoorLocked));
+		this.actions.add(new DeviceActionDoor(this, "Unlock Door", ATTR_LOCK_STATE, ATTR_VALUE_UNLOCKED, deviceEventDoorUnlocked));
+		
 	}
+
 	
-	@Override
-	public void addEventListener(EventListener eventListener) {
-		eventListeners.add(eventListener);
-
-	}
-
 	@Override
 	public List<DeviceAction> getActions() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.actions;
 	}
 
 	@Override
 	public List<DeviceEvent> getEvents() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.events;
 	}
 
 	@Override
@@ -53,9 +73,5 @@ public class DeviceDriverDoor implements DeviceDriver {
 		return this.state;
 	}
 
-	@Override
-	public Set<EventListener> getEventListeners() {
-		return this.eventListeners;
-	}
 
 }

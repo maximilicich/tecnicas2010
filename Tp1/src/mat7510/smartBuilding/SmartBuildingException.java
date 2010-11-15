@@ -15,6 +15,10 @@ public class SmartBuildingException extends Exception {
 		super(string);
 	}
 
+	public SmartBuildingException(String string, Throwable e) {
+		super(string, e);
+	}
+
 	/**
 	 * 
 	 */

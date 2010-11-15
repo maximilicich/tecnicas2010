@@ -4,17 +4,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
 
-public class DeviceDriverMock01 implements DeviceDriver {
+public class DeviceDriverMock01 extends DeviceDriver {
 
-	@Override
-	public void addEventListener(EventListener eventListener) {
-		// TODO Auto-generated method stub
-
+	public DeviceDriverMock01(String deviceID, String deviceDescription) {
+		super(deviceID, deviceDescription);
 	}
 
 	@Override
@@ -38,5 +35,7 @@ public class DeviceDriverMock01 implements DeviceDriver {
 		state.put("Mock01 attr c", "Mock01 value c");
 		return state;
 	}
+
+
 
 }
