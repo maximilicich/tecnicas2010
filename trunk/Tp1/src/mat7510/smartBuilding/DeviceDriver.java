@@ -1,5 +1,6 @@
 package mat7510.smartBuilding;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +14,10 @@ import mat7510.eventManagerApi.version2.EventListener;
  * 
  * Este Driver generico interactua con la API controladora de Eventos (eventManagerAPI)
  * 
+ * Un Driver representa en el BAS a un único Dispositivo
+ * Por tanto el Driver debe ser creado a partir del ID y description 
+ * del Dispositivo (Device) al cual representa.
+ * 
  * Todo driver de dispositivo debe proveeer 
  * a) Las {@link mat7510.smartBuilding.DeviceAction acciones } que pueden realizarse sobre el dispositivo
  * b) Los {@link mat7510.smartBuilding.DeviceEvent eventos } que el dispositivo informa al entorno
@@ -20,8 +25,8 @@ import mat7510.eventManagerApi.version2.EventListener;
  * 	  de nombres de atributos y su valor actual correspondiente 
  * 	  Estos valores son siempre de tipo String
  * 
- *  Asimismo, debe asegurar un modo para suscribir uno o mas {@link EventListener mat7510.eventManagerApi.version2.EventListener } 
- *  Los cuales deberan recibir los Eventos emitidos por el dispositivo
+ *  El Driver provee un modo para suscribir uno o mas {@link EventListener mat7510.eventManagerApi.version2.EventListener } 
+ *  Los cuales recibiran los Eventos emitidos por el dispositivo
  *  
  *  El modo de ejecutar una accion sobre el dispositivo es:
  *  1. identificar la Accion a ejecutar en la lista devuelta por getActions() 
@@ -30,21 +35,87 @@ import mat7510.eventManagerApi.version2.EventListener;
  * @author Grupo 10 
  *
  */
-public interface DeviceDriver {
+public abstract class DeviceDriver {
 
+	/**
+	 * El ID del Device representado por este Driver
+	 * Este ID identificara univocamente al Device en el BAS
+	 * El BAS asegura que no se instancien dos Drivers con el mismo ID de Device
+	 * (sea cual fuere el tipo de Device).
+	 * 
+	 * Este ID es inherente al ambiente del BAS
+	 * (no es inherente a la implementacion de cada Driver)
+	 * El BAS, por configuracion, indicara el ID para cada DeviceDriver
+	 */
+	private String deviceID;
+	
+	/**
+	 * La descripcion del Device representado por este Driver
+	 * Esta descripcion es inherente al ambiente del BAS
+	 * (no es inherente a la implementacion de cada Driver)
+	 * El Sistema por configuracion podra dar una descripcion a cada DeviceDriver
+	 * para ser interpretada por el Usuario
+	 */
+	private String deviceDescription;
+	
+	/**
+	 * 
+	 */
+	private Set<EventListener> eventListeners = new LinkedHashSet<EventListener>();
+	
+	/**
+	 * Instanciar un DeviceDriver requiere OBLIGATORIAMENTE
+	 * especificar el ID y descripcion del Device representado
+	 * 
+	 * Estos ID y descripcion no podran ser modificados una vez creada la instancia
+	 * 
+	 * @param deviceID
+	 * @param deviceDescription
+	 */
+	public DeviceDriver(String deviceID, String deviceDescription) {
+		
+		if (deviceID == null || deviceID.trim().equalsIgnoreCase(""))
+			throw new IllegalArgumentException("Device ID must not be null");
+		this.deviceID = deviceID;
+		this.deviceDescription = deviceDescription;
+		
+	}
+	
+	/**
+	 * El ID de Device: Identifica univocamente al Device
+	 * asociado a esta instancia de Driver
+	 * (puede ser una MAC Address)
+
+	 * @return un String que representa el ID
+	 */
+	public String getDeviceID() {
+		return this.deviceID;
+	}
+
+	
+	/**
+	 * Una descripcion del Device asociado a esta instancia de Driver
+	 * 
+	 * @return la descripcion
+	 */
+	public String getDeviceDescription() {
+		return this.deviceDescription;
+	}
+	
+	
 	/**
 	 * Las {@link mat7510.smartBuilding.DeviceAction acciones } que pueden realizarse sobre el dispositivo
 	 * 
 	 * @return
 	 */
-	List<DeviceAction> getActions();
+	public abstract List<DeviceAction> getActions();
 	
 	/**
 	 * Los {@link mat7510.smartBuilding.DeviceEvent eventos } que el dispositivo informa al entorno
 	 * 
 	 * @return
 	 */
-	List<DeviceEvent> getEvents();
+	public abstract List<DeviceEvent> getEvents();
 	
 	/**
 	 * El estado actual del dispositivo: El estado se define por un conjunto 
@@ -55,7 +126,8 @@ public interface DeviceDriver {
 	 * en donde cada par ordenado corresponde a un atributo del dispositivo
 	 * 
 	 */
-	Map<String, String> getState();
+	public abstract Map<String, String> getState();
+	
 	
 	
 	/**
@@ -64,7 +136,9 @@ public interface DeviceDriver {
 	 *  
 	 * @param eventListener
 	 */
-	void addEventListener(EventListener eventListener);
+	public void addEventListener(EventListener eventListener) {
+		this.eventListeners.add(eventListener);
+	}
 	
 	
 	/**
@@ -72,6 +146,8 @@ public interface DeviceDriver {
 	 * 
 	 * @return el Conjunto de EventListeners suscriptos. Si no hubiera, debe devolverse el Conjunto Vacio. NO null 
 	 */
-	Set<EventListener> getEventListeners();
+	public Set<EventListener> getEventListeners() {
+		return this.eventListeners;
+	}
 	
 }

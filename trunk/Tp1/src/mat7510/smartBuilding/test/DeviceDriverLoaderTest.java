@@ -2,6 +2,7 @@ package mat7510.smartBuilding.test;
 
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Set;
 
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceDriverLoader;
@@ -21,14 +22,15 @@ public class DeviceDriverLoaderTest {
 		
 		// DOMUtils.getInstance().printDomToXml(DOMUtils.getInstance().getDocument(xml), System.out);
 		
-		Map<String, DeviceDriver> devDrivers = 
+		Set<DeviceDriver> devDrivers = 
 			DeviceDriverLoader.getInstance().getDeviceDrivers(xml);
 
-		for (Map.Entry<String, DeviceDriver> entry : devDrivers.entrySet()) {
+		for (DeviceDriver devDriver : devDrivers) {
 			System.out.println("DRIVER");
-			System.out.println("Name : " + entry.getKey());
-			System.out.println("State: ");
-			System.out.println(formatState(entry.getValue()));
+			System.out.println("Device ID          : " + devDriver.getDeviceID());
+			System.out.println("Device Description : " + devDriver.getDeviceDescription());
+			System.out.println("State              : ");
+			System.out.println(formatState(devDriver));
 			System.out.println("");
 		}
 		

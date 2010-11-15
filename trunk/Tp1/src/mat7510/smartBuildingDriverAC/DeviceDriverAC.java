@@ -6,22 +6,23 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
 
-public class DeviceDriverAC implements DeviceDriver{
+public class DeviceDriverAC extends DeviceDriver {
 	
 	private List<DeviceAction> deviceActions;
 	private List<DeviceEvent>  deviceEvents;
 	private Map<String,String> stateMap;
-	private List<EventListener> listeners;
 	private String tempMax;
 	private String tempMin;
 	
 	
-	public DeviceDriverAC(){
+	
+	public DeviceDriverAC(String deviceID, String deviceDescription) {
+		
+		super(deviceID, deviceDescription);
 		
 		stateMap = new LinkedHashMap<String, String>();
 		stateMap.put("FuncAc", "FR");
@@ -38,8 +39,6 @@ public class DeviceDriverAC implements DeviceDriver{
 		deviceActions.add(new DeviceActionACOff(this));
 		
 		deviceEvents = new ArrayList<DeviceEvent>();
-	    
-	    listeners = new ArrayList<EventListener>();
 	    
 	    tempMax = "28";
 	    tempMin = "17";
@@ -80,12 +79,6 @@ public class DeviceDriverAC implements DeviceDriver{
 		
 	}
 	
-	@Override
-	public void addEventListener(EventListener eventListener) {
-		
-		this.listeners.add(eventListener);
-		
-	}
 	
 	public String getTempMax(){
 		return tempMax;

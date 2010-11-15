@@ -12,20 +12,21 @@ import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
 
-public class DeviceDriverLights implements DeviceDriver{
-	
+public class DeviceDriverLights extends DeviceDriver {
+
 	private List<DeviceAction> deviceActions;
 	private List<DeviceEvent>  deviceEvents;
 	private Map<String,String> stateMap;
-	private List<EventListener> listeners;
-	
-	
-	public DeviceDriverLights(){
-		
+
+
+	public DeviceDriverLights(String deviceID, String deviceDescription) {
+
+		super(deviceID, deviceDescription);
+
 		stateMap = new LinkedHashMap<String, String>();
 		stateMap.put("FuncLights", "Normal");
 		stateMap.put("EncendidoLights", "ON");
-		
+
 		deviceActions = new ArrayList<DeviceAction>();
 		deviceActions.add(new DeviceActionLightsFuncRelax(this));
 		deviceActions.add(new DeviceActionLightsFuncParty(this));
@@ -33,12 +34,9 @@ public class DeviceDriverLights implements DeviceDriver{
 		deviceActions.add(new DeviceActionLightsFuncNormal(this));
 		deviceActions.add(new DeviceActionLightsOn(this));
 		deviceActions.add(new DeviceActionLightsOff(this));
-		
+
 		deviceEvents = new ArrayList<DeviceEvent>();
-	    
-	    listeners = new ArrayList<EventListener>();
-	    
-		
+
 	}
 
 	@Override
@@ -56,32 +54,23 @@ public class DeviceDriverLights implements DeviceDriver{
 		return stateMap;
 	}
 
-	
-	public void setAction( DeviceAction deviceAction ) {
-		
-		deviceActions.add(deviceAction);
-		
-	}
-	
-	public void setEvent( DeviceEvent deviceEvent ) {
-		
-		deviceEvents.add(deviceEvent);
-		
-	}
-	
-	public void setMapEntry ( String key, String value ) {
-		
-		stateMap.put(key, value);
-		
-	}
-	
-	@Override
-	public void addEventListener(EventListener eventListener) {
-		
-		this.listeners.add(eventListener);
-		
-	}
-	
 
+	public void setAction( DeviceAction deviceAction ) {
+
+		deviceActions.add(deviceAction);
+
+	}
+
+	public void setEvent( DeviceEvent deviceEvent ) {
+
+		deviceEvents.add(deviceEvent);
+
+	}
+
+	public void setMapEntry ( String key, String value ) {
+
+		stateMap.put(key, value);
+
+	}
 
 }
