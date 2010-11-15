@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
@@ -86,6 +88,12 @@ public class DeviceDriverAC extends DeviceDriver {
 	
 	public String getTempMin(){
 		return tempMin;
+	}
+
+	@Override
+	public Set<EventListener> getEventListeners() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

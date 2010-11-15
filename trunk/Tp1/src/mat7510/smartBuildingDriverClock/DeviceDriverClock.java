@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
 
-public class DeviceDriverClock implements DeviceDriver{
+public class DeviceDriverClock extends DeviceDriver{
 	
 	private List<DeviceAction> deviceActions;
 	private List<DeviceEvent>  deviceEvents;
@@ -18,7 +19,9 @@ public class DeviceDriverClock implements DeviceDriver{
 	private List<EventListener> listeners;
 	
 	
-	public DeviceDriverClock(){
+	public DeviceDriverClock(String deviceID, String deviceDescription){
+		
+		super(deviceID, deviceDescription);
 		
 		stateMap = new LinkedHashMap<String, String>();
 		stateMap.put("DayTime", "Mañana");
@@ -34,17 +37,14 @@ public class DeviceDriverClock implements DeviceDriver{
 		
 	}
 
-	@Override
 	public List<DeviceAction> getActions() {
 		return deviceActions;
 	}
 
-	@Override
 	public List<DeviceEvent> getEvents() {
 		return deviceEvents;
 	}
 
-	@Override
 	public Map<String, String> getState() {
 		return stateMap;
 	}
@@ -73,6 +73,12 @@ public class DeviceDriverClock implements DeviceDriver{
 		
 		this.listeners.add(eventListener);
 		
+	}
+
+	@Override
+	public Set<EventListener> getEventListeners() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
