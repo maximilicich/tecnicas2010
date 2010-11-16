@@ -21,7 +21,7 @@ implements ListSelectionListener
 	{
 		super(20);
 		// kdata = new KidData ("c:\\trabajo\\patterns\\comportamiento\\PattComportamiento\\mediator\\50free.txt");
-		kdata = new DriverData ("res/drivers_gui.txt");
+		kdata = new DriverData ("/home/sergio/Escritorio/Facu/Tecnicas/Tp/tecnicas2010/Tp1/src/res/drivers_gui.txt");
 		fillDriversList();
 		med = md;
 		med.registerKidList(this);
