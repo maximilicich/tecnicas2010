@@ -6,9 +6,13 @@ import java.util.Map;
 public class DeviceActionACTempUp extends DeviceActionACTemp{
 	
 
-	public DeviceActionACTempUp ( DeviceDriverAC deviceDriverAC){
-		super(deviceDriverAC);
+	public DeviceActionACTempUp(DeviceDriverAC deviceDriverAC,
+								String actionName,
+								String attr, 
+								String value, 
+								DeviceEventAC event) {
 		
+		super(deviceDriverAC, actionName, attr, value, event);
 	}
 
 	@Override

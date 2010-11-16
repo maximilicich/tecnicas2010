@@ -5,45 +5,55 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
 
 public class DeviceDriverAC extends DeviceDriver {
 	
-	private List<DeviceAction> deviceActions;
-	private List<DeviceEvent>  deviceEvents;
-	private Map<String,String> stateMap;
-	private String tempMax;
-	private String tempMin;
+	private List<DeviceAction> deviceActions = new ArrayList<DeviceAction>();
+	private List<DeviceEvent>  deviceEvents = new ArrayList<DeviceEvent>();
+	private Map<String,String> stateMap = new LinkedHashMap<String, String>();
 	
+	static final String TEMP_MAX = "28";
+	static final String TEMP_MIN = "17";
 	
+	static final String ATTR_FUNC_AC = "FUNCTION";
+	static final String ATTR_TEMP_AC = "TEMP";
+	static final String ATTR_STATE_AC = "STATE AC";
 	
 	public DeviceDriverAC(String deviceID, String deviceDescription) {
 		
 		super(deviceID, deviceDescription);
 		
-		stateMap = new LinkedHashMap<String, String>();
-		stateMap.put("FuncAc", "FR");
-		stateMap.put("EncendidoAC", "OFF");
-		stateMap.put("TempAc", "20");
+		stateMap.put(ATTR_FUNC_AC , "FR" );
+		stateMap.put(ATTR_TEMP_AC , "OFF");
+		stateMap.put(ATTR_STATE_AC, "20" );
 		
-		deviceActions = new ArrayList<DeviceAction>();
-		deviceActions.add(new DeviceActionACTempUp(this));
-		deviceActions.add(new DeviceActionACTempDown(this));
-		deviceActions.add(new DeviceActionACFuncFR(this));
-		deviceActions.add(new DeviceActionACFuncCL(this));
-		deviceActions.add(new DeviceActionACFuncVT(this));
-		deviceActions.add(new DeviceActionACOn(this));
-		deviceActions.add(new DeviceActionACOff(this));
+		DeviceEventAC deviceEventTempACUp   = new DeviceEventTempACUp(this);
+		DeviceEventAC deviceEventTempACDown = new DeviceEventTempACDown(this);
+		DeviceEventAC deviceEventACFuncFR   = new DeviceEventACFuncFR(this);
+		DeviceEventAC deviceEventACFuncCL   = new DeviceEventACFuncCL(this);
+		DeviceEventAC deviceEventACFuncVT   = new DeviceEventACFuncVT(this);
+		DeviceEventAC deviceEventACOn 		= new DeviceEventACOn(this);
+		DeviceEventAC deviceEventACOff	    = new DeviceEventACOff(this);
 		
-		deviceEvents = new ArrayList<DeviceEvent>();
-	    
-	    tempMax = "28";
-	    tempMin = "17";
+		this.deviceEvents.add(deviceEventTempACUp);
+		this.deviceEvents.add(deviceEventTempACDown);
+		this.deviceEvents.add(deviceEventACFuncFR);
+		this.deviceEvents.add(deviceEventACFuncCL);
+		this.deviceEvents.add(deviceEventACFuncVT);
+		this.deviceEvents.add(deviceEventACOn);
+		this.deviceEvents.add(deviceEventACOff);
+		
+		deviceActions.add(new DeviceActionACTempUp(this, "TEMP UP AC", ATTR_TEMP_AC,"20",deviceEventTempACUp));
+		deviceActions.add(new DeviceActionACTempDown(this,"TEMP DOWN AC", ATTR_TEMP_AC,"20",deviceEventTempACDown));
+		deviceActions.add(new DeviceActionACFuncFR(this, "FUNCTION AC COLD", ATTR_FUNC_AC,"FR",deviceEventACFuncFR));
+		deviceActions.add(new DeviceActionACFuncCL(this,"FUNCTION AC WARM", ATTR_FUNC_AC,"CL",deviceEventACFuncCL));
+		deviceActions.add(new DeviceActionACFuncVT(this, "FUNCTION AC VENT", ATTR_FUNC_AC,"VT",deviceEventACFuncVT));
+		deviceActions.add(new DeviceActionACOn(this,"TURN ON AC", ATTR_STATE_AC,"ON",deviceEventACOn));
+		deviceActions.add(new DeviceActionACOff(this, "TURN OFF AC", ATTR_STATE_AC,"OFF",deviceEventACOff));
 		
 	}
 
@@ -83,17 +93,11 @@ public class DeviceDriverAC extends DeviceDriver {
 	
 	
 	public String getTempMax(){
-		return tempMax;
+		return TEMP_MAX;
 	}
 	
 	public String getTempMin(){
-		return tempMin;
-	}
-
-	@Override
-	public Set<EventListener> getEventListeners() {
-		// TODO Auto-generated method stub
-		return null;
+		return TEMP_MIN;
 	}
 
 }

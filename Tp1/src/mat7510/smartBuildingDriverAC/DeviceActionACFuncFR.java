@@ -1,17 +1,20 @@
 package mat7510.smartBuildingDriverAC;
 
-
 public class DeviceActionACFuncFR extends DeviceActionACFunc {
 
-	public DeviceActionACFuncFR(DeviceDriverAC deviceDriverAC) {
-		super(deviceDriverAC);
-	}
+	public DeviceActionACFuncFR(DeviceDriverAC deviceDriverAC,
+								String actionName,
+								String attr,
+								String value,
+								DeviceEventAC event) {
 
+		super(deviceDriverAC, actionName, attr, value, event);
+	}
 
 	@Override
 	public void changeACFunc( ) {
-	
-		getDeviceDriverAC().setMapEntry("FuncAC", "FR");	
+
+		getDeviceDriverAC().setMapEntry(this.getAttr(),this.getValue());		
 	}
 
 }

@@ -13,27 +13,34 @@ import mat7510.smartBuilding.DeviceEvent;
 
 public class DeviceDriverClock extends DeviceDriver{
 	
-	private List<DeviceAction> deviceActions;
-	private List<DeviceEvent>  deviceEvents;
-	private Map<String,String> stateMap;
-	private List<EventListener> listeners;
+	private List<DeviceAction> deviceActions = new ArrayList<DeviceAction>();
+	private List<DeviceEvent>  deviceEvents	 = new ArrayList<DeviceEvent>(); 
+	private Map<String,String> stateMap		 = new LinkedHashMap<String, String>();
+	private List<EventListener> listeners	 = new ArrayList<EventListener>();
 	
+	static final String ATTR_TIME_STATE = "DAY_TIME";
+	static final String ATTR_VALUE_MOORNING = "MOORNING";
+	static final String ATTR_VALUE_AFTERNOON = "AFTERNOON";
+	static final String ATTR_VALUE_EVENING = "EVENING";
+
 	
 	public DeviceDriverClock(String deviceID, String deviceDescription){
 		
 		super(deviceID, deviceDescription);
 		
-		stateMap = new LinkedHashMap<String, String>();
 		stateMap.put("DayTime", "Mañana");
 		
-		deviceActions = new ArrayList<DeviceAction>();
-		deviceActions.add(new DeviceActionClockMoorning(this));
-		deviceActions.add(new DeviceActionClockAfternoon(this));
-		deviceActions.add(new DeviceActionClockEvening(this));
-		deviceEvents = new ArrayList<DeviceEvent>();
-	    
-	    listeners = new ArrayList<EventListener>();
-	    
+		DeviceEventClock deviceEventClockMoorning  = new DeviceEventClockMoorning(this);
+		DeviceEventClock deviceEventClockAfternoon = new DeviceEventClockAfternoon(this);
+		DeviceEventClock deviceEventClockEvening   = new DeviceEventClockEvening(this);
+		
+		this.deviceEvents.add(deviceEventClockMoorning);
+		this.deviceEvents.add(deviceEventClockAfternoon);
+		this.deviceEvents.add(deviceEventClockEvening);
+		
+		this.deviceActions.add(new DeviceActionClockMoorning(this, "Day Time", ATTR_TIME_STATE, ATTR_VALUE_MOORNING, deviceEventClockMoorning));
+		this.deviceActions.add(new DeviceActionClockAfternoon(this, "Day Time", ATTR_TIME_STATE, ATTR_VALUE_AFTERNOON, deviceEventClockAfternoon));
+		this.deviceActions.add(new DeviceActionClockEvening(this, "Day Time", ATTR_TIME_STATE, ATTR_VALUE_EVENING, deviceEventClockEvening));
 		
 	}
 
