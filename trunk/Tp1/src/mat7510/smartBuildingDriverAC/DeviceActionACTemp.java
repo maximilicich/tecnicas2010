@@ -11,12 +11,25 @@ public abstract class DeviceActionACTemp implements DeviceAction{
 	private DeviceDriverAC deviceDriverAC;
 	private String actionName;
 	
+	private String attr;
+	private String value;
+	private DeviceEventAC event;
+
 	
-	public DeviceActionACTemp ( DeviceDriverAC deviceDriverAC){
-		
-		this.setDeviceDriverAC(deviceDriverAC);
-		actionName = "TempAc";
-		
+	public DeviceActionACTemp ( DeviceDriverAC deviceDriverAC, 
+			String actionName, 
+			String attr,
+			String value,
+			DeviceEventAC event) {
+
+		if (deviceDriverAC == null) 
+			throw new NullPointerException("AC can´t be null");
+
+		this.deviceDriverAC = deviceDriverAC;
+		this.actionName = actionName;
+		this.setAttr(attr);
+		this.setValue(value);
+		this.setEvent(event);
 	}
 
 	@Override
@@ -47,6 +60,30 @@ public abstract class DeviceActionACTemp implements DeviceAction{
 
 	public DeviceDriverAC getDeviceDriverAC() {
 		return deviceDriverAC;
+	}
+
+	public void setAttr(String attr) {
+		this.attr = attr;
+	}
+
+	public String getAttr() {
+		return attr;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setEvent(DeviceEventAC event) {
+		this.event = event;
+	}
+
+	public DeviceEventAC getEvent() {
+		return event;
 	}
 
 }

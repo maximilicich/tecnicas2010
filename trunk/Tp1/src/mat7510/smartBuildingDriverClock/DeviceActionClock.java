@@ -8,10 +8,23 @@ public abstract class DeviceActionClock implements DeviceAction{
 	private DeviceDriverClock deviceDriverClock;
 	private String actionName;
 	
-	public DeviceActionClock ( DeviceDriverClock deviceDriverClock){
+	private String attr;
+	private String value;
+	private DeviceEventClock event;
+	
+	public DeviceActionClock ( DeviceDriverClock deviceDriverClock,
+								String actionName, 
+								String attr,
+								String value,
+								DeviceEventClock event) {
 		
-		this.setDeviceDriverClock(deviceDriverClock);
-		actionName = "DayTime";
+		if (deviceDriverClock == null) 
+			throw new NullPointerException("Clock can´t be null");
+		this.deviceDriverClock = deviceDriverClock;
+		this.actionName = actionName;
+		this.attr = attr;
+		this.value = value;
+		this.event = event;
 		
 	}
 	
@@ -33,6 +46,30 @@ public abstract class DeviceActionClock implements DeviceAction{
 
 	public DeviceDriverClock getDeviceDriverClock() {
 		return deviceDriverClock;
+	}
+
+	public void setAttr(String attr) {
+		this.attr = attr;
+	}
+
+	public String getAttr() {
+		return attr;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setEvent(DeviceEventClock event) {
+		this.event = event;
+	}
+
+	public DeviceEventClock getEvent() {
+		return event;
 	}
 
 

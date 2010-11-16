@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 
 public abstract class DeviceActionACFunc implements DeviceAction{
@@ -12,10 +13,24 @@ public abstract class DeviceActionACFunc implements DeviceAction{
 	private DeviceDriverAC deviceDriverAC;
 	private String actionName;
 	
-	public DeviceActionACFunc ( DeviceDriverAC deviceDriverAC){
+	private String attr;
+	private String value;
+	private DeviceEventAC event;
+	
+	
+	public DeviceActionACFunc ( DeviceDriverAC deviceDriverAC, 
+								String actionName, 
+								String attr,
+								String value,
+								DeviceEventAC event) {
+		if (deviceDriverAC == null) 
+			throw new NullPointerException("AC can´t be null");
 		
-		this.setDeviceDriverAC(deviceDriverAC);
-		actionName = "FuncAc";
+		this.deviceDriverAC = deviceDriverAC;
+		this.actionName = actionName;
+		this.setAttr(attr);
+		this.setValue(value);
+		this.event = event;
 		
 	}
 	
@@ -30,6 +45,11 @@ public abstract class DeviceActionACFunc implements DeviceAction{
 			Map.Entry<String, String> elem = (Map.Entry<String, String>)itStateMap.next();
 			if ( this.getActionName() == elem.getKey()){
 				changeACFunc();
+
+				for (EventListener listener : deviceDriverAC.getEventListeners()) {
+					listener.eventOccurred(event);
+				}
+				
 			}
 		}
 	
@@ -48,6 +68,22 @@ public abstract class DeviceActionACFunc implements DeviceAction{
 
 	public DeviceDriverAC getDeviceDriverAC() {
 		return deviceDriverAC;
+	}
+
+	public void setAttr(String attr) {
+		this.attr = attr;
+	}
+
+	public String getAttr() {
+		return attr;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
 	}
 
 
