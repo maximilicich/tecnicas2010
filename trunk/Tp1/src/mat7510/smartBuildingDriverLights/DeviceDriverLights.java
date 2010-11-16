@@ -7,35 +7,55 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.DeviceAction;
 import mat7510.smartBuilding.DeviceDriver;
 import mat7510.smartBuilding.DeviceEvent;
 
 public class DeviceDriverLights extends DeviceDriver {
 
-	private List<DeviceAction> deviceActions;
-	private List<DeviceEvent>  deviceEvents;
-	private Map<String,String> stateMap;
+	private List<DeviceAction> deviceActions = new ArrayList<DeviceAction>();
+	private List<DeviceEvent>  deviceEvents  = new ArrayList<DeviceEvent>();
+	private Map<String,String> stateMap = new LinkedHashMap<String, String>();
 
-
+	static final String ATTR_STATE_FUNCTION = "FUNCTION_LIGHTS";
+	static final String ATTR_STATE_LIGHTS = "LIGHTS_STATE_ON/OFF";
+	
+	static final String ATTR_VALUE_ON = "ON";
+	static final String ATTR_VALUE_OFF = "OFF";
+	
+	static final String ATTR_VALUE_NORMAL = "NORMAL";
+	static final String ATTR_VALUE_RELAX = "RELAX";
+	static final String ATTR_VALUE_PARTY = "PARTY";
+	static final String ATTR_VALUE_ROMANTIC = "ROMANTIC";
+	
 	public DeviceDriverLights(String deviceID, String deviceDescription) {
 
 		super(deviceID, deviceDescription);
 
-		stateMap = new LinkedHashMap<String, String>();
-		stateMap.put("FuncLights", "Normal");
-		stateMap.put("EncendidoLights", "ON");
+		stateMap.put(ATTR_STATE_FUNCTION, ATTR_VALUE_NORMAL);
+		stateMap.put(ATTR_STATE_LIGHTS, ATTR_VALUE_ON );
 
-		deviceActions = new ArrayList<DeviceAction>();
-		deviceActions.add(new DeviceActionLightsFuncRelax(this));
-		deviceActions.add(new DeviceActionLightsFuncParty(this));
-		deviceActions.add(new DeviceActionLightsFuncRomantic(this));
-		deviceActions.add(new DeviceActionLightsFuncNormal(this));
-		deviceActions.add(new DeviceActionLightsOn(this));
-		deviceActions.add(new DeviceActionLightsOff(this));
-
-		deviceEvents = new ArrayList<DeviceEvent>();
+		
+		DeviceEventLights deviceEventLigthsON 			= new DeviceEventLigthsON(this);
+		DeviceEventLights deviceEventLigthsOFF			= new DeviceEventLigthsOFF(this);
+		DeviceEventLights deviceEventLigthsFuncNormal 	= new DeviceEventLigthsFuncNormal(this);
+		DeviceEventLights deviceEventLigthsFuncRelax 	= new DeviceEventLigthsFuncRelax(this);
+		DeviceEventLights deviceEventLigthsFuncParty 	= new DeviceEventLigthsFuncParty(this);
+		DeviceEventLights deviceEventLigthsFuncRomantic = new deviceEventLigthsFuncRomantic(this);
+		
+		this.deviceEvents.add(deviceEventLigthsON);
+		this.deviceEvents.add(deviceEventLigthsOFF);
+		this.deviceEvents.add(deviceEventLigthsFuncNormal);
+		this.deviceEvents.add(deviceEventLigthsFuncRelax);
+		this.deviceEvents.add(deviceEventLigthsFuncParty);
+		this.deviceEvents.add(deviceEventLigthsFuncRomantic);
+		
+		this.deviceActions.add(new DeviceActionLightsOn(this, "Lights On", ATTR_STATE_LIGHTS, ATTR_VALUE_ON, deviceEventLigthsON));
+		this.deviceActions.add(new DeviceActionLightsOff(this, "Lights Off", ATTR_STATE_LIGHTS, ATTR_VALUE_OFF, deviceEventLigthsOFF));
+		this.deviceActions.add(new DeviceActionLightsFuncNormal(this, "Function Lights Normal", ATTR_STATE_FUNCTION, ATTR_VALUE_NORMAL, deviceEventLigthsFuncNormal));
+		this.deviceActions.add(new DeviceActionLightsFuncRelax(this, "Function Lights Relax", ATTR_STATE_FUNCTION, ATTR_VALUE_RELAX, deviceEventLigthsFuncRelax));
+		this.deviceActions.add(new DeviceActionLightsFuncParty(this, "Function Lights Party", ATTR_STATE_FUNCTION, ATTR_VALUE_PARTY, deviceEventLigthsFuncParty));
+		this.deviceActions.add(new DeviceActionLightsFuncRomantic(this, "Function Lights Romantic", ATTR_STATE_FUNCTION, ATTR_VALUE_ROMANTIC, deviceEventLigthsFuncRomantic));
 
 	}
 
