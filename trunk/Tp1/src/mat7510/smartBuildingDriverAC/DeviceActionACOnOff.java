@@ -46,7 +46,7 @@ public abstract class DeviceActionACOnOff implements DeviceAction {
 
 		while (itStateMap.hasNext()) {
 			Map.Entry<String, String> elem = (Map.Entry<String, String>)itStateMap.next();
-			if ( this.getActionName() == elem.getKey() ){
+			if ( this.getAttr() == elem.getKey() ){
 				changeOnOff();
 				
 				for (EventListener listener : deviceDriverAC.getEventListeners()) {

@@ -50,12 +50,12 @@ public class DeviceDriverLights extends DeviceDriver {
 		this.deviceEvents.add(deviceEventLigthsFuncParty);
 		this.deviceEvents.add(deviceEventLigthsFuncRomantic);
 		
-		this.deviceActions.add(new DeviceActionLightsOn(this, "Lights On", ATTR_STATE_LIGHTS, ATTR_VALUE_ON, deviceEventLigthsON));
-		this.deviceActions.add(new DeviceActionLightsOff(this, "Lights Off", ATTR_STATE_LIGHTS, ATTR_VALUE_OFF, deviceEventLigthsOFF));
-		this.deviceActions.add(new DeviceActionLightsFuncNormal(this, "Function Lights Normal", ATTR_STATE_FUNCTION, ATTR_VALUE_NORMAL, deviceEventLigthsFuncNormal));
-		this.deviceActions.add(new DeviceActionLightsFuncRelax(this, "Function Lights Relax", ATTR_STATE_FUNCTION, ATTR_VALUE_RELAX, deviceEventLigthsFuncRelax));
-		this.deviceActions.add(new DeviceActionLightsFuncParty(this, "Function Lights Party", ATTR_STATE_FUNCTION, ATTR_VALUE_PARTY, deviceEventLigthsFuncParty));
-		this.deviceActions.add(new DeviceActionLightsFuncRomantic(this, "Function Lights Romantic", ATTR_STATE_FUNCTION, ATTR_VALUE_ROMANTIC, deviceEventLigthsFuncRomantic));
+		this.deviceActions.add(new DeviceActionLightsOn(this,deviceEventLigthsON));
+		this.deviceActions.add(new DeviceActionLightsOff(this,deviceEventLigthsOFF));
+		this.deviceActions.add(new DeviceActionLightsFuncNormal(this,deviceEventLigthsFuncNormal));
+		this.deviceActions.add(new DeviceActionLightsFuncRelax(this,deviceEventLigthsFuncRelax));
+		this.deviceActions.add(new DeviceActionLightsFuncParty(this,deviceEventLigthsFuncParty));
+		this.deviceActions.add(new DeviceActionLightsFuncRomantic(this,deviceEventLigthsFuncRomantic));
 
 	}
 

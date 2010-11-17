@@ -3,12 +3,13 @@ package mat7510.smartBuildingDriverClock;
 
 public class DeviceActionClockMoorning extends DeviceActionClock {
 
+
+	static final String actionName = "CHANGE_CLOCK_MOORNING";
+	static final String attr = "DAY_TIME"; 
+	static final String value = "MOORNING"; 
 	
-	public DeviceActionClockMoorning(DeviceDriverClock deviceDriverClock,
-									String actionName,
-									String attr,
-									String value,
-									DeviceEventClock event) {
+	
+	public DeviceActionClockMoorning(DeviceDriverClock deviceDriverClock,DeviceEventClock event) {
 		super(deviceDriverClock, actionName, attr, value, event);
 	}
 

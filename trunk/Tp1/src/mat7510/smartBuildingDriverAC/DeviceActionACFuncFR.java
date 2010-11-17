@@ -2,12 +2,11 @@ package mat7510.smartBuildingDriverAC;
 
 public class DeviceActionACFuncFR extends DeviceActionACFunc {
 
-	public DeviceActionACFuncFR(DeviceDriverAC deviceDriverAC,
-								String actionName,
-								String attr,
-								String value,
-								DeviceEventAC event) {
-
+	static final String actionName = "FUNCTION AC COLD";
+	static final String attr = "FUNCTION"; 
+	static final String value = "FR"; 
+	
+	public DeviceActionACFuncFR(DeviceDriverAC deviceDriverAC,DeviceEventAC event) {
 		super(deviceDriverAC, actionName, attr, value, event);
 	}
 

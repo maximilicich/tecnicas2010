@@ -5,13 +5,11 @@ import java.util.Map;
 
 public class DeviceActionACTempUp extends DeviceActionACTemp{
 	
-
-	public DeviceActionACTempUp(DeviceDriverAC deviceDriverAC,
-								String actionName,
-								String attr, 
-								String value, 
-								DeviceEventAC event) {
-		
+	static final String actionName = "TEMP UP AC";
+	static final String attr = "TEMP"; 
+	static final String value = "20"; 
+	
+	public DeviceActionACTempUp(DeviceDriverAC deviceDriverAC,DeviceEventAC event) {
 		super(deviceDriverAC, actionName, attr, value, event);
 	}
 
@@ -20,9 +18,9 @@ public class DeviceActionACTempUp extends DeviceActionACTemp{
 		
 		String value;
 		
-		if ( this.getActionName() == mapEntry.getKey() && mapEntry.getValue() != getDeviceDriverAC().getTempMax()){
+		if ( this.getAttr() == mapEntry.getKey() && mapEntry.getValue() != getDeviceDriverAC().getTempMax()){
 			 value = String.valueOf(Integer.parseInt(mapEntry.getValue()) + 1);
-			 getDeviceDriverAC().setMapEntry(getActionName(), value);
+			 getDeviceDriverAC().setMapEntry(getAttr(), value);
 		}
 	}
 	

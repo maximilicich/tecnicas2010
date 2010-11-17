@@ -2,13 +2,13 @@ package mat7510.smartBuildingDriverLights;
 
 
 public class DeviceActionLightsFuncNormal extends DeviceActionLightsFunc {
+	
+	static final String actionName = "Function Lights Normal";
+	static final String attr = "FUNCTION_LIGHTS"; 
+	static final String value = "NORMAL"; 
+	
 
-	public DeviceActionLightsFuncNormal(DeviceDriverLights deviceDriverLights,
-										String actionName,
-										String attr,
-										String value,
-										DeviceEventLights event) {
-		
+	public DeviceActionLightsFuncNormal(DeviceDriverLights deviceDriverLights,DeviceEventLights event) {
 		super(deviceDriverLights, actionName, attr, value, event);
 	}
 

@@ -2,13 +2,11 @@ package mat7510.smartBuildingDriverClock;
 
 public class DeviceActionClockEvening extends DeviceActionClock {
 
-
-
-	public DeviceActionClockEvening(DeviceDriverClock deviceDriverClock,
-									String actionName,
-									String attr,
-									String value, 
-									DeviceEventClock event) {
+	static final String actionName = "CHANGE_CLOCK_EVENING";
+	static final String attr = "DAY_TIME"; 
+	static final String value = "EVENING"; 
+	
+	public DeviceActionClockEvening(DeviceDriverClock deviceDriverClock,DeviceEventClock event) {
 		super(deviceDriverClock, actionName, attr, value, event);
 	}
 

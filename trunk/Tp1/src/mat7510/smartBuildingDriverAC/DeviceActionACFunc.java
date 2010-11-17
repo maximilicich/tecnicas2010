@@ -43,7 +43,7 @@ public abstract class DeviceActionACFunc implements DeviceAction{
 		
 		while (itStateMap.hasNext()) {
 			Map.Entry<String, String> elem = (Map.Entry<String, String>)itStateMap.next();
-			if ( this.getActionName() == elem.getKey()){
+			if ( this.getAttr() == elem.getKey()){
 				changeACFunc();
 
 				for (EventListener listener : deviceDriverAC.getEventListeners()) {
