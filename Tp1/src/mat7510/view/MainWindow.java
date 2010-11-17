@@ -21,7 +21,7 @@ public class MainWindow extends JFrame{
 
    static public void main(String argv[]){
         MainWindow mainWindow = new MainWindow();     
-	mainWindow.mediador.showWindow();
+	mainWindow.mediador.showWindow();        
     }
 
 }
