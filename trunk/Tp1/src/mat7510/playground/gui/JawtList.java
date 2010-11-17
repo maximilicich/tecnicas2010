@@ -1,21 +1,12 @@
 package mat7510.playground.gui;
 
-import java.awt.*;
-import java.awt.event.*;
+
 import java.util.*;
-//swing classes
-import javax.swing.text.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.tree.*;
-import javax.swing.border.*;
 
-//this is a simple adapter class to
-//convert List awt methods to Swing methods
 
-public class JawtList extends JScrollPane 
-   implements ListSelectionListener, awtList
-{
+public class JawtList extends JScrollPane implements ListSelectionListener, awtList{
    private JList listWindow;
    private JListData listContents;
 //-----------------------------------------

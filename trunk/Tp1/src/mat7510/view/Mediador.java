@@ -15,6 +15,10 @@ import javax.swing.border.*;
  */
 public class Mediador {
     MainFrame mainFrame;
+    ListPanel driversListPanel;
+    ListPanel stateListPanel;
+    ListPanel actionListPanel;
+    ListPanel eventListPanel;
 
     public Mediador(){
         mainFrame = new MainFrame();
@@ -31,13 +35,14 @@ public class Mediador {
     private JPanel createControllerPanel(){
         JPanel controllerPanel = new JPanel();
         controllerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        controllerPanel.setMaximumSize(new Dimension(400,18));
+        controllerPanel.setMaximumSize(new Dimension(400,20));
+        controllerPanel.setPreferredSize(new Dimension(400,45));
         return controllerPanel;
     }
 
     private JPanel createDriverPanel(){
         JButton updateButton = new JButton("Actualizar");
-        JPanel driversListPanel = new JPanel();
+        driversListPanel = new ListPanel(this);
         JPanel controllerPanel = createControllerPanel();
         controllerPanel.add(updateButton);
 
@@ -50,21 +55,22 @@ public class Mediador {
 
     private JPanel createStatePanel(){
         JPanel statePanel = createContentPanel();
-        JPanel stateListPanel = new JPanel();
+        stateListPanel = new ListPanel(this);
         statePanel.add(stateListPanel);
-        statePanel.add(createControllerPanel());
+        JPanel controllerPanel = createControllerPanel();        
+        statePanel.add(controllerPanel);
         return statePanel;
     }
 
     private JPanel createActionPanel(){       
-        JPanel actionListPanel = new JPanel();
+        actionListPanel = new ListPanel(this);
         JButton executeButton = new JButton("Ejecutar");
         JPanel controlerPanel = createControllerPanel();
         controlerPanel.add(executeButton);
 
          JPanel actionPanel = createContentPanel();
         actionPanel.add(actionListPanel);
-        actionPanel.add(executeButton);
+        actionPanel.add(controlerPanel);
         return actionPanel;
     }
 
@@ -78,7 +84,7 @@ public class Mediador {
         controllerEventPanel.add(deleteButton);
         controllerEventPanel.add(detailButton);
 
-        JPanel eventListPanel = new JPanel();
+        eventListPanel = new ListPanel(this);
 
         JPanel eventPanel = createContentPanel();
         eventPanel.add(eventListPanel);
@@ -101,7 +107,7 @@ public class Mediador {
         contentPane.add(centerPanel, BorderLayout.CENTER);
 
         JPanel topPanel = new JPanel();
-        topPanel.setLayout(new GridLayout(1, 4));
+        topPanel.setLayout(new GridLayout(1, 4,5,25));
         topPanel.add(new JLabel("Drivers", JLabel.CENTER));
         topPanel.add(new JLabel("Estados", JLabel.CENTER));
         topPanel.add(new JLabel("Acciones", JLabel.CENTER));

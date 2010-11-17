@@ -18,8 +18,8 @@ public class MainFrame extends JFrame{
         super("Smart Building Config Manager");        
         setCloseClick();
         setLookAndFeel();
-        setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
-     }
+        setExtendedState( MAXIMIZED_BOTH);
+      }
 
     private void setCloseClick(){
 
