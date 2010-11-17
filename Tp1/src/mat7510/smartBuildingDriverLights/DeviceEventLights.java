@@ -1,7 +1,6 @@
 package mat7510.smartBuildingDriverLights;
 
-
-import mat7510.smartBuilding.*;
+import mat7510.smartBuilding.model.DeviceEvent;
 
 	public abstract class DeviceEventLights implements DeviceEvent {
 

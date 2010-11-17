@@ -1,4 +1,4 @@
-package mat7510.smartBuilding;
+package mat7510.smartBuilding.model;
 
 import mat7510.eventManagerApi.version2.ActionCommand;
 

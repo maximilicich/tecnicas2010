@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 import mat7510.eventManagerApi.version2.EventListener;
-import mat7510.smartBuilding.DeviceAction;
-import mat7510.smartBuilding.DeviceDriver;
-import mat7510.smartBuilding.DeviceEvent;
+import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.DeviceEvent;
 
 public class DeviceDriverClock extends DeviceDriver{
 	

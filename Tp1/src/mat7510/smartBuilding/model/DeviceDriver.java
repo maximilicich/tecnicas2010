@@ -1,4 +1,4 @@
-package mat7510.smartBuilding;
+package mat7510.smartBuilding.model;
 
 import java.util.LinkedHashSet;
 import java.util.List;
