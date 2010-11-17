@@ -3,12 +3,11 @@ package mat7510.smartBuildingDriverLights;
 
 public class DeviceActionLightsOn extends DeviceActionLightsOnOff {
 
-	public DeviceActionLightsOn(DeviceDriverLights deviceDriverLights,
-								String actionName,
-								String attr, 
-								String value,
-								DeviceEventLights event) {
-		
+	static final String actionName = "Lights On";
+	static final String attr = "LIGHTS_STATE_ON/OFF"; 
+	static final String value = "ON"; 
+	
+	public DeviceActionLightsOn(DeviceDriverLights deviceDriverLights,DeviceEventLights event) {
 		super(deviceDriverLights, actionName, attr, value, event);
 	}
 

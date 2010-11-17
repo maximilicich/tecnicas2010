@@ -5,14 +5,11 @@ import java.util.Map;
 
 public class DeviceActionACTempDown extends DeviceActionACTemp{
 	
-	
+	static final String actionName = "TEMP DOWN AC";
+	static final String attr = "TEMP"; 
+	static final String value = "20"; 
 
-	public DeviceActionACTempDown(DeviceDriverAC deviceDriverAC,
-								String actionName,
-								String attr,
-								String value,
-								DeviceEventAC event) {
-		
+	public DeviceActionACTempDown(DeviceDriverAC deviceDriverAC,DeviceEventAC event) {
 		super(deviceDriverAC, actionName, attr, value, event);
 	}
 
@@ -21,9 +18,9 @@ public class DeviceActionACTempDown extends DeviceActionACTemp{
 		
 		String value;
 		
-		if ( this.getActionName() == mapEntry.getKey() && mapEntry.getValue() != getDeviceDriverAC().getTempMin()){
+		if ( this.getAttr() == mapEntry.getKey() && mapEntry.getValue() != getDeviceDriverAC().getTempMin()){
 			 value = String.valueOf(Integer.parseInt(mapEntry.getValue()) - 1);
-			 getDeviceDriverAC().setMapEntry(getActionName(), value);
+			 getDeviceDriverAC().setMapEntry(getAttr(), value);
 		}
 	}
 

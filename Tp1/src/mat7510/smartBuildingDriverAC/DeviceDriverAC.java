@@ -47,13 +47,13 @@ public class DeviceDriverAC extends DeviceDriver {
 		this.deviceEvents.add(deviceEventACOn);
 		this.deviceEvents.add(deviceEventACOff);
 		
-		deviceActions.add(new DeviceActionACTempUp(this, "TEMP UP AC", ATTR_TEMP_AC,"20",deviceEventTempACUp));
-		deviceActions.add(new DeviceActionACTempDown(this,"TEMP DOWN AC", ATTR_TEMP_AC,"20",deviceEventTempACDown));
-		deviceActions.add(new DeviceActionACFuncFR(this, "FUNCTION AC COLD", ATTR_FUNC_AC,"FR",deviceEventACFuncFR));
-		deviceActions.add(new DeviceActionACFuncCL(this,"FUNCTION AC WARM", ATTR_FUNC_AC,"CL",deviceEventACFuncCL));
-		deviceActions.add(new DeviceActionACFuncVT(this, "FUNCTION AC VENT", ATTR_FUNC_AC,"VT",deviceEventACFuncVT));
-		deviceActions.add(new DeviceActionACOn(this,"TURN ON AC", ATTR_STATE_AC,"ON",deviceEventACOn));
-		deviceActions.add(new DeviceActionACOff(this, "TURN OFF AC", ATTR_STATE_AC,"OFF",deviceEventACOff));
+		deviceActions.add(new DeviceActionACTempUp(this,deviceEventTempACUp));
+		deviceActions.add(new DeviceActionACTempDown(this,deviceEventTempACDown));
+		deviceActions.add(new DeviceActionACFuncFR(this,deviceEventACFuncFR));
+		deviceActions.add(new DeviceActionACFuncCL(this,deviceEventACFuncCL));
+		deviceActions.add(new DeviceActionACFuncVT(this,deviceEventACFuncVT));
+		deviceActions.add(new DeviceActionACOn(this,deviceEventACOn));
+		deviceActions.add(new DeviceActionACOff(this,deviceEventACOff));
 		
 	}
 
