@@ -1,6 +1,6 @@
 package mat7510.smartBuildingDriverAC;
 
-import mat7510.smartBuilding.*;
+import mat7510.smartBuilding.model.DeviceEvent;
 
 public abstract class DeviceEventAC implements DeviceEvent {
 

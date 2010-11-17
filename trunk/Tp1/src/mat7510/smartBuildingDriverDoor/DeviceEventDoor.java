@@ -1,6 +1,6 @@
 package mat7510.smartBuildingDriverDoor;
 
-import mat7510.smartBuilding.DeviceEvent;
+import mat7510.smartBuilding.model.DeviceEvent;
 
 /**
  * 

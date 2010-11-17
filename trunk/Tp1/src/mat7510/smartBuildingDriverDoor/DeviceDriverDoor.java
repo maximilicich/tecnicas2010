@@ -5,9 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import mat7510.smartBuilding.DeviceAction;
-import mat7510.smartBuilding.DeviceDriver;
-import mat7510.smartBuilding.DeviceEvent;
+import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.DeviceEvent;
 
 /**
  * Driver de Mockup

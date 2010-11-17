@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import mat7510.eventManagerApi.version2.EventListener;
-import mat7510.smartBuilding.DeviceAction;
+import mat7510.smartBuilding.model.DeviceAction;
 
 public abstract class DeviceActionLightsFunc implements DeviceAction{
 
