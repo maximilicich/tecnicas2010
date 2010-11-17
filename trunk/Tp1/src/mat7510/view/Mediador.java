@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package mat7510.Vista;
+package mat7510.view;
 
 import java.awt.*;
 import javax.swing.*;
