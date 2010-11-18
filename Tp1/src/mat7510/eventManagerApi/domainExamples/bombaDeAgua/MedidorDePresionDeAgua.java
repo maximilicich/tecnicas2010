@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import mat7510.eventManagerApi.Event;
-import mat7510.eventManagerApi.EventListener;
+import mat7510.eventManagerApi.version1.Event;
+import mat7510.eventManagerApi.version1.EventListener;
 
 /**
  * Trabaja en PSI

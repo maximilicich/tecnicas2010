@@ -1,4 +1,4 @@
-package mat7510.eventManagerApi;
+package mat7510.eventManagerApi.version1;
 
 import java.util.ArrayList;
 import java.util.Iterator;

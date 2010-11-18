@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import mat7510.eventManagerApi.ActionHandler;
-import mat7510.eventManagerApi.Event;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
+import mat7510.eventManagerApi.version1.ActionHandler;
+import mat7510.eventManagerApi.version1.Event;
 
 
 

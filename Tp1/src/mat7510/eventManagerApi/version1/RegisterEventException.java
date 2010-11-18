@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package mat7510.eventManagerApi;
+package mat7510.eventManagerApi.version1;
 
 public class RegisterEventException  extends Exception{
 

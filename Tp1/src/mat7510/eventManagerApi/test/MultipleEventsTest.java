@@ -6,14 +6,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import mat7510.eventManagerApi.Event;
-import mat7510.eventManagerApi.EventManager;
-import mat7510.eventManagerApi.EventManagerFactory;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionCommand;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicActionReceiver;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEvent;
 import mat7510.eventManagerApi.domainExamples.basicDomain.BasicEventSource;
-import mat7510.eventManagerApi.RegisterEventException;
+import mat7510.eventManagerApi.version1.Event;
+import mat7510.eventManagerApi.version1.EventManager;
+import mat7510.eventManagerApi.version1.EventManagerFactory;
+import mat7510.eventManagerApi.version1.RegisterEventException;
 
 import org.junit.After;
 import org.junit.Before;

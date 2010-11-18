@@ -1,6 +1,6 @@
 package mat7510.eventManagerApi.domainExamples.basicDomain;
 
-import mat7510.eventManagerApi.ActionCommand;
+import mat7510.eventManagerApi.version1.ActionCommand;
 
 public class BasicActionCommand implements ActionCommand {
 
