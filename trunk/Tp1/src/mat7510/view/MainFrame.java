@@ -5,6 +5,7 @@
 
 package mat7510.view;
 
+import java.awt.Dimension;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class MainFrame extends JFrame{
         super("Smart Building Config Manager");        
         setCloseClick();
         setLookAndFeel();
+        setSize(new Dimension(640,480));
         setExtendedState( MAXIMIZED_BOTH);
       }
 
