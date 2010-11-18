@@ -73,5 +73,25 @@ public class DeviceDriverDoor extends DeviceDriver {
 		return this.state;
 	}
 
+	@Override
+	public DeviceAction getDeviceActionByName(String deviceActionName) {
+		for (DeviceAction deviceAction : actions) {
+			if (deviceAction.getActionName().equals(deviceActionName)) {
+				return deviceAction;
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public DeviceEvent getDeviceEventByName(String deviceEventName) {
+		for (DeviceEvent deviceEvent : events) {
+			if (deviceEvent.getEventName().equals(deviceEventName)) {
+				return deviceEvent;
+			}
+		}
+		return null;
+	}
 
+	
 }

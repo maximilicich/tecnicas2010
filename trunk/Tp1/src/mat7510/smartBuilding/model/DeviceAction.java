@@ -10,6 +10,10 @@ import mat7510.eventManagerApi.version2.ActionCommand;
  * relacionando Acciones con Eventos
  * Las Acciones deben ser DeviceActions
  * Los Eventos deben ser DeviceEventS
+ * 
+ * La implementacion del DeviceDriver debe asegurar la unicidad
+ * de los nombres, ya que en el Framework BAS (SmartBuilding)
+ * las acciones se identifican por su nombre 
  *  
  * @author Grupo 10
  *
@@ -20,6 +24,9 @@ public interface DeviceAction extends ActionCommand {
 	 * Toda Accion debe proveer su nombre, para 
 	 * que el Usuario pueda identificarla en la GUI
 	 * y asi configurar la interaccion entre Devices
+	 * 
+	 * El Driver debera asegurar que este nombre sea unico entre
+	 * las acciones disponibles, para identificarla univocamente
 	 * 
 	 * @return el nombre de la accion, tal como se le debe mostrar al Usuario final
 	 */

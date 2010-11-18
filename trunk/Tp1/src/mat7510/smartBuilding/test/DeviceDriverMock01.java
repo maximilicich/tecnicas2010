@@ -36,6 +36,15 @@ public class DeviceDriverMock01 extends DeviceDriver {
 		return state;
 	}
 
+	@Override
+	public DeviceAction getDeviceActionByName(String deviceActionName) {
+		return null;
+	}
+	
+	@Override
+	public DeviceEvent getDeviceEventByName(String deviceEventName) {
+		return null;
+	}
 
 
 }

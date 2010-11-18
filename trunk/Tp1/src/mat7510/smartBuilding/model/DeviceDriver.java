@@ -150,4 +150,32 @@ public abstract class DeviceDriver {
 		return this.eventListeners;
 	}
 	
+	/**
+	 * El Driver debe proveer el modo de Obtener una accion propia
+	 * a partir de su nombre.
+	 * El nombre identifica univocamente a una Accion, en el contexto
+	 * de un DeviceDriver
+	 * 
+	 * Si no se encuentra, se devuelve null
+	 * 
+	 * @param deviceActionName el nombre de la accion
+	 * @return la accion
+	 */
+	public abstract DeviceAction getDeviceActionByName(String deviceActionName);
+
+	
+	/**
+	 * El Driver debe proveer el modo de Obtener un Evento propio
+	 * a partir de su nombre.
+	 * El nombre identifica univocamente a un Evento, en el contexto
+	 * de un DeviceDriver
+	 * 
+	 * Si no se encuentra, se devuelve null
+	 * 
+	 * @param deviceActionName el nombre de la accion
+	 * @return la accion
+	 */
+	public abstract DeviceEvent getDeviceEventByName(String deviceEventName);
+	
+	
 }
