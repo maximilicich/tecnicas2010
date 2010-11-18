@@ -1,6 +1,6 @@
 package mat7510.smartBuilding.test;
 
-import mat7510.smartBuilding.DeviceDriver;
+import mat7510.smartBuilding.model.DeviceDriver;
 
 import org.junit.After;
 import org.junit.Before;

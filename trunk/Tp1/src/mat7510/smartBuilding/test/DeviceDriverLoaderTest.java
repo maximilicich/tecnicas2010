@@ -4,8 +4,8 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
-import mat7510.smartBuilding.DeviceDriver;
-import mat7510.smartBuilding.DeviceDriverLoader;
+import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.DeviceDriverLoader;
 
 public class DeviceDriverLoaderTest {
 
