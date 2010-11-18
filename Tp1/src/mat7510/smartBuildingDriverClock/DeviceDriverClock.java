@@ -88,6 +88,25 @@ public class DeviceDriverClock extends DeviceDriver{
 		return null;
 	}
 	
+	@Override
+	public DeviceAction getDeviceActionByName(String deviceActionName) {
+		for (DeviceAction deviceAction : deviceActions) {
+			if (deviceAction.getActionName().equals(deviceActionName)) {
+				return deviceAction;
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public DeviceEvent getDeviceEventByName(String deviceEventName) {
+		for (DeviceEvent deviceEvent : deviceEvents) {
+			if (deviceEvent.getEventName().equals(deviceEventName)) {
+				return deviceEvent;
+			}
+		}
+		return null;
+	}
 
 
 }

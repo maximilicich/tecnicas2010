@@ -29,6 +29,13 @@ public interface EventContext extends EventListener {
 	 */
 	public void registerEventChain(EventChain eventChain);
 	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<EventChain> getRegisteredEventChains();
+	
 	/**
 	 * 
 	 */

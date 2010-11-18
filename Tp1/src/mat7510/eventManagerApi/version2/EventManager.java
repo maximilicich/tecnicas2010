@@ -97,7 +97,15 @@ public class EventManager implements EventContext {
 		cancellables.clear();
 	}
 	
+	@Override
+	/**
+	 * 
+	 */
+	public List<EventChain> getRegisteredEventChains() {
+		return this.chains;
+	}
 	
+
 	/**
 	 * 
 	 * Inner Class para representar los pares cancelables
@@ -127,5 +135,7 @@ public class EventManager implements EventContext {
 			return cancellable;
 		}
 	}
+
+
 
 }
