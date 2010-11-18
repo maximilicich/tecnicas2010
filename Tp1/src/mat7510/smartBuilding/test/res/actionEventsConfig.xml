@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionEventsConfig>
+
+	<actionEventChain>
+		<action>
+			<deviceDriverID>Puerta-Central-PB</deviceDriverID>
+			<actionName>abrir</actionName>
+		</action>
+		<events>
+			<event>
+				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0023</deviceDriverID>
+				<eventName>hayMovimiento</eventName>
+			</event>
+			<event>
+				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0025</deviceDriverID>
+				<eventName>hayMovimiento</eventName>
+			</event>
+		</events>
+	
+	</actionEventChain>
+
+	<actionEventChain>
+		<action>
+			<deviceDriverID>AC-PISO24-0358</deviceDriverID>
+			<actionName>encender</actionName>
+		</action>
+		<events>
+			<event>
+				<deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
+				<eventName>morningTime</eventName>
+			</event>
+			<event>
+				<deviceDriverID>TERMOMETRO-PISO24</deviceDriverID>
+				<eventName>temperaturaCalida</eventName>
+			</event>
+		</events>
+	
+	</actionEventChain>
+
+	<actionEventChain>
+		<action>
+			<deviceDriverID>LUCES-PASILLOS</deviceDriverID>
+			<actionName>encender</actionName>
+		</action>
+		<events>
+			<event>
+				<deviceDriverID>ASCENSOR</deviceDriverID>
+				<eventName>llegando</eventName>
+			</event>
+		</events>
+	
+	</actionEventChain>
+	
+</actionEventsConfig>
