@@ -10,11 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /**
  *
  * @author sergio
  */
-public class ContentPanel extends JPanel implements ActionListener{
+public class ContentPanel extends JPanel implements ActionListener,ListSelectionListener{
     private Mediador mediador;
 
     private JPanel createContentPanel(){
@@ -39,7 +41,8 @@ public class ContentPanel extends JPanel implements ActionListener{
 
         ListPanel driversListPanel = new ListPanel(mediador);
         mediador.addDriverList(driversListPanel);
-          
+        driversListPanel.addListSelectionListener(this);
+
         JPanel controllerPanel = createControllerPanel();
         controllerPanel.add(updateButton);
 
@@ -144,4 +147,10 @@ public class ContentPanel extends JPanel implements ActionListener{
         }
 
     }
+
+    public void valueChanged(ListSelectionEvent e) {
+        //capturo las selecciones de la lista de drivers
+    }
+
+
 }
