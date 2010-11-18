@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import mat7510.eventManagerApi.EventListener;
+import mat7510.eventManagerApi.version1.EventListener;
 
 /**
  * SINGLETON

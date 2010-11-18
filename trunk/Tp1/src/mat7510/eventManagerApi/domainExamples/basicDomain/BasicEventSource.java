@@ -1,6 +1,6 @@
 package mat7510.eventManagerApi.domainExamples.basicDomain;
 
-import mat7510.eventManagerApi.EventListener;
+import mat7510.eventManagerApi.version1.EventListener;
 
 public class BasicEventSource {
 	

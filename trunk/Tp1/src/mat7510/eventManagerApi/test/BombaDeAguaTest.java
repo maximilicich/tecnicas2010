@@ -7,10 +7,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import mat7510.eventManagerApi.Event;
-import mat7510.eventManagerApi.EventManager;
-import mat7510.eventManagerApi.EventManagerFactory;
-import mat7510.eventManagerApi.RegisterEventException;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.ApagarBombaCmd;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.BombaDeAgua;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.CambioDePresionDeAguaEvent;
@@ -23,6 +19,10 @@ import mat7510.eventManagerApi.domainExamples.bombaDeAgua.RedDeAbastecimientoDeA
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.TanqueDeAgua;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.TanqueLlenoEvent;
 import mat7510.eventManagerApi.domainExamples.bombaDeAgua.TanqueVacioEvent;
+import mat7510.eventManagerApi.version1.Event;
+import mat7510.eventManagerApi.version1.EventManager;
+import mat7510.eventManagerApi.version1.EventManagerFactory;
+import mat7510.eventManagerApi.version1.RegisterEventException;
 
 import org.junit.After;
 import org.junit.AfterClass;
