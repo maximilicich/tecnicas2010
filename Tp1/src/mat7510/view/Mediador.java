@@ -4,6 +4,9 @@
  */
 
 package mat7510.view;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author sergio
@@ -46,4 +49,25 @@ public class Mediador {
         mainFrame.setVisible(true);
     }
 
+
+    public void addDriverWithName(String dir){
+        JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+    }
+
+    public void executeActionWithIndex(int index){
+         JOptionPane.showMessageDialog(mainFrame, "ejecutar: "+index);
+    }
+      
+    public void removeEventWithIndex(int index){
+        JOptionPane.showMessageDialog(mainFrame, "remove: "+index);
+    }
+/*
+    public void addDriverWithName(String dir){
+        JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+    }
+
+    public void addDriverWithName(String dir){
+        JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+    }
+*/
 }
