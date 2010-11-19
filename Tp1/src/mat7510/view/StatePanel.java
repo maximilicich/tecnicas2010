@@ -15,9 +15,9 @@ import javax.swing.border.EmptyBorder;
  */
 public class StatePanel extends JPanel{
     private ListPanel driversListPanel;
-    private Mediador mediador;
+    private Mediator mediador;
 
-    public StatePanel(Mediador med){
+    public StatePanel(Mediator med){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(5,5,5,5));
         mediador = med;

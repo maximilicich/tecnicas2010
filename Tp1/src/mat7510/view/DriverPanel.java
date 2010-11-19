@@ -19,9 +19,9 @@ import javax.swing.event.ListSelectionListener;
 public class DriverPanel extends JPanel implements ActionListener,ListSelectionListener{
 
         ListPanel driversListPanel;
-        Mediador mediador;
+        Mediator mediador;
         
-        public DriverPanel(Mediador med){
+        public DriverPanel(Mediator med){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBorder(new EmptyBorder(5,5,5,5));
 

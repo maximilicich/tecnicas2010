@@ -13,10 +13,10 @@ import javax.swing.*;
  * @author sergio
  */
 public class MainWindow extends JFrame{
-    Mediador mediador;
+    Mediator mediador;
 
     public MainWindow(){
-        mediador = new Mediador();
+        mediador = new Mediator();
     }
 
    static public void main(String argv[]){
