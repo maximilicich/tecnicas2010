@@ -13,9 +13,9 @@ import javax.swing.*;
  * @author sergio
  */
 public class ContentPanel extends JPanel{
-    private Mediador mediador;
+    private Mediator mediador;
  
-    public ContentPanel(Mediador med){
+    public ContentPanel(Mediator med){
         mediador=med;        
         setLayout(new BorderLayout());
 

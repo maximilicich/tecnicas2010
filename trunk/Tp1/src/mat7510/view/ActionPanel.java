@@ -18,10 +18,10 @@ import javax.swing.border.EmptyBorder;
  * @author sergio
  */
 public class ActionPanel extends JPanel implements ActionListener{
-    private final Mediador mediador;
+    private final Mediator mediador;
     private final ListPanel actionListPanel;
 
-    public ActionPanel(Mediador med){
+    public ActionPanel(Mediator med){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(5,5,5,5));
         mediador=med;

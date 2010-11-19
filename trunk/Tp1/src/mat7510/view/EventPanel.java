@@ -17,10 +17,10 @@ import javax.swing.border.EmptyBorder;
  * @author sergio
  */
 public class EventPanel extends JPanel implements ActionListener {
-    private final Mediador mediador;
+    private final Mediator mediador;
     private final ListPanel eventListPanel;
 
-    public EventPanel(Mediador med){
+    public EventPanel(Mediator med){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(5,5,5,5));
         mediador = med;
@@ -57,7 +57,7 @@ public class EventPanel extends JPanel implements ActionListener {
             mediador.removeEventWithIndex(index);
 
         }else if (e.getActionCommand()=="add" ){
-
+            mediador.addEvent();
         }else if (e.getActionCommand()=="description" ){
 
         }

@@ -11,14 +11,14 @@ import javax.swing.JOptionPane;
  *
  * @author sergio
  */
-public class Mediador {
+public class Mediator {
     MainFrame mainFrame;
     ListPanel driversListPanel;
     ListPanel stateListPanel;
     ListPanel actionListPanel;
     ListPanel eventListPanel;
 
-    public Mediador(){
+    public Mediator(){
         mainFrame = new MainFrame();
         createWindow();
     }
@@ -61,13 +61,13 @@ public class Mediador {
     public void removeEventWithIndex(int index){
         JOptionPane.showMessageDialog(mainFrame, "remove: "+index);
     }
-/*
-    public void addDriverWithName(String dir){
-        JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+
+    public void addEvent(){
+        new AddEventDialog(mainFrame,this);
     }
 
-    public void addDriverWithName(String dir){
-        JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+    public void addEvent2(String txt){
+        JOptionPane.showMessageDialog(mainFrame, "url: "+txt);
     }
-*/
+
 }
