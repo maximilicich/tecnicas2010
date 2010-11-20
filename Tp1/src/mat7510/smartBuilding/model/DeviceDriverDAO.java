@@ -20,10 +20,10 @@ import org.w3c.dom.Element;
  * @author Grupo 10
  *
  */
-public class DeviceDriverLoader {
+public class DeviceDriverDAO {
 
-	private static DeviceDriverLoader instance = new DeviceDriverLoader();
-	private DeviceDriverLoader() {
+	private static DeviceDriverDAO instance = new DeviceDriverDAO();
+	private DeviceDriverDAO() {
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class DeviceDriverLoader {
 	 *  
 	 * @return la instancia Singleton de la Clase
 	 */
-	public static DeviceDriverLoader getInstance() {
+	public static DeviceDriverDAO getInstance() {
 		return instance;
 	}
 

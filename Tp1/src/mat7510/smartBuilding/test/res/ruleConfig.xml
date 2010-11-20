@@ -2,7 +2,11 @@
 
 <smartBuildingRules>
 
-	<rule ordered="no" continuous="no">
+	<rule ordered="no" continuous="no" enabled="yes">
+		
+		<ruleID>X000001</ruleID>
+		<ruleDescription>Apertura Puerta Central</ruleDescription>
+		
 		<action>
 			<deviceDriverID>Puerta-Central-PB</deviceDriverID>
 			<actionName>abrir</actionName>
@@ -20,7 +24,11 @@
 	
 	</rule>
 
-	<rule ordered="yes" continuous="no">
+	<rule ordered="yes" continuous="no" enabled="no">
+
+		<ruleID>X000002</ruleID>
+		<ruleDescription>Encendido Aire Acondicionado Piso 24 Hab 358</ruleDescription>
+
 		<action>
 			<deviceDriverID>AC-PISO24-0358</deviceDriverID>
 			<actionName>encender</actionName>
@@ -38,7 +46,11 @@
 
 	</rule>
 
-	<rule>
+	<rule ordered="no" continuous="no" enabled="yes">
+
+		<ruleID>X000003</ruleID>
+		<ruleDescription>Encendido Luces Pasillos</ruleDescription>
+
 		<action>
 			<deviceDriverID>LUCES-PASILLOS</deviceDriverID>
 			<actionName>encender</actionName>

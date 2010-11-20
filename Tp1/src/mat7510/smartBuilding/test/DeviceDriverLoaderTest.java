@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mat7510.smartBuilding.model.DeviceDriver;
-import mat7510.smartBuilding.model.DeviceDriverLoader;
+import mat7510.smartBuilding.model.DeviceDriverDAO;
 
 public class DeviceDriverLoaderTest {
 
@@ -23,7 +23,7 @@ public class DeviceDriverLoaderTest {
 		// DOMUtils.getInstance().printDomToXml(DOMUtils.getInstance().getDocument(xml), System.out);
 		
 		Set<DeviceDriver> devDrivers = 
-			DeviceDriverLoader.getInstance().getDeviceDrivers(xml);
+			DeviceDriverDAO.getInstance().getDeviceDrivers(xml);
 
 		for (DeviceDriver devDriver : devDrivers) {
 			System.out.println("DRIVER");
