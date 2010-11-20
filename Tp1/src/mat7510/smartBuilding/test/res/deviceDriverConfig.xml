@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+
 <deviceDrivers>
+
 	<deviceDriver>
 		<deviceID>Mock01DeviceDriver-BH368</deviceID>
 		<deviceDescription>Mock 01 Device Driver</deviceDescription>
 		<driverClass>mat7510.smartBuilding.test.DeviceDriverMock01</driverClass>
 	</deviceDriver>
+	
 	<deviceDriver>
 		<deviceID>Mock02DeviceDriver-AJ345</deviceID>
 		<deviceDescription>Mock 02 Device Driver</deviceDescription>
 		<driverClass>mat7510.smartBuilding.test.DeviceDriverMock02</driverClass>
 	</deviceDriver>
-</deviceDrivers> 
+	
+</deviceDrivers>
+ 
