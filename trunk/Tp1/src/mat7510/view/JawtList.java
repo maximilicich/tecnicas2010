@@ -22,6 +22,7 @@ public class JawtList extends JScrollPane{
       listContents = new JListData();
       listWindow = new JList(listContents);
       listWindow.setPrototypeCellValue("Abcdefg Hijkmnop");
+      listWindow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
       getViewport().add(listWindow);
 
    }

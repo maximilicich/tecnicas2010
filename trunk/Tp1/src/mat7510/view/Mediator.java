@@ -50,7 +50,8 @@ public class Mediator {
             }
 
         } catch (SmartBuildingException ex) {
-            System.out.println("Error: no se encontro el archivo");
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
         }
         
     }
@@ -81,6 +82,10 @@ public class Mediator {
         mainFrame.setVisible(true);
     }
 
+    public void selectDriverWithIndex(int index){
+          System.out.println("selected: "+index);
+
+    }
 
     public void addDriverWithName(String dir){
         JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
