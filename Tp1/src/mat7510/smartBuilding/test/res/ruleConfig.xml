@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<actionEventsConfig>
+<smartBuildingRules>
 
-	<actionEventChain>
+	<rule ordered="no" continuous="no">
 		<action>
 			<deviceDriverID>Puerta-Central-PB</deviceDriverID>
 			<actionName>abrir</actionName>
@@ -18,9 +18,9 @@
 			</event>
 		</events>
 	
-	</actionEventChain>
+	</rule>
 
-	<actionEventChain>
+	<rule ordered="yes" continuous="no">
 		<action>
 			<deviceDriverID>AC-PISO24-0358</deviceDriverID>
 			<actionName>encender</actionName>
@@ -35,10 +35,10 @@
 				<eventName>temperaturaCalida</eventName>
 			</event>
 		</events>
-	
-	</actionEventChain>
 
-	<actionEventChain>
+	</rule>
+
+	<rule>
 		<action>
 			<deviceDriverID>LUCES-PASILLOS</deviceDriverID>
 			<actionName>encender</actionName>
@@ -50,6 +50,6 @@
 			</event>
 		</events>
 	
-	</actionEventChain>
+	</rule>
 	
-</actionEventsConfig>
+</smartBuildingRules>
