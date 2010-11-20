@@ -7,6 +7,8 @@ package mat7510.view;
 
 import javax.swing.*;
 
+import mat7510.smartBuilding.model.SmartBuildingManager;
+
 
 /**
  *
@@ -15,12 +17,13 @@ import javax.swing.*;
 public class MainWindow extends JFrame{
     Mediator mediador;
 
-    public MainWindow(){
-        mediador = new Mediator();
+    public MainWindow(SmartBuildingManager buildingManager){
+        mediador = new Mediator(buildingManager);
     }
 
    static public void main(String argv[]){
-        MainWindow mainWindow = new MainWindow();     
+	   SmartBuildingManager buildingManager = new SmartBuildingManager();
+        MainWindow mainWindow = new MainWindow(buildingManager);     
 	mainWindow.mediador.showWindow();        
     }
 

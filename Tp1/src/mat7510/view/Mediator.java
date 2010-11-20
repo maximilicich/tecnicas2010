@@ -7,6 +7,8 @@ package mat7510.view;
 
 import javax.swing.JOptionPane;
 
+import mat7510.smartBuilding.model.SmartBuildingManager;
+
 /**
  *
  * @author sergio
@@ -17,10 +19,12 @@ public class Mediator {
     ListPanel stateListPanel;
     ListPanel actionListPanel;
     ListPanel eventListPanel;
+    Translator translator;
 
-    public Mediator(){
+    public Mediator(SmartBuildingManager buildingManager){
         mainFrame = new MainFrame();
         createWindow();
+        translator = new Translator(buildingManager);
     }
 
     public void addDriverList(ListPanel list){
