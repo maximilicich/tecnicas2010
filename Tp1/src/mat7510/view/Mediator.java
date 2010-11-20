@@ -5,7 +5,13 @@
 
 package mat7510.view;
 
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Set;
 import javax.swing.JOptionPane;
+import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.DeviceDriverLoader;
+import mat7510.smartBuilding.model.SmartBuildingException;
 
 import mat7510.smartBuilding.model.SmartBuildingManager;
 
@@ -20,13 +26,34 @@ public class Mediator {
     ListPanel actionListPanel;
     ListPanel eventListPanel;
     Translator translator;
+    Set<DeviceDriver> devDrivers;
 
     public Mediator(SmartBuildingManager buildingManager){
         mainFrame = new MainFrame();
-        createWindow();
         translator = new Translator(buildingManager);
+        createWindow();
+        init();
     }
 
+    private void init(){
+        InputStream xml = this.getClass().getResourceAsStream("devicedriverConfig.xml");
+        try {
+            devDrivers = DeviceDriverLoader.getInstance().getDeviceDrivers(xml);
+
+            Iterator it = devDrivers.iterator();
+
+            while(it.hasNext()){
+                DeviceDriver devDriver = (DeviceDriver) it.next();
+                String deviceID=devDriver.getDeviceID();
+                driversListPanel.add(deviceID);
+            }
+
+        } catch (SmartBuildingException ex) {
+            System.out.println("Error: no se encontro el archivo");
+        }
+        
+    }
+    
     public void addDriverList(ListPanel list){
         driversListPanel=list;
     }
