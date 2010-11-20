@@ -17,7 +17,11 @@ import mat7510.smartBuilding.model.SmartBuildingManager;
 public class MainWindow extends JFrame{
     Mediator mediador;
 
-    public MainWindow(SmartBuildingManager buildingManager){
+    public Mediator getMediador() {
+		return mediador;
+	}
+
+	public MainWindow(SmartBuildingManager buildingManager){
         mediador = new Mediator(buildingManager);
     }
 
