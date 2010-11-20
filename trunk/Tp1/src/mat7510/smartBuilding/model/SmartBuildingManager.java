@@ -1,6 +1,9 @@
 
 package mat7510.smartBuilding.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mat7510.eventManagerApi.version2.EventManager;
 
 
@@ -12,9 +15,10 @@ import mat7510.eventManagerApi.version2.EventManager;
 public class SmartBuildingManager {
 
 	private EventManager eventManager;
+	private List<DeviceDriver> drivers = new ArrayList<DeviceDriver>();;
 
 	public SmartBuildingManager() {
-		this.eventManager = EventManager.getInstance(); 
+		this.setEventManager(EventManager.getInstance()); 
 	}
 	
 	public void saveConfig() {
@@ -23,6 +27,26 @@ public class SmartBuildingManager {
 	
 	public void loadConfig() {
 		
+	}
+
+	public void setEventManager(EventManager eventManager) {
+		this.eventManager = eventManager;
+	}
+
+	public EventManager getEventManager() {
+		return eventManager;
+	}
+
+	public void setDrivers(List<DeviceDriver> drivers) {
+		this.drivers = drivers;
+	}
+
+	public List<DeviceDriver> getDrivers() {
+		return drivers;
+	}
+	
+	public void setNewDriver (DeviceDriver driver){
+		this.drivers.add(driver);
 	}
 	
 	
