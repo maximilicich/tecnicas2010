@@ -24,6 +24,11 @@ public class Control extends Observable {
 		
 	}
 	
+	public List<DeviceDriver> actualizar(){
+		this.model.loadConfig();
+		return this.model.getDrivers();
+	}
+	
 	public List<DeviceAction> getDriverActions ( String deviceID){
 		
 		
