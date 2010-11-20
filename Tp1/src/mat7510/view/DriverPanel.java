@@ -51,12 +51,19 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
     }
 
     public void actionPerformed(ActionEvent e) {
+
          if (e.getActionCommand()=="update" )
             selectFile();
     }
 
     public void valueChanged(ListSelectionEvent e) {
-    
+     
+        if(!e.getValueIsAdjusting()){
+             JList theList = (JList)e.getSource();
+             
+             if (!theList.isSelectionEmpty())
+                mediador.selectDriverWithIndex(theList.getSelectedIndex());
+        }
     }
 
 }

@@ -3,11 +3,11 @@
 	<deviceDriver>
 		<deviceID>DeviceDriverClock-BH368</deviceID>
 		<deviceDescription>Device Driver Clock</deviceDescription>
-		<driverClass>mat7510.smartBuilding.smartBuildingDriverClock.DeviceDriverClock</driverClass>
+		<driverClass>mat7510.smartBuildingDriverClock.DeviceDriverClock</driverClass>
 	</deviceDriver>
 	<deviceDriver>
 		<deviceID>DeviceDriverDoor-AJ345</deviceID>
 		<deviceDescription>DeviceDriverDoorr</deviceDescription>
-		<driverClass>mat7510.smartBuilding.smartBuildingDriverDoor.DeviceDriverDoor</driverClass>
+		<driverClass>mat7510.smartBuildingDriverDoor.DeviceDriverDoor</driverClass>
 	</deviceDriver>
 </deviceDrivers>
