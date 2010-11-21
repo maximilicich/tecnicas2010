@@ -1,6 +1,6 @@
 package mat7510.smartBuilding.model;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -56,17 +56,7 @@ public class DeviceDriverDAO {
 	 */
 	public Set<DeviceDriver> getDeviceDrivers() throws SmartBuildingException {
 		
-		InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
-		
-		Document domXml = null;
-		
-		try {
-			domXml = DOMUtils.getInstance().getDocument(xml);
-			// DOMUtils.getInstance().printDomToXml(domXml, System.out);
-			
-		} catch (Exception e) {
-			throw new SmartBuildingException("Error al obtener archivo de Configuración de Drivers " + XML_FILENAME, e);
-		}
+		Document domXml = createDomFromFile();
 		
 		Element devDriversSection = getDeviceDriversSection(domXml);
 	
@@ -90,6 +80,14 @@ public class DeviceDriverDAO {
 		
 	}
 
+
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SmartBuildingException
+	 */
 	public DeviceDriver getDeviceDriverByID(String id) throws SmartBuildingException {
 		if (id == null)
 			throw new IllegalArgumentException("DeviceDriver ID must not be null");
@@ -231,6 +229,32 @@ public class DeviceDriverDAO {
 
 		return devDriver;
 		
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 * @throws SmartBuildingException
+	 */
+	private Document createDomFromFile() throws SmartBuildingException {
+		
+		try {
+			// ATENCION: ANTES USABAMOS getResourceAsStream() para 
+			// que la ruta relativa sea "relativa" a esta clase
+			// pero esto nos complica cuando queremos grabar en el archivo
+			// con el OutputStream...
+			// Asi que lo hacemos relativo a res por afuera de mat7510
+			// (lo anterior queda comentado)
+
+			// InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
+			// return DOMUtils.getInstance().getDocument(xml);
+			return DOMUtils.getInstance().getDocument(new FileInputStream(XML_FILENAME));
+			
+		} catch (Exception e) {
+			throw new SmartBuildingException("Error al obtener archivo de Configuración de Drivers " + XML_FILENAME, e);
+		}
+
 	}
 	
 }

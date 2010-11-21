@@ -1,6 +1,7 @@
 package mat7510.xml;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,12 +14,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import mat7510.smartBuilding.model.SmartBuildingException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -165,36 +166,7 @@ public class DOMUtils implements java.io.Serializable {
 		return elements.iterator().next();
 		
 	}
-	
-	
-	/**
-	 * 
-	 * @param dom
-	 * @param out
-	 * @throws TransformerException
-	 */
-	public void printDomToXml(Node dom, OutputStream out) throws XmlException {
 
-		try {
-			// Use a Transformer for output
-			TransformerFactory tFactory = TransformerFactory.newInstance();
-			Transformer transformer = tFactory.newTransformer();
-
-			DOMSource source = new DOMSource(dom);
-			// StreamResult result = new StreamResult(System.out);
-			StreamResult result = new StreamResult(out);
-
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-
-			transformer.transform(source, result);
-
-		} catch (TransformerException e) {
-			throw new XmlException(e);
-		}
-	}
-	
-	
 	/**
 	 * 
 	 * @param element
@@ -217,5 +189,35 @@ public class DOMUtils implements java.io.Serializable {
 		return attrElements.iterator().next().getTextContent();
 		
 	}
+
+	
+	/**
+	 * 
+	 * @param dom
+	 * @param out
+	 * @throws TransformerException
+	 */
+	public void printDomToXml(Node dom, OutputStream out) throws XmlException {
+
+		try {
+			// Use a Transformer for output
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+			Transformer transformer = tFactory.newTransformer();
+
+			DOMSource source = new DOMSource(dom);
+			// StreamResult result = new StreamResult(System.out);
+
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+
+			StreamResult result = new StreamResult(out);
+
+			transformer.transform(source, result);
+
+		} catch (TransformerException e) {
+			throw new XmlException(e);
+		}
+	}
+	
 
 }
