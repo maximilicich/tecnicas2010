@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -31,7 +30,7 @@ public class DeviceDriverDAO {
 	private DeviceDriverDAO() {
 	}
 	
-	private static final String XML_FILENAME = "src/res/deviceDriverConfig.xml";
+	private static final String XML_FILENAME = "/res/deviceDriverConfig.xml";
 	
 	/**
 	 * LOS TAGS XML
@@ -304,8 +303,11 @@ public class DeviceDriverDAO {
 			
 			 //InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
 		     //return DOMUtils.getInstance().getDocument(xml);
-			File file = new File(XML_FILENAME);
-			return DOMUtils.getInstance().getDocument(new FileInputStream (file.getAbsolutePath()));//new FileInputStream(XML_FILENAME));
+			//File file = new File (XML_FILENAME);
+			File file = WorkingDirectory.get();
+			String path = file.getAbsolutePath();
+			path = path + XML_FILENAME;
+			return DOMUtils.getInstance().getDocument(new FileInputStream (path));//file.getAbsolutePath()));//new FileInputStream(XML_FILENAME));
 			
 		} catch (Exception e) {
 			throw new SmartBuildingException("Error al obtener archivo de Configuración de Drivers " + XML_FILENAME, e);

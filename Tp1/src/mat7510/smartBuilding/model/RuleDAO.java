@@ -27,7 +27,7 @@ public class RuleDAO {
 	private RuleDAO() {
 	}
 	
-	private static final String XML_FILENAME = "src/res/ruleConfig.xml";
+	private static final String XML_FILENAME = "/res/ruleConfig.xml";
 	
 	/**
 	 * LOS TAGS XML
@@ -306,8 +306,11 @@ public class RuleDAO {
 			
 			// InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
 			// return DOMUtils.getInstance().getDocument(new FileInputStream(XML_FILENAME));
-			File file = new File(XML_FILENAME);
-			return DOMUtils.getInstance().getDocument(new FileInputStream(file.getAbsolutePath()));//XML_FILENAME));
+			//File file = new File(XML_FILENAME);
+			File file = WorkingDirectory.get();
+			String path = file.getAbsolutePath();
+			path = path + XML_FILENAME;
+			return DOMUtils.getInstance().getDocument(new FileInputStream(path));//file.getAbsolutePath()));//XML_FILENAME));
 			
 		} catch (Exception e) {
 			throw new SmartBuildingException("Error al obtener archivo de Configuración de Reglas " + XML_FILENAME, e);
