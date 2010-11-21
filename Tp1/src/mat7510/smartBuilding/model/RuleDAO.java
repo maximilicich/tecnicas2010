@@ -27,7 +27,7 @@ public class RuleDAO {
 	private RuleDAO() {
 	}
 	
-	private static final String XML_FILENAME = "bin/res/ruleConfig.xml";
+	private static final String XML_FILENAME = "src/res/ruleConfig.xml";
 	
 	/**
 	 * LOS TAGS XML

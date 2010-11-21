@@ -31,7 +31,7 @@ public class DeviceDriverDAO {
 	private DeviceDriverDAO() {
 	}
 	
-	private static final String XML_FILENAME = "bin\\res\\deviceDriverConfig.xml";
+	private static final String XML_FILENAME = "src\\res\\deviceDriverConfig.xml";
 	
 	/**
 	 * LOS TAGS XML
