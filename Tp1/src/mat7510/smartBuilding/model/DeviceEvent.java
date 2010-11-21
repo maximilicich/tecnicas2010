@@ -34,7 +34,11 @@ public abstract class DeviceEvent implements Event {
 	public DeviceEvent(DeviceDriver deviceDriver, String eventName) {
 		if (deviceDriver == null)
 			throw new IllegalArgumentException("Cannot instantiate DeviceEvent with null DeviceDriver");
-
+		if (eventName == null)
+			throw new IllegalArgumentException("Cannot instantiate DeviceEvent with null eventName");
+		if (eventName.trim().equalsIgnoreCase(""))
+			throw new IllegalArgumentException("Cannot instantiate DeviceEvent with blank eventName");
+		
 		this.deviceDriver = deviceDriver;
 		this.eventName = eventName;
 	}
@@ -55,4 +59,37 @@ public abstract class DeviceEvent implements Event {
 	}
 
 	
+	@Override
+	/**
+	 * La comparacion entre un DeviceEvent y un Event generico de API
+	 * No puede sobreescribirse en los que implementen los Drivers!
+	 * 
+	 * Esta comparacion se transmite a la comparacion
+	 * DeviceEvent vs DeviceEvent la cual 
+	 * tiene una implementacion default aca, 
+	 * pero SI puede ser sobreescrita
+	 */
+	public final boolean equals(Event anotherEvent) {
+		if (anotherEvent instanceof DeviceEvent)
+			return equals((DeviceEvent)anotherEvent);
+		return false;
+	}
+
+	/**
+	 * Dos eventos seran iguales si y solo si:
+	 * El DeviceDriver es el mismo
+	 * El nombre de Evento es el mismo (ignore case)
+	 * 
+	 * @param anotherEvent
+	 * @return
+	 */
+	public boolean equals(DeviceEvent anotherEvent) {
+		
+		if (! this.deviceDriver.equals(anotherEvent.deviceDriver))
+			return false;
+		if (! this.eventName.trim().equalsIgnoreCase(anotherEvent.eventName.trim()))
+			return false;
+		return true;
+	}
+
 }

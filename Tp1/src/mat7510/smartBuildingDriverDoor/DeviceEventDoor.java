@@ -7,7 +7,7 @@ import mat7510.smartBuilding.model.DeviceEvent;
  * @author Grupo 10 
  *
  */
-public abstract class DeviceEventDoor extends DeviceEvent {
+public class DeviceEventDoor extends DeviceEvent {
 
 	private DeviceDriverDoor door;
 
