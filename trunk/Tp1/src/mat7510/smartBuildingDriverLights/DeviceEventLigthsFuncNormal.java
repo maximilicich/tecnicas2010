@@ -1,6 +1,5 @@
 package mat7510.smartBuildingDriverLights;
 
-import mat7510.eventManagerApi.version2.Event;
 
 public class DeviceEventLigthsFuncNormal extends DeviceEventLights {
 
@@ -8,12 +7,5 @@ public class DeviceEventLigthsFuncNormal extends DeviceEventLights {
 		super(lights, "Function Lights Normal");
 	}
 
-
-	@Override
-	public boolean equals(Event anotherEvent) {
-		if (!(anotherEvent instanceof DeviceEventLigthsFuncNormal))
-			return false;
-		return (((DeviceEventLigthsFuncNormal)anotherEvent).getLights().getDeviceID().equals(this.getLights().getDeviceID()));
-	}
 
 }

@@ -87,10 +87,6 @@ public class RuleDAO {
 			String ruleID = getUniqueAttributeValue(element, RULE_ID_TAG);
 			String ruleDescription = getUniqueAttributeValue(element, RULE_DESCRIPTION_TAG);
 			
-			System.out.println("una regla:");
-			System.out.println("ID  : " + ruleID);
-			System.out.println("Desc: " + ruleDescription);
-
 			DeviceAction deviceAction = getDeviceAction(element);
 			
 			List<DeviceEvent> events = getDeviceEvents(element);
@@ -134,10 +130,6 @@ public class RuleDAO {
 			String deviceDriverID = getUniqueAttributeValue(eventElement, DEVICEDRIVER_ID_TAG);
 			String eventName = getUniqueAttributeValue(eventElement, RULE_EVENT_NAME_TAG);
 
-			System.out.println("--- EVENT --- " );
-			System.out.println("deviceDriverID : " + deviceDriverID);
-			System.out.println("eventName      : " + eventName);
-
 			DeviceDriver dev = DeviceDriverDAO.getInstance().getDeviceDriverByID(deviceDriverID);
 			if (dev == null)
 				throw new SmartBuildingException("Error trying to retrieve DeviceDriver for ID " + deviceDriverID + " (event name <" + eventName + ">) : DeviceDriver NOT FOUND.");
@@ -167,9 +159,6 @@ public class RuleDAO {
 		String deviceDriverID = getUniqueAttributeValue(actionSection, DEVICEDRIVER_ID_TAG);
 		String actionName = getUniqueAttributeValue(actionSection, RULE_ACTION_NAME_TAG);
 
-		System.out.println("deviceDriverID : " + deviceDriverID);
-		System.out.println("actionName     : " + actionName);
-		
 		DeviceDriver dev = DeviceDriverDAO.getInstance().getDeviceDriverByID(deviceDriverID);
 		if (dev == null)
 			throw new SmartBuildingException("Error trying to retrieve DeviceDriver for ID " + deviceDriverID + " (action name <" + actionName + ">) : DeviceDriver NOT FOUND.");
