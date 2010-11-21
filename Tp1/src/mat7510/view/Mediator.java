@@ -5,7 +5,9 @@
 
 package mat7510.view;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
@@ -25,7 +27,7 @@ public class Mediator {
     ListPanel actionListPanel;
     ListPanel eventListPanel;
     Translator translator;
-    Set<DeviceDriver> devDrivers;
+    ArrayList<DeviceDriver> devDrivers;
 
     public Mediator(SmartBuildingManager buildingManager){
         mainFrame = new MainFrame();
@@ -37,13 +39,13 @@ public class Mediator {
     private void init(){
     	
         try {
-           // devDrivers = DeviceDriverDAO.getInstance().getDeviceDrivers();
-        	devDrivers = translator.actualizar();
-        	
-            Iterator<DeviceDriver> it = devDrivers.iterator();
+           Set<DeviceDriver> setDrivers = translator.actualizar();
+           devDrivers = new ArrayList();
+           Iterator<DeviceDriver> it = setDrivers.iterator();
 
             while(it.hasNext()){
                 DeviceDriver devDriver = (DeviceDriver) it.next();
+                devDrivers.add(devDriver);
                 String deviceID=devDriver.getDeviceID();
                 driversListPanel.add(deviceID);
             }
@@ -81,9 +83,31 @@ public class Mediator {
         mainFrame.setVisible(true);
     }
 
-    public void selectDriverWithIndex(int index){
-          System.out.println("selected: "+index);
+    private void loadState(DeviceDriver driver){
+          Map<String, String> map = driver.getState();
+          Iterator it = map.keySet().iterator();
 
+          while(it.hasNext()){
+            String key = (String) it.next();
+            String value = map.get(key);
+            String data=key+" = "+value;
+            stateListPanel.add(data);
+          }
+    }
+
+    private void clearDriver(){
+        actionListPanel.clear();
+        stateListPanel.clear();
+        eventListPanel.clear();
+    }
+
+    public void selectDriverWithIndex(int index){
+        System.out.println("index: "+index);
+          clearDriver();
+          DeviceDriver driver = devDrivers.get(index);
+          loadState(driver);
+          actionListPanel.addAll(driver.getActions().iterator());
+          eventListPanel.addAll(driver.getEvents().iterator());
     }
 
     public void addDriverWithName(String dir){

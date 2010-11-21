@@ -40,7 +40,7 @@ public class DOMUtils implements java.io.Serializable {
 	 * Es un Singleton
 	 * @return
 	 */
-	public static DOMUtils getInstance() {
+	public static DOMUtils getInstance() {                
 		return instance;
 	}
 
@@ -61,7 +61,7 @@ public class DOMUtils implements java.io.Serializable {
 	 * @throws XmlException
 	 */
 	public Document getDocument(InputStream xml) throws XmlException  {
-
+                System.out.println("entroo");
 		try {
 			// Step 1: create a DocumentBuilderFactory
 			DocumentBuilderFactory dbf =

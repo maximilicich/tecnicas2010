@@ -45,6 +45,13 @@ public class ListPanel extends JawtList implements ListSelectionListener{
         add(obj.toString());
     }
 
+    public void addAll(Iterator it){
+        while(it.hasNext()){
+            Object obj = it.next();
+            addItem(obj);
+        }
+    }
+    
     public void removeItem(int Index){
         removeAt(Index);
     }
