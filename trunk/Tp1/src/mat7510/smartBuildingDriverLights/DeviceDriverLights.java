@@ -41,7 +41,7 @@ public class DeviceDriverLights extends DeviceDriver {
 		DeviceEventLights deviceEventLigthsFuncNormal 	= new DeviceEventLigthsFuncNormal(this);
 		DeviceEventLights deviceEventLigthsFuncRelax 	= new DeviceEventLigthsFuncRelax(this);
 		DeviceEventLights deviceEventLigthsFuncParty 	= new DeviceEventLigthsFuncParty(this);
-		DeviceEventLights deviceEventLigthsFuncRomantic = new DeviceEventLigthsFuncRomantic(this);
+		DeviceEventLights deviceEventLigthsFuncRomantic = new deviceEventLigthsFuncRomantic(this);
 		
 		this.deviceEvents.add(deviceEventLigthsON);
 		this.deviceEvents.add(deviceEventLigthsOFF);
