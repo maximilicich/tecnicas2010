@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<deviceDrivers>
+	<deviceDriver>
+		<deviceID>DeviceDriverClock-BH368</deviceID>
+		<deviceDescription>Device Driver Clock</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverClock.DeviceDriverClock</driverClass>
+	</deviceDriver>
+	<deviceDriver>
+		<deviceID>DeviceDriverDoor-AJ345</deviceID>
+		<deviceDescription>DeviceDriverDoorr</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverDoor.DeviceDriverDoor</driverClass>
+	</deviceDriver>
+</deviceDrivers>

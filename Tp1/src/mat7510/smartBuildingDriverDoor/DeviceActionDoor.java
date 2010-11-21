@@ -1,7 +1,7 @@
 package mat7510.smartBuildingDriverDoor;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceEventListener;
 
 public class DeviceActionDoor implements DeviceAction {
 
@@ -33,7 +33,7 @@ public class DeviceActionDoor implements DeviceAction {
 	@Override
 	public void execute() {
 		door.getState().put(attr, value);
-		for (EventListener listener : door.getEventListeners()) {
+		for (DeviceEventListener listener : door.getEventListeners()) {
 			listener.eventOccurred(event);
 		}
 	}

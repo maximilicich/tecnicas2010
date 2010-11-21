@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.DeviceEvent;
+import mat7510.smartBuilding.model.DeviceEventListener;
 
 public class DeviceDriverClock extends DeviceDriver{
 	
 	private List<DeviceAction> deviceActions = new ArrayList<DeviceAction>();
 	private List<DeviceEvent>  deviceEvents	 = new ArrayList<DeviceEvent>(); 
 	private Map<String,String> stateMap		 = new LinkedHashMap<String, String>();
-	private List<EventListener> listeners	 = new ArrayList<EventListener>();
+	private List<DeviceEventListener> listeners	 = new ArrayList<DeviceEventListener>();
 	
 	static final String ATTR_TIME_STATE = "DAY_TIME";
 	static final String ATTR_VALUE_MOORNING = "MOORNING";
@@ -76,14 +76,14 @@ public class DeviceDriverClock extends DeviceDriver{
 	}
 	
 	@Override
-	public void addEventListener(EventListener eventListener) {
+	public void addEventListener(DeviceEventListener eventListener) {
 		
 		this.listeners.add(eventListener);
 		
 	}
 
 	@Override
-	public Set<EventListener> getEventListeners() {
+	public Set<DeviceEventListener> getEventListeners() {
 		// TODO Auto-generated method stub
 		return null;
 	}

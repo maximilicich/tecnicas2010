@@ -1,7 +1,7 @@
 package mat7510.smartBuildingDriverClock;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceEventListener;
 
 public abstract class DeviceActionClock implements DeviceAction{
 
@@ -32,7 +32,7 @@ public abstract class DeviceActionClock implements DeviceAction{
 	@Override
 	public void execute() {	
 		changeClockTime();	
-		for (EventListener listener : deviceDriverClock.getEventListeners()) {
+		for (DeviceEventListener listener : deviceDriverClock.getEventListeners()) {
 			listener.eventOccurred(event);
 		}
 	}

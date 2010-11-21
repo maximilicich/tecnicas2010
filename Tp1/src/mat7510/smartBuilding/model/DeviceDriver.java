@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mat7510.eventManagerApi.version2.EventListener;
+// import mat7510.eventManagerApi.version2.EventListener;
 
 /**
  * 
@@ -61,7 +61,7 @@ public abstract class DeviceDriver {
 	/**
 	 * 
 	 */
-	private Set<EventListener> eventListeners = new LinkedHashSet<EventListener>();
+	private Set<DeviceEventListener> eventListeners = new LinkedHashSet<DeviceEventListener>();
 	
 	/**
 	 * Instanciar un DeviceDriver requiere OBLIGATORIAMENTE
@@ -131,12 +131,12 @@ public abstract class DeviceDriver {
 	
 	
 	/**
-	 *  Metodo para suscribir uno o mas {@link EventListener mat7510.eventManagerApi.version2.EventListener } 
+	 *  Metodo para suscribir uno o mas {@link EventListener mat7510.smartBuilding.model.DeviceEventListener } 
 	 *  Los cuales deberan recibir los Eventos emitidos por el dispositivo
 	 *  
 	 * @param eventListener
 	 */
-	public void addEventListener(EventListener eventListener) {
+	public void addEventListener(DeviceEventListener eventListener) {
 		this.eventListeners.add(eventListener);
 	}
 	
@@ -146,7 +146,7 @@ public abstract class DeviceDriver {
 	 * 
 	 * @return el Conjunto de EventListeners suscriptos. Si no hubiera, debe devolverse el Conjunto Vacio. NO null 
 	 */
-	public Set<EventListener> getEventListeners() {
+	public Set<DeviceEventListener> getEventListeners() {
 		return this.eventListeners;
 	}
 	

@@ -12,7 +12,7 @@ import mat7510.eventManagerApi.version2.EventManager;
  * @author Grupo 10 
  *
  */
-public class SmartBuildingManager {
+public class SmartBuildingManager implements DeviceEventListener {
 
 	private EventManager eventManager;
 	private List<DeviceDriver> drivers = new ArrayList<DeviceDriver>();;
@@ -47,6 +47,11 @@ public class SmartBuildingManager {
 	
 	public void setNewDriver (DeviceDriver driver){
 		this.drivers.add(driver);
+	}
+
+	@Override
+	public void eventOccurred(DeviceEvent e) {
+		this.eventManager.eventOccurred(e);
 	}
 	
 	

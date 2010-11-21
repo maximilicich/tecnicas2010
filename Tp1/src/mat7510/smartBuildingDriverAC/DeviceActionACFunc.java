@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceEventListener;
 
 public abstract class DeviceActionACFunc implements DeviceAction{
 
@@ -46,7 +46,7 @@ public abstract class DeviceActionACFunc implements DeviceAction{
 			if ( this.getAttr() == elem.getKey()){
 				changeACFunc();
 
-				for (EventListener listener : deviceDriverAC.getEventListeners()) {
+				for (DeviceEventListener listener : deviceDriverAC.getEventListeners()) {
 					listener.eventOccurred(event);
 				}
 				
