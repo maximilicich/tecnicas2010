@@ -99,13 +99,13 @@ public class Rule {
 			return this;
 		}
 		
-		public Builder continuous() {
-			this.continuous = true;
+		public Builder continuous(Boolean isContinuous) {
+			this.continuous = isContinuous;
 			return this;
 		}
 		
-		public Builder ordered() {
-			this.ordered = true;
+		public Builder ordered(Boolean isOrdered) {
+			this.ordered = isOrdered;
 			return this;
 		}
 	} // class Builder

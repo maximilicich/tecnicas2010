@@ -1,7 +1,6 @@
 package mat7510.xml;
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,10 +13,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -217,6 +214,38 @@ public class DOMUtils implements java.io.Serializable {
 		} catch (TransformerException e) {
 			throw new XmlException(e);
 		}
+	}
+	
+	
+	/**
+	 * En XML todo es string.
+	 * Con este metodo obtenemos la representacion en string de un valor booleano
+	 * @param boolValue
+	 * @return
+	 */
+	public String getBooleanRepresentation(Boolean boolValue) {
+		return (boolValue == null ? "no" : boolValue ? "yes" : "no" );
+	}
+	
+	/**
+	 * Convierte la representacion en String del valor booleano
+	 * al valor boolean en si.
+	 * En caso de que la representacion no corresponda a un valor valido,
+	 * se devuelve el defaultvalue
+	 * 
+	 * @param booleanRepresentation
+	 * @param defaultValue
+	 * @return
+	 */
+	public Boolean getBooleanValue(String booleanRepresentation, Boolean defaultValue) {
+		if (booleanRepresentation == null)
+			return defaultValue;
+		if (booleanRepresentation.trim().equalsIgnoreCase("yes"))
+			return true;
+		if (booleanRepresentation.trim().equalsIgnoreCase("no"))
+			return false;
+		return defaultValue;
+		
 	}
 	
 

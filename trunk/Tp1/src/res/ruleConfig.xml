@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <smartBuildingRules>
 
-	<rule continuous="no" enabled="yes" ordered="no">
+	<rule continuous="no" enabled="yes">
 		
 		<ruleID>X000001-K</ruleID>
 		<ruleDescription>Apertura Puerta Central</ruleDescription>
