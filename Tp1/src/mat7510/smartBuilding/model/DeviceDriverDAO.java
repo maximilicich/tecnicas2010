@@ -1,6 +1,8 @@
 package mat7510.smartBuilding.model;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.lang.reflect.Constructor;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -11,6 +13,7 @@ import mat7510.xml.XmlException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  * Clase Singleton que se encarga de leer el archivo XML de configuracion
@@ -101,6 +104,55 @@ public class DeviceDriverDAO {
 		}
 		
 		return null;
+	}
+
+	
+	public void addDeviceDriver(DeviceDriver deviceDriver) throws SmartBuildingException {
+
+		if (deviceDriver == null) 
+			throw new IllegalArgumentException("Cannot add a null DeviceDriver");
+		
+		if (deviceDriver.getDeviceID() == null)
+			throw new IllegalArgumentException("Cannot add a DeviceDriver with null ID");
+
+		if (deviceDriver.getDeviceID().trim().equalsIgnoreCase(""))
+			throw new IllegalArgumentException("Cannot add a DeviceDriver with blank ID");
+
+		
+		Document dom = createDomFromFile();
+
+		Element devDriversSection = getDeviceDriversSection(dom);
+		
+		Element deviceDriverElement = dom.createElement(DEVICE_DRIVER_ELEMENT_TAG);
+
+		Element deviceDriverID = dom.createElement(DEVICE_DRIVER_ELEMENT_ID_TAG);
+		Text id = dom.createTextNode(deviceDriver.getDeviceID());
+		deviceDriverID.appendChild(id);
+
+		Element deviceDriverDescription = dom.createElement(DEVICE_DRIVER_ELEMENT_NAME_TAG);
+		Text description = dom.createTextNode(deviceDriver.getDeviceDescription());
+		deviceDriverDescription.appendChild(description);
+
+		Element deviceDriverClass = dom.createElement(DEVICE_DRIVER_ELEMENT_CLASS_TAG);
+		Text driverClass = dom.createTextNode(deviceDriver.getClass().getName());
+		deviceDriverClass.appendChild(driverClass);
+
+		deviceDriverElement.appendChild(deviceDriverID);
+		deviceDriverElement.appendChild(deviceDriverDescription);
+		deviceDriverElement.appendChild(deviceDriverClass);
+		
+		devDriversSection.appendChild(deviceDriverElement);
+		
+		
+		try {
+			// DOMUtils.getInstance().printDomToXml(dom, System.out);
+			DOMUtils.getInstance().printDomToXml(dom, new FileOutputStream(XML_FILENAME));
+		} catch (XmlException e) {
+			throw new SmartBuildingException(e);
+		} catch (FileNotFoundException e) {
+			throw new SmartBuildingException(e);
+		} 
+
 	}
 	
 	

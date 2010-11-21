@@ -207,6 +207,16 @@ public class RuleDAO {
 	
 	public void addRule(Rule rule) throws SmartBuildingException {
 		
+		if (rule == null) 
+			throw new IllegalArgumentException("Cannot add a null Rule");
+
+		if (rule.getRuleID() == null)
+			throw new IllegalArgumentException("Cannot add a Rule with null ID");
+
+		if (rule.getRuleID().trim().equalsIgnoreCase(""))
+			throw new IllegalArgumentException("Cannot add a Rule with blank ID");
+
+		
 		Document dom = createDomFromFile();
 		Element rulesSection = getRulesSection(dom);
 		
