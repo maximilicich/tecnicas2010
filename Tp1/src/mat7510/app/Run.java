@@ -8,12 +8,10 @@ public class Run {
    static public void main(String argv[]){
 	   
 	   	SmartBuildingManager buildingManager = new SmartBuildingManager();
-	   	buildingManager.loadConfig();
 	   	
         MainWindow mainWindow = new MainWindow(buildingManager);     
         mainWindow.getMediador().showWindow();
 
-        buildingManager.saveConfig();
     }
 
 }

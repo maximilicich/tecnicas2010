@@ -5,14 +5,12 @@
 
 package mat7510.view;
 
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
 
 import mat7510.smartBuilding.model.DeviceDriver;
-import mat7510.smartBuilding.model.DeviceDriverDAO;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
 
@@ -39,9 +37,10 @@ public class Mediator {
     private void init(){
     	
         try {
-            devDrivers = DeviceDriverDAO.getInstance().getDeviceDrivers();
-
-            Iterator it = devDrivers.iterator();
+           // devDrivers = DeviceDriverDAO.getInstance().getDeviceDrivers();
+        	devDrivers = translator.actualizar();
+        	
+            Iterator<DeviceDriver> it = devDrivers.iterator();
 
             while(it.hasNext()){
                 DeviceDriver devDriver = (DeviceDriver) it.next();

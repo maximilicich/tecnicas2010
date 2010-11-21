@@ -1,9 +1,9 @@
 package mat7510.smartBuildingDriverLights;
 
 
-public class DeviceEventLigthsFuncRomantic extends DeviceEventLights {
+public class deviceEventLigthsFuncRomantic extends DeviceEventLights {
 
-		public DeviceEventLigthsFuncRomantic(DeviceDriverLights lights) {
+		public deviceEventLigthsFuncRomantic(DeviceDriverLights lights) {
 			super(lights, "Function Lights Romantic");
 		}
 
