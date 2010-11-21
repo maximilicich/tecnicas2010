@@ -1,6 +1,8 @@
 package mat7510.smartBuilding.model;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -11,6 +13,7 @@ import mat7510.xml.XmlException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  * 
@@ -65,16 +68,7 @@ public class RuleDAO {
 	 */
 	public Set<Rule> getRules() throws SmartBuildingException {
 		
-		InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
-		
-		Document domXml = null;
-		
-		try {
-			domXml = DOMUtils.getInstance().getDocument(xml);
-			
-		} catch (Exception e) {
-			throw new SmartBuildingException("Error al obtener archivo de Configuración de Reglas " + XML_FILENAME, e);
-		}
+		Document domXml = createDomFromFile();
 		
 		Element rulesSection = getRulesSection(domXml);
 	
@@ -197,5 +191,107 @@ public class RuleDAO {
 		}
 		
 	}
+	
+	
+	public void addRule(Rule rule) throws SmartBuildingException {
+		
+		Document dom = createDomFromFile();
+		Element rulesSection = getRulesSection(dom);
+		
+		Element ruleElement = dom.createElement(RULE_ELEMENT_TAG);
+		ruleElement.setAttribute(RULE_ATTR_ENABLED, rule.isEnabled() ? "yes" : "no");
+		ruleElement.setAttribute(RULE_ATTR_CONTINUOUS, rule.isContinuous() ? "yes" : "no");
+		ruleElement.setAttribute(RULE_ATTR_ORDERED, rule.isOrdered() ? "yes" : "no");
+	
+		Element ruleID = dom.createElement(RULE_ID_TAG);
+		Text id = dom.createTextNode(rule.getRuleID());
+		ruleID.appendChild(id);
 
+		Element ruleDescription = dom.createElement(RULE_DESCRIPTION_TAG);
+		Text description = dom.createTextNode(rule.getRuleDescription());
+		ruleDescription.appendChild(description);
+
+		ruleElement.appendChild(ruleID);
+		ruleElement.appendChild(ruleDescription);
+
+		Element actionElement = dom.createElement(RULE_ACTION_ELEMENT_TAG);
+		if (rule.getDeviceAction() != null) {
+			
+			Element deviceDriverIDElement = dom.createElement(DEVICEDRIVER_ID_TAG);
+			String deviceDriverID = rule.getDeviceAction().getDeviceDriver().getDeviceID();
+			deviceDriverIDElement.appendChild(dom.createTextNode(deviceDriverID));
+			actionElement.appendChild(deviceDriverIDElement);
+			
+			Element actionNameElement = dom.createElement(RULE_ACTION_NAME_TAG);
+			String actionName = rule.getDeviceAction().getActionName();
+			actionNameElement.appendChild(dom.createTextNode(actionName));
+			actionElement.appendChild(actionNameElement);
+		}
+		
+		ruleElement.appendChild(actionElement);
+
+		Element eventsSectionElement = dom.createElement(RULE_EVENTS_SECTION_TAG);
+		
+		for (DeviceEvent deviceEvent : rule.getDeviceEvents()) {
+			Element eventElement = dom.createElement(RULE_EVENT_ELEMENT_TAG);
+
+			Element deviceDriverIDElement = dom.createElement(DEVICEDRIVER_ID_TAG);
+			String deviceDriverID = deviceEvent.getDeviceDriver().getDeviceID();
+			deviceDriverIDElement.appendChild(dom.createTextNode(deviceDriverID));
+			eventElement.appendChild(deviceDriverIDElement);
+			
+			Element eventNameElement = dom.createElement(RULE_EVENT_NAME_TAG);
+			String eventName = deviceEvent.getEventName();
+			eventNameElement.appendChild(dom.createTextNode(eventName));
+			eventElement.appendChild(eventNameElement);
+			
+			eventsSectionElement.appendChild(eventElement);
+
+		}
+		
+		ruleElement.appendChild(eventsSectionElement);
+
+		
+		rulesSection.appendChild(ruleElement);
+		
+		
+		
+		try {
+			// DOMUtils.getInstance().printDomToXml(dom, System.out);
+			DOMUtils.getInstance().printDomToXml(dom, new FileOutputStream(XML_FILENAME));
+		} catch (XmlException e) {
+			throw new SmartBuildingException(e);
+		} catch (FileNotFoundException e) {
+			throw new SmartBuildingException(e);
+		} 
+
+	}
+
+
+	/**
+	 * 
+	 * @return
+	 * @throws SmartBuildingException
+	 */
+	private Document createDomFromFile() throws SmartBuildingException {
+		
+		try {
+			// ATENCION: ANTES USABAMOS getResourceAsStream() para 
+			// que la ruta relativa sea "relativa" a esta clase
+			// pero esto nos complica cuando queremos grabar en el archivo
+			// con el OutputStream...
+			// Asi que lo hacemos relativo a res por afuera de mat7510
+			// (lo anterior queda comentado)
+			
+			// InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
+			// return DOMUtils.getInstance().getDocument(new FileInputStream(XML_FILENAME));
+			
+			return DOMUtils.getInstance().getDocument(new FileInputStream(XML_FILENAME));
+			
+		} catch (Exception e) {
+			throw new SmartBuildingException("Error al obtener archivo de Configuración de Reglas " + XML_FILENAME, e);
+		}
+	}
+
+	
 }
