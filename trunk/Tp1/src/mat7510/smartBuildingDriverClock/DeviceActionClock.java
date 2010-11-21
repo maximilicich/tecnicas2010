@@ -3,7 +3,7 @@ package mat7510.smartBuildingDriverClock;
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceEventListener;
 
-public abstract class DeviceActionClock implements DeviceAction{
+public abstract class DeviceActionClock extends DeviceAction{
 
 	
 	private DeviceDriverClock deviceDriverClock;
@@ -19,8 +19,8 @@ public abstract class DeviceActionClock implements DeviceAction{
 								String value,
 								DeviceEventClock event) {
 		
-		if (deviceDriverClock == null) 
-			throw new NullPointerException("Clock can´t be null");
+		super(deviceDriverClock, actionName);
+		
 		this.deviceDriverClock = deviceDriverClock;
 		this.actionName = actionName;
 		this.attr = attr;

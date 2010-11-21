@@ -14,7 +14,7 @@ import mat7510.eventManagerApi.version2.Event;
  * @author Grupo 10
  *
  */
-public interface DeviceEvent extends Event {
+public abstract class DeviceEvent implements Event {
 
 	/**
 	 * Todo evento debe proveer su nombre, para 
@@ -23,6 +23,36 @@ public interface DeviceEvent extends Event {
 	 * 
 	 * @return el nombre del evento, tal como se le debe mostrar al Usuario final
 	 */
-	public String getEventName();
+	private String eventName;
+	
+	/**
+	 * El Device al que corresponde este evento
+	 */
+	private DeviceDriver deviceDriver;
+
+
+	public DeviceEvent(DeviceDriver deviceDriver, String eventName) {
+		if (deviceDriver == null)
+			throw new IllegalArgumentException("Cannot instantiate DeviceEvent with null DeviceDriver");
+
+		this.deviceDriver = deviceDriver;
+		this.eventName = eventName;
+	}
+	
+
+	public String getEventName() {
+		return eventName;
+	}
+
+
+	public DeviceDriver getDeviceDriver() {
+		return deviceDriver;
+	}
+
+	@Override
+	public String toString() {
+		return "DeviceEvent <" + eventName + "> for DeviceDriver <" + deviceDriver + ">";
+	}
+
 	
 }

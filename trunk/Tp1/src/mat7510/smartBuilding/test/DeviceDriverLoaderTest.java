@@ -1,6 +1,5 @@
 package mat7510.smartBuilding.test;
 
-import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,6 +32,24 @@ public class DeviceDriverLoaderTest {
 			System.out.println(formatState(devDriver));
 			System.out.println("");
 		}
+		
+		String oneDeviceID = "DeviceDriverClock-BH368";
+		
+		System.out.println("Now searching for " + oneDeviceID + "...");
+		
+		DeviceDriver mock = DeviceDriverDAO.getInstance().getDeviceDriverByID(oneDeviceID);
+		if (mock == null) {
+			System.out.println(oneDeviceID + " NOT FOUND");
+		} else {
+			System.out.println("ONE DEVICE DRIVER FOUND...");
+			System.out.println("Device ID          : " + mock.getDeviceID());
+			System.out.println("Device Description : " + mock.getDeviceDescription());
+			System.out.println("State              : ");
+			System.out.println(formatState(mock));
+			System.out.println("");
+
+		}
+		
 		
 	}
 	

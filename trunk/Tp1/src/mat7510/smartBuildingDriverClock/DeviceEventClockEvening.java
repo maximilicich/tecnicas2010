@@ -5,13 +5,9 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventClockEvening extends DeviceEventClock {
 
 	public DeviceEventClockEvening(DeviceDriverClock clock) {
-		super(clock);
+		super(clock, "Evening");
 	}
 
-	@Override
-	public String getEventName() {
-		return "Evening";
-	}
 
 	@Override
 	public boolean equals(Event anotherEvent) {

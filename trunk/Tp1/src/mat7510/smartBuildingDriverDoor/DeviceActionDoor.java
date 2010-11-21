@@ -3,7 +3,7 @@ package mat7510.smartBuildingDriverDoor;
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceEventListener;
 
-public class DeviceActionDoor implements DeviceAction {
+public class DeviceActionDoor extends DeviceAction {
 
 	private DeviceDriverDoor door;
 	private String actionName;
@@ -16,8 +16,9 @@ public class DeviceActionDoor implements DeviceAction {
 							String attr,
 							String value,
 							DeviceEventDoor event) {
-		if (door == null) 
-			throw new NullPointerException("Door can´t be null");
+		
+		super(door, actionName);
+		
 		this.door = door;
 		this.actionName = actionName;
 		this.attr = attr;

@@ -7,7 +7,40 @@
 	</deviceDriver>
 	<deviceDriver>
 		<deviceID>DeviceDriverDoor-AJ345</deviceID>
-		<deviceDescription>DeviceDriverDoorr</deviceDescription>
+		<deviceDescription>DeviceDriverDoor</deviceDescription>
 		<driverClass>mat7510.smartBuildingDriverDoor.DeviceDriverDoor</driverClass>
 	</deviceDriver>
+	<deviceDriver>
+		<deviceID>Puerta-Central-PB</deviceID>
+		<deviceDescription>Puerta Central Planta Baja</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverDoor.DeviceDriverDoor</driverClass>
+	</deviceDriver>
+	<deviceDriver>
+		<deviceID>DETECTOR-MOVIMIENTO-PB-0023</deviceID>
+		<deviceDescription>DETECTOR MOVIMIENTO PB nro 0023</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverDoor.DeviceDriverDoor</driverClass>
+	</deviceDriver>
+	<deviceDriver>
+		<deviceID>DETECTOR-MOVIMIENTO-PB-0025</deviceID>
+		<deviceDescription>DETECTOR MOVIMIENTO PB nro 0025</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverDoor.DeviceDriverDoor</driverClass>
+	</deviceDriver>
+	<deviceDriver>
+		<deviceID>AC-PISO24-0358</deviceID>
+		<deviceDescription>Aire Acondicionado Piso 24 Hab 358</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverAC.DeviceDriverAC</driverClass>
+	</deviceDriver>
+	<deviceDriver>
+		<deviceID>CENTRAL-CLOCK</deviceID>
+		<deviceDescription>Reloj Central</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverClock.DeviceDriverClock</driverClass>
+	</deviceDriver>
+	<deviceDriver>
+		<deviceID>LUCES-PASILLOS</deviceID>
+		<deviceDescription>Luces Pasillos Centrales</deviceDescription>
+		<driverClass>mat7510.smartBuildingDriverLights.DeviceDriverLights</driverClass>
+	</deviceDriver>
+	
+	
+	
 </deviceDrivers>

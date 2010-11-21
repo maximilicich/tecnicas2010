@@ -50,10 +50,10 @@ public class DeviceDriverDoor extends DeviceDriver {
 		this.events.add(deviceEventDoorLocked);
 		this.events.add(deviceEventDoorUnlocked);
 		
-		this.actions.add(new DeviceActionDoor(this, "Open Door", ATTR_OPEN_STATE, ATTR_VALUE_OPENED, deviceEventDoorOpened));
-		this.actions.add(new DeviceActionDoor(this, "Close Door", ATTR_OPEN_STATE, ATTR_VALUE_CLOSED, deviceEventDoorClosed));
-		this.actions.add(new DeviceActionDoor(this, "Lock Door", ATTR_LOCK_STATE, ATTR_VALUE_LOCKED, deviceEventDoorLocked));
-		this.actions.add(new DeviceActionDoor(this, "Unlock Door", ATTR_LOCK_STATE, ATTR_VALUE_UNLOCKED, deviceEventDoorUnlocked));
+		this.actions.add(new DeviceActionDoor(this, "open", ATTR_OPEN_STATE, ATTR_VALUE_OPENED, deviceEventDoorOpened));
+		this.actions.add(new DeviceActionDoor(this, "close", ATTR_OPEN_STATE, ATTR_VALUE_CLOSED, deviceEventDoorClosed));
+		this.actions.add(new DeviceActionDoor(this, "lock", ATTR_LOCK_STATE, ATTR_VALUE_LOCKED, deviceEventDoorLocked));
+		this.actions.add(new DeviceActionDoor(this, "unlock", ATTR_LOCK_STATE, ATTR_VALUE_UNLOCKED, deviceEventDoorUnlocked));
 		
 	}
 

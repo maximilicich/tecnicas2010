@@ -5,13 +5,9 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventTempACDown extends DeviceEventAC {
 
 		public DeviceEventTempACDown(DeviceDriverAC ac) {
-			super(ac);
+			super(ac, "TEMP DOWN AC");
 		}
 
-		@Override
-		public String getEventName() {
-			return "TEMP DOWN AC";
-		}
 
 		@Override
 		public boolean equals(Event anotherEvent) {

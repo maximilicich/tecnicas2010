@@ -5,12 +5,7 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventACFuncFR extends DeviceEventAC {
 
 	public DeviceEventACFuncFR(DeviceDriverAC ac) {
-		super(ac);
-	}
-
-	@Override
-	public String getEventName() {
-		return "FUNCTION AC COLD";
+		super(ac, "FUNCTION AC COLD");
 	}
 
 	@Override

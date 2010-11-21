@@ -9,17 +9,21 @@
 		
 		<action>
 			<deviceDriverID>Puerta-Central-PB</deviceDriverID>
-			<actionName>abrir</actionName>
+			<actionName>open</actionName>
 		</action>
 		<events>
 			<event>
-				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0023</deviceDriverID>
-				<eventName>hayMovimiento</eventName>
+				<deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
+				<eventName>Morning</eventName>
 			</event>
-			<event>
-				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0025</deviceDriverID>
-				<eventName>hayMovimiento</eventName>
-			</event>
+<!--			<event>-->
+<!--				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0023</deviceDriverID>-->
+<!--				<eventName>open</eventName>-->
+<!--			</event>-->
+<!--			<event>-->
+<!--				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0025</deviceDriverID>-->
+<!--				<eventName>hayMovimiento</eventName>-->
+<!--			</event>-->
 		</events>
 	
 	</rule>
@@ -31,17 +35,17 @@
 
 		<action>
 			<deviceDriverID>AC-PISO24-0358</deviceDriverID>
-			<actionName>encender</actionName>
+			<actionName>TURN ON AC</actionName>
 		</action>
 		<events>
 			<event>
 				<deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
-				<eventName>morningTime</eventName>
+				<eventName>Morning</eventName>
 			</event>
-			<event>
-				<deviceDriverID>TERMOMETRO-PISO24</deviceDriverID>
-				<eventName>temperaturaCalida</eventName>
-			</event>
+<!--			<event>-->
+<!--				<deviceDriverID>TERMOMETRO-PISO24</deviceDriverID>-->
+<!--				<eventName>temperaturaCalida</eventName>-->
+<!--			</event>-->
 		</events>
 
 	</rule>
@@ -53,12 +57,20 @@
 
 		<action>
 			<deviceDriverID>LUCES-PASILLOS</deviceDriverID>
-			<actionName>encender</actionName>
+			<actionName>Lights On</actionName>
 		</action>
 		<events>
+<!--			<event>-->
+<!--				<deviceDriverID>ASCENSOR</deviceDriverID>-->
+<!--				<eventName>llegando</eventName>-->
+<!--			</event>-->
 			<event>
-				<deviceDriverID>ASCENSOR</deviceDriverID>
-				<eventName>llegando</eventName>
+				<deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
+				<eventName>Evening</eventName>
+			</event>
+			<event>
+				<deviceDriverID>Puerta-Central-PB</deviceDriverID>
+				<eventName>Door Opened</eventName>
 			</event>
 		</events>
 	

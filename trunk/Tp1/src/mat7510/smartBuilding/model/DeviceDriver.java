@@ -178,4 +178,26 @@ public abstract class DeviceDriver {
 	public abstract DeviceEvent getDeviceEventByName(String deviceEventName);
 	
 	
+	@Override
+	/**
+	 * Un DeviceDriver es igual a otro si y solo si sus ID son iguales
+	 */
+	public boolean equals(Object obj) {
+		
+		if (!( obj instanceof DeviceDriver))
+			return false;
+		
+		DeviceDriver anotherDevice = (DeviceDriver)obj;
+		
+		if (this.deviceID == null || anotherDevice.deviceID == null)
+			return false;
+		
+		return this.deviceID.trim().equalsIgnoreCase(anotherDevice.deviceID.trim());
+	}
+	
+	@Override
+	public String toString() {
+		return "DeviceDriver ID : " + deviceID + " | description : " + deviceDescription; 
+	}
+	
 }

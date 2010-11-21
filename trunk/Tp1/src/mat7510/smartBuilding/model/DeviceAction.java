@@ -18,7 +18,12 @@ import mat7510.eventManagerApi.version2.ActionCommand;
  * @author Grupo 10
  *
  */
-public interface DeviceAction extends ActionCommand {
+public abstract class DeviceAction implements ActionCommand {
+
+	/**
+	 * El Device al que corresponde esta accion
+	 */
+	private DeviceDriver deviceDriver;
 
 	/**
 	 * Toda Accion debe proveer su nombre, para 
@@ -28,8 +33,27 @@ public interface DeviceAction extends ActionCommand {
 	 * El Driver debera asegurar que este nombre sea unico entre
 	 * las acciones disponibles, para identificarla univocamente
 	 * 
-	 * @return el nombre de la accion, tal como se le debe mostrar al Usuario final
 	 */
-	public String getActionName();
+	private String actionName;
+	
+	public DeviceAction(DeviceDriver deviceDriver, String actionName) {
+		if (deviceDriver == null)
+			throw new IllegalArgumentException("Cannot instantiate DeviceAction with null DeviceDriver");
+		this.deviceDriver = deviceDriver;
+		this.actionName = actionName;
+	}
+
+	public DeviceDriver getDeviceDriver() {
+		return deviceDriver;
+	}
+
+	public String getActionName() {
+		return actionName;
+	}
+	
+	@Override
+	public String toString() {
+		return "DeviceAction <" + actionName + "> for DeviceDriver <" + deviceDriver + ">";
+	}
 	
 }

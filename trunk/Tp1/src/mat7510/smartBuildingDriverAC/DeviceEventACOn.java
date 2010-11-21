@@ -5,13 +5,9 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventACOn extends DeviceEventAC {
 
 		public DeviceEventACOn(DeviceDriverAC ac) {
-			super(ac);
+			super(ac, "TURN ON AC");
 		}
 
-		@Override
-		public String getEventName() {
-			return "TURN ON AC";
-		}
 
 		@Override
 		public boolean equals(Event anotherEvent) {
