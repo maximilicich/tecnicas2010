@@ -1,8 +1,10 @@
 package mat7510.smartBuilding.model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -29,8 +31,7 @@ public class DeviceDriverDAO {
 	private DeviceDriverDAO() {
 	}
 	
-	private static final String XML_FILENAME = "res/deviceDriverConfig.xml";
-      //  private static final String XML_FILENAME = "/home/sergio/Escritorio/Facu/Tecnicas/Tp/tecnicas2010/Tp1/src/res/deviceDriverConfig.xml";
+	private static final String XML_FILENAME = "bin\\res\\deviceDriverConfig.xml";
 	
 	/**
 	 * LOS TAGS XML
@@ -300,10 +301,11 @@ public class DeviceDriverDAO {
 			// Asi que lo hacemos relativo a res por afuera de mat7510
 			// (lo anterior queda comentado)
 
-			// InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
-			// return DOMUtils.getInstance().getDocument(xml);
-                                
-			return DOMUtils.getInstance().getDocument(new FileInputStream(XML_FILENAME));
+			
+			 //InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
+		     //return DOMUtils.getInstance().getDocument(xml);
+			File file = new File(XML_FILENAME);
+			return DOMUtils.getInstance().getDocument(new FileInputStream (file.getAbsolutePath()));//new FileInputStream(XML_FILENAME));
 			
 		} catch (Exception e) {
 			throw new SmartBuildingException("Error al obtener archivo de Configuración de Drivers " + XML_FILENAME, e);
