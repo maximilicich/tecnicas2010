@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <deviceDrivers>
 	<deviceDriver>
 		<deviceID>DeviceDriverClock-BH368</deviceID>
@@ -43,4 +43,9 @@
 	
 	
 	
+<deviceDriver>
+<deviceID>MOCK01-20101121</deviceID>
+<deviceDescription>Device creado desde DeviceDriverDAOTest_addDevice</deviceDescription>
+<driverClass>mat7510.smartBuilding.test.DeviceDriverMock01</driverClass>
+</deviceDriver>
 </deviceDrivers>

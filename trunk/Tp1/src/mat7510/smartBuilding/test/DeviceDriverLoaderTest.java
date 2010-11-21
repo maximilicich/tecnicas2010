@@ -62,6 +62,4 @@ public class DeviceDriverLoaderTest {
 		}
 		return out.toString();
 	}
-
-	
 }
