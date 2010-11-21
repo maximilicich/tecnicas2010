@@ -14,6 +14,11 @@ public class RuleDAOTest_showRules {
 		Set<Rule> rules = RuleDAO.getInstance().getRules();
 		for (Rule rule : rules) {
 			System.out.println(rule);
+			
+			System.out.println("enabled    ? " + rule.isEnabled());
+			System.out.println("ordered    ? " + rule.isOrdered());
+			System.out.println("continuous ? " + rule.isContinuous());
+			
 			System.out.println("\t" + rule.getDeviceAction());
 			for (DeviceEvent deviceEvent : rule.getDeviceEvents()) {
 				System.out.println("\t\t" + deviceEvent);

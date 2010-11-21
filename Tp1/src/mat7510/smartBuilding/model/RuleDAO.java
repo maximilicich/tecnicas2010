@@ -78,6 +78,11 @@ public class RuleDAO {
 		Set<Rule> rules = new LinkedHashSet<Rule>();
 		
 		for (Element element : ruleElements) {
+			
+			Boolean isEnabled = DOMUtils.getInstance().getBooleanValue(element.getAttribute(RULE_ATTR_ENABLED), true);
+			Boolean isContinuous = DOMUtils.getInstance().getBooleanValue(element.getAttribute(RULE_ATTR_CONTINUOUS), false);
+			Boolean isOrdered = DOMUtils.getInstance().getBooleanValue(element.getAttribute(RULE_ATTR_ORDERED), false);
+			
 			String ruleID = getUniqueAttributeValue(element, RULE_ID_TAG);
 			String ruleDescription = getUniqueAttributeValue(element, RULE_DESCRIPTION_TAG);
 			
@@ -86,7 +91,14 @@ public class RuleDAO {
 			List<DeviceEvent> events = getDeviceEvents(element);
 			
 			// Construimos la REGLA:
-			Rule rule = new Rule.Builder(ruleID, ruleDescription).action(deviceAction).build();
+			Rule rule = new Rule.Builder(ruleID, ruleDescription).
+									action(deviceAction).
+									continuous(isContinuous).
+									ordered(isOrdered).
+									build();
+			
+			rule.setEnabled(isEnabled);
+			
 			for (DeviceEvent deviceEvent : events) {
 				rule.addDeviceEvent(deviceEvent);
 			}
@@ -199,9 +211,9 @@ public class RuleDAO {
 		Element rulesSection = getRulesSection(dom);
 		
 		Element ruleElement = dom.createElement(RULE_ELEMENT_TAG);
-		ruleElement.setAttribute(RULE_ATTR_ENABLED, rule.isEnabled() ? "yes" : "no");
-		ruleElement.setAttribute(RULE_ATTR_CONTINUOUS, rule.isContinuous() ? "yes" : "no");
-		ruleElement.setAttribute(RULE_ATTR_ORDERED, rule.isOrdered() ? "yes" : "no");
+		ruleElement.setAttribute(RULE_ATTR_ENABLED, DOMUtils.getInstance().getBooleanRepresentation(rule.isEnabled()));
+		ruleElement.setAttribute(RULE_ATTR_CONTINUOUS, DOMUtils.getInstance().getBooleanRepresentation(rule.isContinuous()));
+		ruleElement.setAttribute(RULE_ATTR_ORDERED, DOMUtils.getInstance().getBooleanRepresentation(rule.isOrdered()));
 	
 		Element ruleID = dom.createElement(RULE_ID_TAG);
 		Text id = dom.createTextNode(rule.getRuleID());
@@ -250,11 +262,9 @@ public class RuleDAO {
 		}
 		
 		ruleElement.appendChild(eventsSectionElement);
-
 		
 		rulesSection.appendChild(ruleElement);
-		
-		
+
 		
 		try {
 			// DOMUtils.getInstance().printDomToXml(dom, System.out);
