@@ -5,13 +5,9 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventTempACUp extends DeviceEventAC {
 
 	public DeviceEventTempACUp(DeviceDriverAC ac) {
-		super(ac);
+		super(ac, "TEMP UP AC");
 	}
 
-	@Override
-	public String getEventName() {
-		return "TEMP UP AC";
-	}
 
 	@Override
 	public boolean equals(Event anotherEvent) {

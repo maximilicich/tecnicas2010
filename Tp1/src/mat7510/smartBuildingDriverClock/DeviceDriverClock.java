@@ -30,7 +30,7 @@ public class DeviceDriverClock extends DeviceDriver{
 		
 		stateMap.put(ATTR_TIME_STATE, "ATTR_VALUE_MOORNING");
 		
-		DeviceEventClock deviceEventClockMoorning  = new DeviceEventClockMoorning(this);
+		DeviceEventClock deviceEventClockMoorning  = new DeviceEventClockMorning(this);
 		DeviceEventClock deviceEventClockAfternoon = new DeviceEventClockAfternoon(this);
 		DeviceEventClock deviceEventClockEvening   = new DeviceEventClockEvening(this);
 		
@@ -38,7 +38,7 @@ public class DeviceDriverClock extends DeviceDriver{
 		this.deviceEvents.add(deviceEventClockAfternoon);
 		this.deviceEvents.add(deviceEventClockEvening);
 		
-		this.deviceActions.add(new DeviceActionClockMoorning(this,deviceEventClockMoorning));
+		this.deviceActions.add(new DeviceActionClockMorning(this,deviceEventClockMoorning));
 		this.deviceActions.add(new DeviceActionClockAfternoon(this,deviceEventClockAfternoon));
 		this.deviceActions.add(new DeviceActionClockEvening(this,deviceEventClockEvening));
 		

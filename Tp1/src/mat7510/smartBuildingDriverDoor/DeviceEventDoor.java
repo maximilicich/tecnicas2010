@@ -7,13 +7,12 @@ import mat7510.smartBuilding.model.DeviceEvent;
  * @author Grupo 10 
  *
  */
-public abstract class DeviceEventDoor implements DeviceEvent {
+public abstract class DeviceEventDoor extends DeviceEvent {
 
 	private DeviceDriverDoor door;
 
-	public DeviceEventDoor(DeviceDriverDoor door) {
-		if (door == null) 
-			throw new NullPointerException("Door can´t be null");
+	public DeviceEventDoor(DeviceDriverDoor door, String eventName) {
+		super(door, eventName);
 		this.door = door;
 	}
 

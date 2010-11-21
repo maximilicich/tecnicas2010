@@ -18,6 +18,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import mat7510.smartBuilding.model.SmartBuildingException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -115,7 +117,7 @@ public class DOMUtils implements java.io.Serializable {
 
 	}
 
-
+	
 	/**
 	 * 
 	 * @param node
@@ -141,6 +143,30 @@ public class DOMUtils implements java.io.Serializable {
 
 	}
 
+	
+	/**
+	 * 
+	 * @param node
+	 * @param elementName
+	 * @return
+	 * @throws XmlException
+	 */
+	public Element getUniqueElementByName(Node node, String elementName) throws XmlException {
+		
+		List<Element> elements = getElementsByName(node, elementName);
+		
+		if (elements.size() == 0) {
+			throw new XmlException("Section " + elementName + " does not exist in XML");
+		}
+		if (elements.size() > 1) {
+			throw new XmlException("Section " + elementName + " is not unique in XML");
+		}
+		
+		return elements.iterator().next();
+		
+	}
+	
+	
 	/**
 	 * 
 	 * @param dom
@@ -167,4 +193,29 @@ public class DOMUtils implements java.io.Serializable {
 			throw new XmlException(e);
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * @param element
+	 * @param attribute
+	 * @return
+	 * @throws XmlException 
+	 * 
+	 */
+	public String getUniqueAttributeValue(Element element, String attribute) throws XmlException {
+
+		List<Element> attrElements = this.getElementsByName(element, attribute);
+		
+		if (attrElements.size() == 0) {
+			throw new XmlException("Section " + attribute + " does not exist in XML");
+		}
+		if (attrElements.size() > 1) {
+			throw new XmlException("Section " + attribute + " is not unique in XML");
+		}
+		
+		return attrElements.iterator().next().getTextContent();
+		
+	}
+
 }

@@ -11,13 +11,9 @@ public class DeviceEventDoorClosed extends DeviceEventDoor  {
 
 	
 	public DeviceEventDoorClosed(DeviceDriverDoor door) {
-		super(door);
+		super(door, "Door Closed");
 	}
 
-	@Override
-	public String getEventName() {
-		return "Door Closed";
-	}
 
 	@Override
 	public boolean equals(Event anotherEvent) {

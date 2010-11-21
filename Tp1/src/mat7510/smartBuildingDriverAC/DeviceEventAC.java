@@ -2,13 +2,12 @@ package mat7510.smartBuildingDriverAC;
 
 import mat7510.smartBuilding.model.DeviceEvent;
 
-public abstract class DeviceEventAC implements DeviceEvent {
+public abstract class DeviceEventAC extends DeviceEvent {
 
 		private DeviceDriverAC ac;
 
-		public DeviceEventAC(DeviceDriverAC ac) {
-			if (ac == null) 
-				throw new NullPointerException("AC can´t be null");
+		public DeviceEventAC(DeviceDriverAC ac, String eventName) {
+			super(ac, eventName);
 			this.ac = ac;
 		}
 

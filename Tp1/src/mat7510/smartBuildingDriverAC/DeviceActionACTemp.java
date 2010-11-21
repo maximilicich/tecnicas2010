@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import mat7510.smartBuilding.model.DeviceAction;
 
-public abstract class DeviceActionACTemp implements DeviceAction{
+public abstract class DeviceActionACTemp extends DeviceAction{
 	
 	private DeviceDriverAC deviceDriverAC;
 	private String actionName;
@@ -22,8 +22,7 @@ public abstract class DeviceActionACTemp implements DeviceAction{
 			String value,
 			DeviceEventAC event) {
 
-		if (deviceDriverAC == null) 
-			throw new NullPointerException("AC can´t be null");
+		super(deviceDriverAC, actionName);
 
 		this.deviceDriverAC = deviceDriverAC;
 		this.actionName = actionName;

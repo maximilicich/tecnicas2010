@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceEventListener;
 
-public abstract class DeviceActionLightsFunc implements DeviceAction{
+public abstract class DeviceActionLightsFunc extends DeviceAction{
 
 	
 	private DeviceDriverLights deviceDriverLights;
@@ -24,8 +24,7 @@ public abstract class DeviceActionLightsFunc implements DeviceAction{
 									String value,
 									DeviceEventLights event) {
 		
-		if (deviceDriverLights == null) 
-			throw new NullPointerException("Lights can´t be null");
+		super(deviceDriverLights, actionName);
 		
 		this.deviceDriverLights = deviceDriverLights;
 		this.actionName = actionName;

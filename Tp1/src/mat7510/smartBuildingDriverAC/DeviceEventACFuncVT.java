@@ -5,12 +5,7 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventACFuncVT extends DeviceEventAC {
 
 	public DeviceEventACFuncVT(DeviceDriverAC ac) {
-		super(ac);
-	}
-
-	@Override
-	public String getEventName() {
-		return "FUNCTION AC VENT";
+		super(ac, "FUNCTION AC VENT");
 	}
 
 	@Override

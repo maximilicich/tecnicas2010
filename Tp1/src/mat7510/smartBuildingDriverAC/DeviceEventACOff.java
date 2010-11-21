@@ -5,12 +5,7 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventACOff extends DeviceEventAC {
 
 		public DeviceEventACOff(DeviceDriverAC ac) {
-			super(ac);
-		}
-
-		@Override
-		public String getEventName() {
-			return "TURN OFF AC";
+			super(ac, "TURN OFF AC");
 		}
 
 		@Override

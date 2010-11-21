@@ -5,13 +5,9 @@ import mat7510.eventManagerApi.version2.Event;
 public class DeviceEventLigthsON extends DeviceEventLights {
 
 	public DeviceEventLigthsON(DeviceDriverLights lights) {
-		super(lights);
+		super(lights, "Lights On");
 	}
 
-	@Override
-	public String getEventName() {
-		return "Lights On";
-	}
 
 	@Override
 	public boolean equals(Event anotherEvent) {

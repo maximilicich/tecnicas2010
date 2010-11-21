@@ -1,8 +1,6 @@
-
 package mat7510.smartBuilding.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import mat7510.eventManagerApi.version2.EventManager;
 
@@ -15,44 +13,36 @@ import mat7510.eventManagerApi.version2.EventManager;
 public class SmartBuildingManager implements DeviceEventListener {
 
 	private EventManager eventManager;
-	private List<DeviceDriver> drivers = new ArrayList<DeviceDriver>();;
 
 	public SmartBuildingManager() {
-		this.setEventManager(EventManager.getInstance()); 
+		eventManager = EventManager.getInstance(); 
 	}
 	
-	public void saveConfig() {
+	public void registerDeviceDriver(DeviceDriver deviceDriver) {
+		if (deviceDriver == null)
+			throw new IllegalArgumentException("Cannot register a null device driver in SmartBuildingManager");
+		deviceDriver.addEventListener(this);
+	}
+
+	public void registerRule(Rule rule) {
+		if (rule == null)
+			throw new IllegalArgumentException("Cannot register a null Rule in SmartBuildingManager");
+		if (rule.getEventChain() == null)
+			throw new IllegalArgumentException("Cannot register in SmartBuildingManager a Rule that has no event chain");
 		
+		this.eventManager.registerEventChain(rule.getEventChain());
 	}
 	
-	public void loadConfig() {
-		
-	}
-
-	public void setEventManager(EventManager eventManager) {
-		this.eventManager = eventManager;
-	}
-
-	public EventManager getEventManager() {
-		return eventManager;
-	}
-
-	public void setDrivers(List<DeviceDriver> drivers) {
-		this.drivers = drivers;
-	}
-
-	public List<DeviceDriver> getDrivers() {
-		return drivers;
-	}
-	
-	public void setNewDriver (DeviceDriver driver){
-		this.drivers.add(driver);
-	}
-
 	@Override
 	public void eventOccurred(DeviceEvent e) {
 		this.eventManager.eventOccurred(e);
 	}
 	
+	public Set<DeviceDriver> getDeviceDrivers() throws SmartBuildingException {
+		return DeviceDriverDAO.getInstance().getDeviceDrivers();
+	}
 	
+	public void loadConfig() {
+		
+	}
 }

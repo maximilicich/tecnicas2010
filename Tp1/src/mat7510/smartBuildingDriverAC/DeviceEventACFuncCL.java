@@ -6,13 +6,9 @@ public class DeviceEventACFuncCL extends DeviceEventAC {
 
 
 	public DeviceEventACFuncCL(DeviceDriverAC ac) {
-		super(ac);
+		super(ac, "FUNCTION AC WARM");
 	}
 
-	@Override
-	public String getEventName() {
-		return "FUNCTION AC WARM";
-	}
 
 	@Override
 	public boolean equals(Event anotherEvent) {

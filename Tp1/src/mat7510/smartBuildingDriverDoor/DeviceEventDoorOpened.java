@@ -11,13 +11,9 @@ public class DeviceEventDoorOpened extends DeviceEventDoor  {
 
 	
 	public DeviceEventDoorOpened(DeviceDriverDoor door) {
-		super(door);
+		super(door, "Door Opened");
 	}
 
-	@Override
-	public String getEventName() {
-		return "Door Opened";
-	}
 
 	@Override
 	public boolean equals(Event anotherEvent) {

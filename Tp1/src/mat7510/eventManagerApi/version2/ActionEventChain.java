@@ -19,6 +19,8 @@ public class ActionEventChain extends EventChain {
 	 * @param action
 	 */
 	public ActionEventChain(ActionCommand action) {
+		if (action == null) 
+			throw new IllegalArgumentException("Action cannot be null");
 		this.action = action;
 	}
 	
@@ -47,4 +49,15 @@ public class ActionEventChain extends EventChain {
 		return action;
 	}
 
+	/**
+	 * Se permite modificar la accion de esta cadena
+	 * 
+	 * @param action La nueva accion de la cadena. La accion anterior se descarta
+	 */
+	public void setAction(ActionCommand action) {
+		if (action == null) 
+			throw new IllegalArgumentException("Action cannot be null");
+		this.action = action;
+	}
+	
 }

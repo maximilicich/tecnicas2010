@@ -27,5 +27,14 @@ public class XmlException extends Exception {
 	public XmlException(String s) {
 		super(s);
 	}
+
+	/**
+	 * 
+	 * @param string
+	 * @param e
+	 */
+	public XmlException(String string, Exception e) {
+		super(string, e);
+	}
 	
 }

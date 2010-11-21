@@ -2,13 +2,12 @@ package mat7510.smartBuildingDriverLights;
 
 import mat7510.smartBuilding.model.DeviceEvent;
 
-	public abstract class DeviceEventLights implements DeviceEvent {
+	public abstract class DeviceEventLights extends DeviceEvent {
 
 		private DeviceDriverLights lights;
 
-		public DeviceEventLights(DeviceDriverLights lights) {
-			if (lights == null) 
-				throw new NullPointerException("Lights can´t be null");
+		public DeviceEventLights(DeviceDriverLights lights, String eventName) {
+			super(lights, eventName);
 			this.lights = lights;
 		}
 

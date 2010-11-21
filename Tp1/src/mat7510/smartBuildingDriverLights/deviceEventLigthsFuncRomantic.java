@@ -5,14 +5,10 @@ import mat7510.eventManagerApi.version2.Event;
 public class deviceEventLigthsFuncRomantic extends DeviceEventLights {
 
 		public deviceEventLigthsFuncRomantic(DeviceDriverLights lights) {
-			super(lights);
+			super(lights, "Function Lights Romantic");
 		}
 
-		@Override
-		public String getEventName() {
-			return "Function Lights Romantic";
-		}
-
+		
 		@Override
 		public boolean equals(Event anotherEvent) {
 			if (!(anotherEvent instanceof deviceEventLigthsFuncRomantic))
