@@ -37,9 +37,9 @@ public class Mediator {
     }
 
     private void init(){
-        InputStream xml = this.getClass().getResourceAsStream("devicedriverConfig.xml");
+    	
         try {
-            devDrivers = DeviceDriverDAO.getInstance().getDeviceDrivers(xml);
+            devDrivers = DeviceDriverDAO.getInstance().getDeviceDrivers();
 
             Iterator it = devDrivers.iterator();
 

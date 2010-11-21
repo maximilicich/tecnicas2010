@@ -17,13 +17,13 @@ public class DeviceDriverLoaderTest {
 	
 	public void execute() throws Exception {
 		
-		InputStream xml = this.getClass().getResourceAsStream("res/deviceDriverConfig.xml");
+		// InputStream xml = this.getClass().getResourceAsStream("res/deviceDriverConfig.xml");
 		// InputStream xml = new FileInputStream(new File("C:/temp/deviceDriverConfig.xml"));
 		
 		// DOMUtils.getInstance().printDomToXml(DOMUtils.getInstance().getDocument(xml), System.out);
 		
 		Set<DeviceDriver> devDrivers = 
-			DeviceDriverDAO.getInstance().getDeviceDrivers(xml);
+			DeviceDriverDAO.getInstance().getDeviceDrivers();
 
 		for (DeviceDriver devDriver : devDrivers) {
 			System.out.println("DRIVER");

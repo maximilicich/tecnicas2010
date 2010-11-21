@@ -26,6 +26,8 @@ public class DeviceDriverDAO {
 	private DeviceDriverDAO() {
 	}
 	
+	private static final String XML_FILENAME = "res/deviceDriverConfig.xml";
+	
 	/**
 	 * LOS TAGS XML
 	 * Son Publicos para que el Usuario pueda consultar y 
@@ -73,7 +75,9 @@ public class DeviceDriverDAO {
 	 *  
 	 * @throws SmartBuildingException Excepcion general 
 	 */
-	public Set<DeviceDriver> getDeviceDrivers(InputStream xml) throws SmartBuildingException {
+	public Set<DeviceDriver> getDeviceDrivers() throws SmartBuildingException {
+		
+		InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
 		
 		Document domXml = null;
 		
@@ -82,7 +86,7 @@ public class DeviceDriverDAO {
 			// DOMUtils.getInstance().printDomToXml(domXml, System.out);
 			
 		} catch (Exception e) {
-			throw new SmartBuildingException(e);
+			throw new SmartBuildingException("Error al obtener archivo de Configuración de Drivers " + XML_FILENAME, e);
 		}
 		
 		Element devDriversSection = getDeviceDriversSection(domXml);

@@ -15,9 +15,12 @@ public class Rule extends ActionEventChain {
 
 	private String ruleID;
 	private String ruleDescription;
-
-	public Rule(String ruleID, String ruleDescription, DeviceAction action) {
-		super(action);
+	private Boolean enabled = true;
+	private Boolean continuous = false;
+	private Boolean ordered = false;
+	
+	public Rule(String ruleID, String ruleDescription, DeviceAction deviceAction) {
+		super(deviceAction);
 		this.ruleID = ruleID;
 		this.ruleDescription = ruleDescription;
 	}
@@ -28,6 +31,30 @@ public class Rule extends ActionEventChain {
 
 	public String getRuleDescription() {
 		return ruleDescription;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setContinuous(Boolean continuous) {
+		this.continuous = continuous;
+	}
+
+	public Boolean isContinuous() {
+		return continuous;
+	}
+
+	public void setOrdered(Boolean ordered) {
+		this.ordered = ordered;
+	}
+
+	public Boolean isOrdered() {
+		return ordered;
 	}
 
 }

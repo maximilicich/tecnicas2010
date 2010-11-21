@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import mat7510.eventManagerApi.version2.EventListener;
 import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceEventListener;
 
 public abstract class DeviceActionLightsOnOff implements DeviceAction {
 
@@ -45,7 +45,7 @@ public abstract class DeviceActionLightsOnOff implements DeviceAction {
 			Map.Entry<String, String> elem = (Map.Entry<String, String>)itStateMap.next();
 			if ( this.getAttr() == elem.getKey() ){
 				changeOnOff();
-				for (EventListener listener : deviceDriverLights.getEventListeners()) {
+				for (DeviceEventListener listener : deviceDriverLights.getEventListeners()) {
 					listener.eventOccurred(event);
 				}
 			}
