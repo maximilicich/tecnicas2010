@@ -39,13 +39,5 @@
 		<deviceID>LUCES-PASILLOS</deviceID>
 		<deviceDescription>Luces Pasillos Centrales</deviceDescription>
 		<driverClass>mat7510.smartBuildingDriverLights.DeviceDriverLights</driverClass>
-	</deviceDriver>
-	
-	
-	
-<deviceDriver>
-<deviceID>MOCK01-20101121</deviceID>
-<deviceDescription>Device creado desde DeviceDriverDAOTest_addDevice</deviceDescription>
-<driverClass>mat7510.smartBuilding.test.DeviceDriverMock01</driverClass>
-</deviceDriver>
+	</deviceDriver>	
 </deviceDrivers>

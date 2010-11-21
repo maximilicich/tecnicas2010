@@ -30,6 +30,7 @@ public class DeviceDriverDAO {
 	}
 	
 	private static final String XML_FILENAME = "res/deviceDriverConfig.xml";
+      //  private static final String XML_FILENAME = "/home/sergio/Escritorio/Facu/Tecnicas/Tp/tecnicas2010/Tp1/src/res/deviceDriverConfig.xml";
 	
 	/**
 	 * LOS TAGS XML
@@ -301,6 +302,7 @@ public class DeviceDriverDAO {
 
 			// InputStream xml = this.getClass().getResourceAsStream(XML_FILENAME);
 			// return DOMUtils.getInstance().getDocument(xml);
+                                
 			return DOMUtils.getInstance().getDocument(new FileInputStream(XML_FILENAME));
 			
 		} catch (Exception e) {
