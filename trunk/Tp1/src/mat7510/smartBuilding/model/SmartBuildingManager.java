@@ -1,8 +1,7 @@
 package mat7510.smartBuilding.model;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
-
-import mat7510.eventManagerApi.version2.EventManager;
 
 
 /**
@@ -10,39 +9,146 @@ import mat7510.eventManagerApi.version2.EventManager;
  * @author Grupo 10 
  *
  */
-public class SmartBuildingManager implements DeviceEventListener {
+public class SmartBuildingManager {
 
-	private EventManager eventManager;
+	private static SmartBuildingManager instance = new SmartBuildingManager();
 
-	public SmartBuildingManager() {
-		eventManager = EventManager.getInstance(); 
+	private SmartBuildingEventEngine eventEngine;
+	
+	private Set<DeviceDriver> deviceDrivers = new LinkedHashSet<DeviceDriver>();
+	private Set<Rule> rules = new LinkedHashSet<Rule>();
+	
+	private SmartBuildingManager() {
+		this.eventEngine = SmartBuildingEventEngine.getInstance();
+	}
+	public static SmartBuildingManager getInstance() {
+		return instance;
 	}
 	
-	public void registerDeviceDriver(DeviceDriver deviceDriver) {
-		if (deviceDriver == null)
-			throw new IllegalArgumentException("Cannot register a null device driver in SmartBuildingManager");
-		deviceDriver.addEventListener(this);
-	}
-
-	public void registerRule(Rule rule) {
-		if (rule == null)
-			throw new IllegalArgumentException("Cannot register a null Rule in SmartBuildingManager");
-		if (rule.getEventChain() == null)
-			throw new IllegalArgumentException("Cannot register in SmartBuildingManager a Rule that has no event chain");
+	/**
+	 * @throws SmartBuildingException 
+	 * 
+	 */
+	public void loadConfig() throws SmartBuildingException {
 		
-		this.eventManager.registerEventChain(rule.getEventChain());
-	}
-	
-	@Override
-	public void eventOccurred(DeviceEvent e) {
-		this.eventManager.eventOccurred(e);
-	}
-	
-	public Set<DeviceDriver> getDeviceDrivers() throws SmartBuildingException {
-		return DeviceDriverDAO.getInstance().getDeviceDrivers();
-	}
-	
-	public void loadConfig() {
+		loadDeviceDriversConfig();
+		loadRulesConfig();
 		
+	}
+	
+	/**
+	 * 
+	 * @throws SmartBuildingException
+	 */
+	public void refreshDeviceDrivers() throws SmartBuildingException {
+		loadDeviceDriversConfig();
+	}
+	
+	
+	/**
+	 * Devuelve los DeviceDrivers configurados
+	 * OJO! Estan en memoria...no se actualiza de la persistencia
+	 * Hasta que se hace un refreshDrivers()
+	 * O si se hace un loadConfig()
+	 * 
+	 * @return
+	 */
+	public Set<DeviceDriver> getDeviceDrivers() {
+		return deviceDrivers;
+	}
+	
+
+	/**
+	 * Devuelve las Rules configuradas
+	 * OJO! Estan en memoria...no se actualiza
+	 * Salvo que se haga un loadConfig()
+	 *  
+	 * @return
+	 */
+	public Set<Rule> getRules() {
+		return rules;
+	}
+	
+	
+	/**
+	 * 
+	 * @param newRule
+	 */
+	public void addRule(Rule newRule) {
+		
+		// Validaciones
+			// not null
+			// datos obligatorios
+
+		// Agregamos a nuestro SET
+			// duplicacion de ID : Si no entra, es pq el ID es duplicado
+		
+		// Alta en el DAO
+		
+		// Registramos en el EventEngine
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param ruleID
+	 */
+	public void disableRule(String ruleID) {
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param ruleID
+	 */
+	public void enableRule(String ruleID) {
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param ruleID
+	 */
+	public void deleteRule(String ruleID) {
+		
+	}
+	
+	
+	/**
+	 * Se cargan los Devices de persistencia
+	 * Y se registran en el EventEngine 
+	 * El EventEngine se setea como LISTENER de cada Device
+	 * De manera que cada uno informe los eventos al Motor
+	 * 
+	 * @throws SmartBuildingException 
+	 * 
+	 */
+	private void loadDeviceDriversConfig() throws SmartBuildingException {
+
+		deviceDrivers = DeviceDriverDAO.getInstance().getDeviceDrivers();
+
+		for (DeviceDriver deviceDriver : deviceDrivers) {
+			eventEngine.registerDeviceDriver(deviceDriver);
+		}
+	}
+
+	
+	/**
+	 * @throws SmartBuildingException  
+	 * 
+	 */
+	private void loadRulesConfig() throws SmartBuildingException {
+
+		eventEngine.reset();
+		
+		rules = RuleDAO.getInstance().getRules();
+		
+		for (Rule rule : rules) {
+			eventEngine.registerRule(rule);
+		}
+
 	}
 }

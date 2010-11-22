@@ -60,6 +60,17 @@ public class RuleDAO {
 	public static RuleDAO getInstance() {
 		return instance;
 	}
+	
+	
+	/**
+	 * 
+	 * @param rules
+	 */
+	public void setRules(Set<Rule> rules) {
+		
+		
+		
+	}
 
 	
 	/**

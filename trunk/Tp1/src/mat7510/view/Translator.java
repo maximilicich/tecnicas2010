@@ -28,7 +28,7 @@ public class Translator{
     }
 
     public void reload() throws SmartBuildingException {
-            this.model.loadConfig();
+            this.model.refreshDeviceDrivers();
             devDrivers = this.model.getDeviceDrivers();
     }
 
