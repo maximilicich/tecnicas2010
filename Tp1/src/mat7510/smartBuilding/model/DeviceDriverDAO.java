@@ -14,6 +14,7 @@ import mat7510.xml.XmlException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
 /**
@@ -108,21 +109,50 @@ public class DeviceDriverDAO {
 	}
 
 	
-	public void addDeviceDriver(DeviceDriver deviceDriver) throws SmartBuildingException {
-
-		if (deviceDriver == null) 
-			throw new IllegalArgumentException("Cannot add a null DeviceDriver");
+	/**
+	 * 
+	 * Vuelca todas las Rules en el Repositorio
+	 * Reemplaza todas las existentes por este conjunto
+	 * 
+	 * La unicidad de ID esta asegurada por set un SET
+	 * (y el equals de las Rules asegura la igualdad por IDs
+	 * 
+	 * @param rules
+	 * @throws SmartBuildingException 
+	 */
+	public void setDeviceDrivers(Set<DeviceDriver> deviceDrivers) throws SmartBuildingException {
 		
-		if (deviceDriver.getDeviceID() == null)
-			throw new IllegalArgumentException("Cannot add a DeviceDriver with null ID");
+		Document dom;
+		try {
+			dom = DOMUtils.getInstance().createNewDocument();
+		} catch (XmlException e) {
+			throw new SmartBuildingException("Error at creating new empty DOM Document", e);
+		}
 
-		if (deviceDriver.getDeviceID().trim().equalsIgnoreCase(""))
-			throw new IllegalArgumentException("Cannot add a DeviceDriver with blank ID");
+		//create the root element 
+		Element rootElement = dom.createElement(DEVICE_DRIVERS_SECTION_TAG);
+		dom.appendChild(rootElement);
 
+		for (DeviceDriver deviceDriver : deviceDrivers) {
+			rootElement.appendChild(createDeviceDriverElement(dom, deviceDriver));
+		}
 		
-		Document dom = createDomFromFile();
+		try {
+			// DOMUtils.getInstance().printDomToXml(dom, System.out);
+			File file = WorkingDirectory.get();
+			String path = file.getAbsolutePath();
+			path = path + XML_FILENAME;
+			DOMUtils.getInstance().printDomToXml(dom, new FileOutputStream(path));
+		} catch (XmlException e) {
+			throw new SmartBuildingException(e);
+		} catch (FileNotFoundException e) {
+			throw new SmartBuildingException(e);
+		} 
+		
+	}
 
-		Element devDriversSection = getDeviceDriversSection(dom);
+	
+	private Node createDeviceDriverElement(Document dom, DeviceDriver deviceDriver) {
 		
 		Element deviceDriverElement = dom.createElement(DEVICE_DRIVER_ELEMENT_TAG);
 
@@ -142,7 +172,26 @@ public class DeviceDriverDAO {
 		deviceDriverElement.appendChild(deviceDriverDescription);
 		deviceDriverElement.appendChild(deviceDriverClass);
 		
-		devDriversSection.appendChild(deviceDriverElement);
+		return deviceDriverElement;
+	}
+
+	public void addDeviceDriver(DeviceDriver deviceDriver) throws SmartBuildingException {
+
+		if (deviceDriver == null) 
+			throw new IllegalArgumentException("Cannot add a null DeviceDriver");
+		
+		if (deviceDriver.getDeviceID() == null)
+			throw new IllegalArgumentException("Cannot add a DeviceDriver with null ID");
+
+		if (deviceDriver.getDeviceID().trim().equalsIgnoreCase(""))
+			throw new IllegalArgumentException("Cannot add a DeviceDriver with blank ID");
+
+		
+		Document dom = createDomFromFile();
+
+		Element devDriversSection = getDeviceDriversSection(dom);
+
+		devDriversSection.appendChild(createDeviceDriverElement(dom, deviceDriver));
 		
 		
 		try {
