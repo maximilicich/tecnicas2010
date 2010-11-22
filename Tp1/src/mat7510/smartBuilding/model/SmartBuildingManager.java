@@ -125,16 +125,20 @@ public class SmartBuildingManager {
 	/**
 	 * 
 	 * @param ruleID
+	 * @throws SmartBuildingException 
 	 */
-	public void disableRule(String ruleID) {
+	public void disableRule(String ruleID) throws SmartBuildingException {
 		
-		for (Rule rule: rules) {
-			if ( rule.getRuleID() == ruleID ){
-				rule.setEnabled(false);
-				//Sacar la regla de eventEngine
-				//Actualizar ABM
-			}
-		}
+		// Buscamos la Rule de ese ID
+		Rule ruleAffected = findRuleInOurSet(ruleID);
+		if (ruleAffected == null)
+			throw new SmartBuildingException("Cannot enable Rule for ID " + ruleID + " because there is not Rule with such ID.");
+		
+		// La habilitamos
+		ruleAffected.setEnabled(false);
+		
+		// Y actualizamos la persistencia
+		RuleDAO.getInstance().setRules(rules);
 		
 	}
 	
@@ -142,34 +146,53 @@ public class SmartBuildingManager {
 	/**
 	 * 
 	 * @param ruleID
+	 * @throws SmartBuildingException 
 	 */
-	public void enableRule(String ruleID) {
+	public void enableRule(String ruleID) throws SmartBuildingException {
+
+		// Buscamos la Rule de ese ID
+		Rule ruleAffected = findRuleInOurSet(ruleID);
+		if (ruleAffected == null)
+			throw new SmartBuildingException("Cannot enable Rule for ID " + ruleID + " because there is not Rule with such ID.");
 		
+		// La habilitamos
+		ruleAffected.setEnabled(true);
 		
-		for (Rule rule: rules) {
-			if ( rule.getRuleID() == ruleID ){
-				rule.setEnabled(true);
-				eventEngine.registerRule(rule);
-				//actualizar ABM
-			}
-		}
-		
+		// Y actualizamos la persistencia
+		RuleDAO.getInstance().setRules(rules);
 	}
 	
 	
 	/**
 	 * 
 	 * @param ruleID
+	 * @throws SmartBuildingException 
 	 */
-	public void deleteRule(String ruleID) {
+	public void deleteRule(String ruleID) throws SmartBuildingException {
+		
+		if (ruleID == null || ruleID.trim().equalsIgnoreCase("")) 
+			throw new IllegalArgumentException("invalid ruleID (must not be null or blank)");
 		
 		// El ID debe estar en nuestras reglas. Sino EXCEPTION (esta bien asi??)
+		Rule ruleToDelete = null;
+		for (Rule rule : rules) {
+			if (rule.getRuleID().trim().equalsIgnoreCase(ruleID.trim())) {
+				ruleToDelete = rule;
+				break;
+			}
+		}
+		if (ruleToDelete == null)
+			throw new SmartBuildingException("Cannot delete Rule for ID " + ruleID + " because there is not Rule with such ID." );
 		
 		// Luego lo retiramos de nuestro Set
+		if (!rules.remove(ruleToDelete)) 
+			throw new SmartBuildingException("Could not delete Rule for ID" + ruleID + " because it does not exist in SmartBuildingManager Rules Set.");
 		
 		// Grabamos el Set en el DAO (persistencia)
+		RuleDAO.getInstance().setRules(rules);
 		
 		// Y DESREGISTRAMOS LA RULE DEL EVENTENGINE
+		
 		
 	}
 	
@@ -206,6 +229,24 @@ public class SmartBuildingManager {
 		for (Rule rule : rules) {
 			eventEngine.registerRule(rule);
 		}
-
 	}
+	
+	
+	/**
+	 * 
+	 * @param ruleID
+	 * @return
+	 */
+	private Rule findRuleInOurSet(String ruleID) {
+
+		Rule ruleFound = null;
+		for (Rule rule : rules) {
+			if (rule.getRuleID().trim().equalsIgnoreCase(ruleID.trim())) {
+				ruleFound = rule;
+				break;
+			}
+		}
+		return ruleFound;
+	}
+	
 }
