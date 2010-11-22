@@ -32,9 +32,9 @@ public abstract class DeviceActionClock extends DeviceAction{
 	@Override
 	public void execute() {	
 		changeClockTime();	
-		for (DeviceEventListener listener : deviceDriverClock.getEventListeners()) {
-			listener.eventOccurred(event);
-		}
+	//	for (DeviceEventListener listener : deviceDriverClock.getEventListeners()) {
+	//		listener.eventOccurred(event);
+	//	}
 	}
 
 	@Override

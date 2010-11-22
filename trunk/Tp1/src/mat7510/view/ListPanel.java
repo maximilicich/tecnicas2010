@@ -50,6 +50,10 @@ public class ListPanel extends JawtList implements ListSelectionListener{
     public void removeItem(int Index){
         removeAt(Index);
     }
+    
+    public void refresh (){
+    	this.clear();
+    }
 
     private void fillDriversList(Vector vec){
             Iterator it = vec.iterator();
