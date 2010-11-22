@@ -24,7 +24,7 @@ public class StatePanel extends JPanel implements ListSelectionListener{
         setBorder(new EmptyBorder(5,5,5,5));
         mediador = med;
    
-        stateListPanel = new ListPanel(mediador);
+        stateListPanel = new ListPanel();
         mediador.addStateList(stateListPanel);
         stateListPanel.addListSelectionListener(this);
         add(stateListPanel);

@@ -28,7 +28,7 @@ public class ActionPanel extends JPanel implements ActionListener,ListSelectionL
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(5,5,5,5));
         mediador=med;
-        actionListPanel = new ListPanel(mediador);
+        actionListPanel = new ListPanel();
         mediador.addActionList(actionListPanel);
 
         JButton executeButton = new JButton("Ejecutar");
