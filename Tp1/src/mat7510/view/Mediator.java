@@ -112,6 +112,8 @@ public class Mediator {
                    return;
             }
             translator.execute(driverID, actionID);
+            stateListPanel.refresh();
+            stateListPanel.addAll(translator.getDriverStates(driverID).iterator());
         } catch (SmartBuildingException ex) {
             JOptionPane.showMessageDialog(mainFrame, ex, actionID, JOptionPane.ERROR_MESSAGE);
         }
