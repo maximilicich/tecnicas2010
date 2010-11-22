@@ -28,8 +28,8 @@ public class DeviceDriverAC extends DeviceDriver {
 		super(deviceID, deviceDescription);
 		
 		stateMap.put(ATTR_FUNC_AC , "FR" );
-		stateMap.put(ATTR_TEMP_AC , "OFF");
-		stateMap.put(ATTR_STATE_AC, "20" );
+		stateMap.put(ATTR_STATE_AC , "OFF");
+		stateMap.put(ATTR_TEMP_AC, "20" );
 		
 		DeviceEventAC deviceEventTempACUp   = new DeviceEventTempACUp(this);
 		DeviceEventAC deviceEventTempACDown = new DeviceEventTempACDown(this);

@@ -48,9 +48,9 @@ public abstract class DeviceActionACOnOff extends DeviceAction {
 			if ( this.getAttr() == elem.getKey() ){
 				changeOnOff();
 				
-				for (DeviceEventListener listener : deviceDriverAC.getEventListeners()) {
-					listener.eventOccurred(event);
-				}
+			//	for (DeviceEventListener listener : deviceDriverAC.getEventListeners()) {
+			//		listener.eventOccurred(event);
+			//	}
 			}
 		}
 

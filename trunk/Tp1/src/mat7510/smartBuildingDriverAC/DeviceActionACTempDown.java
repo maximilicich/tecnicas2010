@@ -18,7 +18,7 @@ public class DeviceActionACTempDown extends DeviceActionACTemp{
 		
 		String value;
 		
-		if ( this.getAttr() == mapEntry.getKey() && mapEntry.getValue() != getDeviceDriverAC().getTempMin()){
+		if ( (this.getAttr() == mapEntry.getKey()) && (mapEntry.getValue().equals(getDeviceDriverAC().getTempMin())) == false ){
 			 value = String.valueOf(Integer.parseInt(mapEntry.getValue()) - 1);
 			 getDeviceDriverAC().setMapEntry(getAttr(), value);
 		}

@@ -18,7 +18,7 @@ public class DeviceActionACTempUp extends DeviceActionACTemp{
 		
 		String value;
 		
-		if ( this.getAttr() == mapEntry.getKey() && mapEntry.getValue() != getDeviceDriverAC().getTempMax()){
+		if ( (this.getAttr() == mapEntry.getKey()) && ( mapEntry.getValue().equals(getDeviceDriverAC().getTempMax()) == false )){
 			 value = String.valueOf(Integer.parseInt(mapEntry.getValue()) + 1);
 			 getDeviceDriverAC().setMapEntry(getAttr(), value);
 		}

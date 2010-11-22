@@ -13,7 +13,7 @@ public class DeviceActionACOn extends DeviceActionACOnOff {
 
 	@Override
 	public void changeOnOff() {
-		this.getDeviceDriverAC().setMapEntry("EncendidoAC", "OFF");
+		this.getDeviceDriverAC().setMapEntry(attr, value);
 		
 	}
 
