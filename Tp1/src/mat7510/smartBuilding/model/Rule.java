@@ -145,6 +145,10 @@ public class Rule {
 	public String getRuleID() {
 		return ruleID;
 	}
+	
+	public void setRuleID( String ID) {
+		ruleID = ID;
+	}
 
 	public String getRuleDescription() {
 		return ruleDescription;

@@ -75,22 +75,40 @@ public class SmartBuildingManager {
 	/**
 	 * 
 	 * @param newRule
+	 * @throws SmartBuildingException 
 	 */
-	public void addRule(Rule newRule) {
+	public void addRule(Rule newRule) throws SmartBuildingException {
+
+		int count = 1;
+		boolean insert = false;
 		
+		if (newRule == null){
+			throw new SmartBuildingException(" Regla vacia "); 	
+		}
 		// Validaciones
-			// not null
-			// datos obligatorios
+		if ( newRule.getDeviceAction()==null || newRule.getRuleID() == null || newRule.getDeviceEvents() == null){
+			throw new SmartBuildingException(" No se encuentran cargados todos los datos obligatorios para la nueva regla ");
+		}
 
 		// Agregamos a nuestro SET
-			// duplicacion de ID : Si no entra, es pq el ID es duplicado
-		
-		// Alta en el DAO
-		
-		// Registramos en el EventEngine
-		
+		while ( insert == false){
+			
+			if ( rules.add(newRule) == false) {
+				if (count == 0){
+					newRule.setRuleID(newRule.getRuleID() + "copy" + count);
+				}
+				else{
+					newRule.setRuleID(newRule.getRuleID() + count);
+				}
+				count = count + 1;
+			}
+			else {
+				insert = true;
+			}
+		}
+		eventEngine.registerRule(newRule);
 	}
-	
+
 	
 	/**
 	 * 
