@@ -7,12 +7,15 @@ package mat7510.view;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
 
@@ -102,13 +105,40 @@ public class Mediator {
     }
 
     public void selectDriverWithIndex(int index){
-        System.out.println("index: "+index);
-          clearDriver();
-          DeviceDriver driver = devDrivers.get(index);
-          loadState(driver);
-          actionListPanel.addAll(driver.getActions().iterator());
-          eventListPanel.addAll(driver.getEvents().iterator());
+
+    	System.out.println("index: "+index);
+    	clearDriver();
+    	DeviceDriver driver = devDrivers.get(index);
+    	loadState(driver);
+
+    	actionListPanel.addAll(this.getActionNames(driver.getActions()).iterator());
+    	eventListPanel.addAll(this.getEventsNames(driver.getEvents()).iterator());
+    	//actionListPanel.addAll(driver.getActions().iterator());
+    	//eventListPanel.addAll(driver.getEvents().iterator());
+       
+
     }
+    
+    public List<String> getActionNames ( List<DeviceAction> actions){
+    	Iterator<DeviceAction> it = actions.iterator();
+    	List<String> actionsNames = new ArrayList<String>();
+   	 	while(it.hasNext()){
+            actionsNames.add(it.next().getActionName());
+        }
+		return actionsNames;
+    	
+    }
+    
+    public List<String> getEventsNames ( List<DeviceEvent> events){
+    	Iterator<DeviceEvent> it = events.iterator();
+    	List<String> eventsNames = new ArrayList<String>();
+   	 	while(it.hasNext()){
+            eventsNames.add(it.next().getEventName());
+        }
+		return eventsNames;
+    	
+    }
+
 
     public void addDriverWithName(String dir){
         JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
