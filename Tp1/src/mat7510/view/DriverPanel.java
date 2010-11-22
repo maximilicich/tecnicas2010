@@ -62,7 +62,7 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
              JList theList = (JList)e.getSource();
              
              if (!theList.isSelectionEmpty())
-                mediador.selectDriverWithIndex(theList.getSelectedIndex());
+                mediador.selectDriverWithIndex((String) theList.getSelectedValue());
         }
     }
 

@@ -9,6 +9,7 @@ package mat7510.view;
  *
  * @author sergio
  */
+import java.awt.Font;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -24,6 +25,7 @@ public class JawtList extends JScrollPane{
       listWindow.setPrototypeCellValue("Abcdefg Hijkmnop");
       listWindow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
       getViewport().add(listWindow);
+      listWindow.setFont(new Font("Dialog",Font.PLAIN,10));
 
    }
 

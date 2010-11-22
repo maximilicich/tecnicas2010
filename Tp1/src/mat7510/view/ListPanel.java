@@ -37,10 +37,6 @@ public class ListPanel extends JawtList implements ListSelectionListener{
             }
     }
 
-    public int getSelectedItemIndex(){  
-        return getSelectedIndex();
-    }
-
     public void addItem(Object obj){
         add(obj.toString());
     }
