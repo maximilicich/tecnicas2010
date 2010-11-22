@@ -9,6 +9,7 @@ import java.util.Set;
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.DeviceEvent;
+import mat7510.smartBuilding.model.Rule;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
 
@@ -115,6 +116,20 @@ public class Translator{
                             }
                     }
             }
+    }
+    
+    
+    public List<String> getRulesForDeviceAction (String deviceID , String actionID) throws SmartBuildingException{
+    	
+    	Set<Rule> rules = this.model.getRules();
+    	List<String> listOfRules = new ArrayList<String>();
+    	
+    		for ( Rule rule : rules){
+    			if ( (rule.getDeviceAction().getActionName()== actionID) && (rule.getDeviceAction().getDeviceDriver().getDeviceID() == deviceID )){
+    					listOfRules.add(rule.getRuleID());    			
+    			}
+    		}	
+		return listOfRules;
     }
 
 
