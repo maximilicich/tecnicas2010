@@ -4,7 +4,7 @@ public class DeviceActionLightsFuncRomantic extends DeviceActionLightsFunc {
 
 	
 	static final String actionName = "Function Lights Romantic";
-	static final String attr = "FUNCTION_LIGHTS"; 
+	static final String attr = "FUNCTION LIGHTS"; 
 	static final String value = "ROMANTIC"; 
 
 	public DeviceActionLightsFuncRomantic(	DeviceDriverLights deviceDriverLights, DeviceEventLights event) {

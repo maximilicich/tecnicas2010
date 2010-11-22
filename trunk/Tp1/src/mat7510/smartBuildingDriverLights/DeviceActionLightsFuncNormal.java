@@ -4,7 +4,7 @@ package mat7510.smartBuildingDriverLights;
 public class DeviceActionLightsFuncNormal extends DeviceActionLightsFunc {
 	
 	static final String actionName = "Function Lights Normal";
-	static final String attr = "FUNCTION_LIGHTS"; 
+	static final String attr = "FUNCTION LIGHTS"; 
 	static final String value = "NORMAL"; 
 	
 
