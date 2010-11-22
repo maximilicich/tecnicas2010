@@ -192,6 +192,7 @@ public class SmartBuildingManager {
 		RuleDAO.getInstance().setRules(rules);
 		
 		// Y DESREGISTRAMOS LA RULE DEL EVENTENGINE
+		eventEngine.unregisterRule(ruleToDelete);
 		
 		
 	}

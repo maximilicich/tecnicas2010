@@ -88,6 +88,20 @@ public class EventManager implements EventContext {
 		eventChain.setContext(this);
 	}
 	
+	
+	/**
+	 * Operacion inversa a registerEventChain
+	 * 
+	 * @param eventChain
+	 * @return true si pudo desregistrar. false en caso contrsrio
+	 */
+	public boolean unregisterEventChain(EventChain eventChain) {
+		Boolean res = chains.remove(eventChain);
+		if (res)
+			eventChain.setContext(null);
+		return res;
+	}
+	
 	@Override
 	/**
 	 * 
