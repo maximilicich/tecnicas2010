@@ -2,7 +2,13 @@ package mat7510.smartBuilding.model;
 import java.io.File;
 import java.net.URL;
 
-public class WorkingDirectory { 
+/**
+ * Clase utilitaria solo para el package
+ * 
+ * @author Grupo 10
+ *
+ */
+class WorkingDirectory { 
 	
 	private static File workingDirectory; 
 	
@@ -39,14 +45,14 @@ public class WorkingDirectory {
  
 	
 	
-	public static void main(String[] args) {   
-		File file = WorkingDirectory.get();
-		String path = file.getAbsolutePath();
-		String pathjar = "\\res\\deviceDriverConfig.xml";
-		path = path + pathjar;
-		System.out.println (path);
-		//System.out.println(WorkingDirectory.get());   
-		System.out.println(System.getProperty("user.dir"));   
-	}
+//	public static void main(String[] args) {   
+//		File file = WorkingDirectory.get();
+//		String path = file.getAbsolutePath();
+//		String pathjar = "\\res\\deviceDriverConfig.xml";
+//		path = path + pathjar;
+//		System.out.println (path);
+//		//System.out.println(WorkingDirectory.get());   
+//		System.out.println(System.getProperty("user.dir"));   
+//	}
 	
 }
