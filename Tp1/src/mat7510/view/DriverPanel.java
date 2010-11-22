@@ -30,7 +30,7 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
             updateButton.setActionCommand("update");
             updateButton.addActionListener(this);
 
-            driversListPanel = new ListPanel(mediador);
+            driversListPanel = new ListPanel();
             mediador.addDriverList(driversListPanel);
             driversListPanel.addListSelectionListener(this);
 

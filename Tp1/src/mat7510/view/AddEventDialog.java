@@ -47,8 +47,8 @@ public class AddEventDialog extends JDialog implements ActionListener{
         javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
         nameEvent = new javax.swing.JTextField();
 
-        listPanel = new ListPanel(mediator);
-        addPanel = new ListPanel(mediator);
+        listPanel = new ListPanel();
+        addPanel = new ListPanel();
         javax.swing.JButton addBtn = new javax.swing.JButton();
         javax.swing.JButton removeBtn = new javax.swing.JButton();
         javax.swing.JLabel jLabel4 = new javax.swing.JLabel();

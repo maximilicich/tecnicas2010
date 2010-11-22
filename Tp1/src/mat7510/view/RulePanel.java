@@ -41,7 +41,7 @@ public class RulePanel extends JPanel implements ActionListener {
         controllerEventPanel.add(deleteButton);
         controllerEventPanel.add(detailButton);
 
-       ruleListPanel = new ListPanel(mediador);
+       ruleListPanel = new ListPanel();
        mediador.addRuleList(ruleListPanel);
 
         add(ruleListPanel);
@@ -57,7 +57,7 @@ public class RulePanel extends JPanel implements ActionListener {
                 mediador.removeEventWithIndex((String) ruleListPanel.getSelectedValue());
 
         }else if (e.getActionCommand()=="add" ){
-            mediador.addEvent();
+            mediador.createNewRule();
         }else if (e.getActionCommand()=="description" ){
 
         }

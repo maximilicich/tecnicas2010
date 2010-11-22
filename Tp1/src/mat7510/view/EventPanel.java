@@ -24,7 +24,7 @@ public class EventPanel extends JPanel implements ListSelectionListener{
         setBorder(new EmptyBorder(5,5,5,5));
         mediador = med;
 
-        eventListPanel = new ListPanel(mediador);
+        eventListPanel = new ListPanel();
         eventListPanel.addListSelectionListener(this);
         mediador.addEventList(eventListPanel);
 

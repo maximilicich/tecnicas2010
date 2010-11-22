@@ -13,11 +13,9 @@ import java.util.*;
  * @author sergio
  */
 public class ListPanel extends JawtList implements ListSelectionListener{
-    Mediator med;
     int tag;
     
-    public ListPanel(Mediator md){
-            med = md;
+    public ListPanel(){
             addListSelectionListener(this);
     }
 

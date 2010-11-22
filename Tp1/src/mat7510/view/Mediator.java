@@ -5,7 +5,10 @@
 
 package mat7510.view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
@@ -124,7 +127,42 @@ public class Mediator {
     }
 
     public void addEvent(){
-        new AddEventDialog(mainFrame,this);
+        String driverID = (String) driversListPanel.getSelectedValue();
+
+        if(driverID==null){
+            JOptionPane.showMessageDialog(mainFrame, "Debe seleccionar un driver");
+            return;
+        }
+        try {
+            ArrayList<String> actionsId = translator.getDriverActionsIds(driverID);
+            Map<String,String> map = new HashMap();
+
+
+
+            new AddEventDialog(mainFrame,this);
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, "Error", "", JOptionPane.ERROR_MESSAGE);
+        }        
+    }
+
+    public void createNewRule(){
+        String driverID = (String) driversListPanel.getSelectedValue();
+
+        if(driverID==null){
+            JOptionPane.showMessageDialog(mainFrame, "Debe seleccionar un driver");
+            return;
+        }
+        try {
+            ArrayList<String> actionsId = translator.getDriverActionsIds(driverID);
+            Map<String,String> map = new HashMap();
+
+
+
+            new NewRuleDialog(mainFrame,this);
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, "Error", "", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     public void addEvent2(String txt){
