@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceEventListener;
 
 public abstract class DeviceActionACTemp extends DeviceAction{
 	
@@ -40,7 +41,12 @@ public abstract class DeviceActionACTemp extends DeviceAction{
 		
 		while (itStateMap.hasNext()) {
 			Map.Entry<String, String> elem = (Map.Entry<String, String>)itStateMap.next();
-			modifyTemp ( elem );
+			if ( this.getAttr() == elem.getKey() ){
+				modifyTemp ( elem );
+				for (DeviceEventListener listener : deviceDriverAC.getEventListeners()) {
+					listener.eventOccurred(event);
+				}
+			}
 		}
 	}
 

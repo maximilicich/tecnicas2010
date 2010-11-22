@@ -45,9 +45,9 @@ public abstract class DeviceActionACFunc extends DeviceAction {
 			if ( this.getAttr() == elem.getKey()){
 				changeACFunc();
 
-			//	for (DeviceEventListener listener : deviceDriverAC.getEventListeners()) {
-			//		listener.eventOccurred(event);
-			//	}
+				for (DeviceEventListener listener : deviceDriverAC.getEventListeners()) {
+					listener.eventOccurred(event);
+				}
 				
 			}
 		}
