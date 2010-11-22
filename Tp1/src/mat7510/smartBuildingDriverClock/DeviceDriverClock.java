@@ -76,19 +76,6 @@ public class DeviceDriverClock extends DeviceDriver{
 	}
 	
 	@Override
-	public void addEventListener(DeviceEventListener eventListener) {
-		
-		this.listeners.add(eventListener);
-		
-	}
-
-	@Override
-	public Set<DeviceEventListener> getEventListeners() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public DeviceAction getDeviceActionByName(String deviceActionName) {
 		for (DeviceAction deviceAction : deviceActions) {
 			if (deviceAction.getActionName().equals(deviceActionName)) {
