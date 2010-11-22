@@ -25,11 +25,5 @@ public class MainWindow extends JFrame{
         mediador = new Mediator(buildingManager);
     }
 
-   static public void main(String argv[]){
-	   SmartBuildingManager buildingManager = new SmartBuildingManager();
-        MainWindow mainWindow = new MainWindow(buildingManager);     
-	mainWindow.mediador.showWindow();        
-    }
-
 }
 
