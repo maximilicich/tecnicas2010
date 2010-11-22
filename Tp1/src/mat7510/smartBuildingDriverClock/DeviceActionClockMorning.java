@@ -4,8 +4,8 @@ package mat7510.smartBuildingDriverClock;
 public class DeviceActionClockMorning extends DeviceActionClock {
 
 
-	static final String actionName = "CHANGE_CLOCK_MOORNING";
-	static final String attr = "DAY_TIME"; 
+	static final String actionName = "CHANGE CLOCK TIME TO MOORNING";
+	static final String attr = "DAY TIME"; 
 	static final String value = "MOORNING"; 
 	
 	

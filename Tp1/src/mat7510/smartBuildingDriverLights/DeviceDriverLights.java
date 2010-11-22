@@ -17,8 +17,8 @@ public class DeviceDriverLights extends DeviceDriver {
 	private List<DeviceEvent>  deviceEvents  = new ArrayList<DeviceEvent>();
 	private Map<String,String> stateMap = new LinkedHashMap<String, String>();
 
-	static final String ATTR_STATE_FUNCTION = "FUNCTION_LIGHTS";
-	static final String ATTR_STATE_LIGHTS = "LIGHTS_STATE_ON/OFF";
+	static final String ATTR_STATE_FUNCTION = "FUNCTION LIGHTS";
+	static final String ATTR_STATE_LIGHTS = "LIGHTS STATE ON/OFF";
 	
 	static final String ATTR_VALUE_ON = "ON";
 	static final String ATTR_VALUE_OFF = "OFF";

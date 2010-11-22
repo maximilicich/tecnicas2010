@@ -18,7 +18,7 @@ public class DeviceDriverClock extends DeviceDriver{
 	private Map<String,String> stateMap		 = new LinkedHashMap<String, String>();
 	private List<DeviceEventListener> listeners	 = new ArrayList<DeviceEventListener>();
 	
-	static final String ATTR_TIME_STATE = "DAY_TIME";
+	static final String ATTR_TIME_STATE = "DAY TIME";
 	static final String ATTR_VALUE_MOORNING = "MOORNING";
 	static final String ATTR_VALUE_AFTERNOON = "AFTERNOON";
 	static final String ATTR_VALUE_EVENING = "EVENING";
@@ -28,7 +28,7 @@ public class DeviceDriverClock extends DeviceDriver{
 		
 		super(deviceID, deviceDescription);
 		
-		stateMap.put(ATTR_TIME_STATE, "ATTR_VALUE_MOORNING");
+		stateMap.put(ATTR_TIME_STATE, ATTR_VALUE_MOORNING);
 		
 		DeviceEventClock deviceEventClockMoorning  = new DeviceEventClockMorning(this);
 		DeviceEventClock deviceEventClockAfternoon = new DeviceEventClockAfternoon(this);
