@@ -125,7 +125,7 @@ public class Translator{
     	List<String> listOfRules = new ArrayList<String>();
     	
     		for ( Rule rule : rules){
-    			if ( (rule.getDeviceAction().getActionName()== actionID) && (rule.getDeviceAction().getDeviceDriver().getDeviceID() == deviceID )){
+    			if ( (rule.getDeviceAction().getActionName().equals(actionID)) && (rule.getDeviceAction().getDeviceDriver().getDeviceID().equals(deviceID) )){
     					listOfRules.add(rule.getRuleID());    			
     			}
     		}	

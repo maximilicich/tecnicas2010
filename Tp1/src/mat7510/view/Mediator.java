@@ -5,6 +5,7 @@
 
 package mat7510.view;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
@@ -65,6 +66,7 @@ public class Mediator {
         actionListPanel.clear();
         stateListPanel.clear();
         eventListPanel.clear();
+        rulesListPanel.clear();
     }
 
     public void selectDriverWithIndex(String deviceID){
@@ -77,6 +79,26 @@ public class Mediator {
             JOptionPane.showMessageDialog(mainFrame, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+   public void selectActionWithIndex(String actionID){
+        String driverID = (String) driversListPanel.getSelectedValue();
+
+
+        try {
+            if(actionID==null || driverID==null || actionID.equals("") || driverID.equals("")){
+                   JOptionPane.showMessageDialog(mainFrame ,"Driver o accion no seleccionada","Warning", JOptionPane.WARNING_MESSAGE);
+                   return;
+            }
+            rulesListPanel.clear();
+            List<String> rules = translator.getRulesForDeviceAction(driverID, actionID);
+           if(!rules.isEmpty()){               
+                rulesListPanel.addAll(rules.iterator());
+           }
+
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, ex, actionID, JOptionPane.ERROR_MESSAGE);
+        }
+   }
 
     public void addDriverWithName(String dir){
         JOptionPane.showMessageDialog(mainFrame, "url: "+dir);

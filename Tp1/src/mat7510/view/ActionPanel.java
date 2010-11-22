@@ -9,15 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 /**
  *
  * @author sergio
  */
-public class ActionPanel extends JPanel implements ActionListener{
+public class ActionPanel extends JPanel implements ActionListener,ListSelectionListener{
     private final Mediator mediador;
     private final ListPanel actionListPanel;
 
@@ -35,6 +38,8 @@ public class ActionPanel extends JPanel implements ActionListener{
         ControllerPanel controlerPanel = new ControllerPanel();
         controlerPanel.add(executeButton);
 
+        actionListPanel.addListSelectionListener(this);
+
         add(actionListPanel);
         add(controlerPanel);
     }
@@ -42,6 +47,15 @@ public class ActionPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
      if (e.getActionCommand()=="execute" ){
             mediador.executeActionWithIndex((String)actionListPanel.getSelectedValue());
+        }
+    }
+
+    public void valueChanged(ListSelectionEvent e) {
+        if(!e.getValueIsAdjusting()){
+             JList theList = (JList)e.getSource();
+
+             if (!theList.isSelectionEmpty())
+                mediador.selectActionWithIndex((String) theList.getSelectedValue());
         }
     }
 
