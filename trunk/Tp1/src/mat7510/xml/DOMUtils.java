@@ -201,10 +201,12 @@ public class DOMUtils implements java.io.Serializable {
 			Transformer transformer = tFactory.newTransformer();
 
 			DOMSource source = new DOMSource(dom);
-			// StreamResult result = new StreamResult(System.out);
 
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+			transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
 			StreamResult result = new StreamResult(out);
 

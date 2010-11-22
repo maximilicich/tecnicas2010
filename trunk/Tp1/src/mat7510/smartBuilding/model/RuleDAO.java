@@ -14,6 +14,7 @@ import mat7510.xml.XmlException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
 /**
@@ -64,15 +65,118 @@ public class RuleDAO {
 	
 	/**
 	 * 
+	 * Vuelca todas las Rules en el Repositorio
+	 * Reemplaza todas las existentes por este conjunto
+	 * 
+	 * La unicidad de ID esta asegurada por set un SET
+	 * (y el equals de las Rules asegura la igualdad por IDs
+	 * 
 	 * @param rules
+	 * @throws SmartBuildingException 
 	 */
-	public void setRules(Set<Rule> rules) {
+	public void setRules(Set<Rule> rules) throws SmartBuildingException {
 		
+		Document dom;
+		try {
+			dom = DOMUtils.getInstance().createNewDocument();
+		} catch (XmlException e) {
+			throw new SmartBuildingException("Error at creating new empty DOM Document", e);
+		}
+
+		//create the root element 
+		Element rootElement = dom.createElement(RULES_SECTION_TAG);
+		dom.appendChild(rootElement);
+
+		for (Rule rule : rules) {
+			rootElement.appendChild(createRuleElement(dom, rule));
+		}
 		
+		try {
+			// DOMUtils.getInstance().printDomToXml(dom, System.out);
+			File file = WorkingDirectory.get();
+			String path = file.getAbsolutePath();
+			path = path + XML_FILENAME;
+			DOMUtils.getInstance().printDomToXml(dom, new FileOutputStream(path));
+		} catch (XmlException e) {
+			throw new SmartBuildingException(e);
+		} catch (FileNotFoundException e) {
+			throw new SmartBuildingException(e);
+		} 
 		
 	}
 
 	
+	/**
+	 * 
+	 * @param dom
+	 * @param rule
+	 * @return
+	 */
+	private Node createRuleElement(Document dom, Rule rule) {
+		
+		Element ruleElement = dom.createElement(RULE_ELEMENT_TAG);
+		
+		ruleElement.setAttribute(RULE_ATTR_ENABLED , DOMUtils.getInstance().getBooleanRepresentation(rule.isEnabled()));
+		ruleElement.setAttribute(RULE_ATTR_CONTINUOUS , DOMUtils.getInstance().getBooleanRepresentation(rule.isContinuous()));
+		ruleElement.setAttribute(RULE_ATTR_ORDERED , DOMUtils.getInstance().getBooleanRepresentation(rule.isOrdered()));
+
+		
+		// RULE ID
+		Element ruleIDElement = dom.createElement(RULE_ID_TAG);
+		Text ruleIDText = dom.createTextNode(rule.getRuleID());
+		ruleIDElement.appendChild(ruleIDText);
+		ruleElement.appendChild(ruleIDElement);
+
+		// RULE DESCRIPTION
+		Element ruleDescriptionElement = dom.createElement(RULE_DESCRIPTION_TAG);
+		Text ruleDescriptionText = dom.createTextNode(rule.getRuleDescription());
+		ruleDescriptionElement.appendChild(ruleDescriptionText);
+		ruleElement.appendChild(ruleDescriptionElement);
+
+		
+		// ACTION SECTION
+		Element actionElement = dom.createElement(RULE_ACTION_ELEMENT_TAG);
+		if (rule.getDeviceAction() != null) {
+			
+			Element deviceDriverIDElement = dom.createElement(DEVICEDRIVER_ID_TAG);
+			String deviceDriverID = rule.getDeviceAction().getDeviceDriver().getDeviceID();
+			deviceDriverIDElement.appendChild(dom.createTextNode(deviceDriverID));
+			actionElement.appendChild(deviceDriverIDElement);
+			
+			Element actionNameElement = dom.createElement(RULE_ACTION_NAME_TAG);
+			String actionName = rule.getDeviceAction().getActionName();
+			actionNameElement.appendChild(dom.createTextNode(actionName));
+			actionElement.appendChild(actionNameElement);
+		}
+		
+		ruleElement.appendChild(actionElement);
+
+		// EVENTS SECTION
+		Element eventsSectionElement = dom.createElement(RULE_EVENTS_SECTION_TAG);
+		
+		for (DeviceEvent deviceEvent : rule.getDeviceEvents()) {
+			Element eventElement = dom.createElement(RULE_EVENT_ELEMENT_TAG);
+
+			Element deviceDriverIDElement = dom.createElement(DEVICEDRIVER_ID_TAG);
+			String deviceDriverID = deviceEvent.getDeviceDriver().getDeviceID();
+			deviceDriverIDElement.appendChild(dom.createTextNode(deviceDriverID));
+			eventElement.appendChild(deviceDriverIDElement);
+			
+			Element eventNameElement = dom.createElement(RULE_EVENT_NAME_TAG);
+			String eventName = deviceEvent.getEventName();
+			eventNameElement.appendChild(dom.createTextNode(eventName));
+			eventElement.appendChild(eventNameElement);
+			
+			eventsSectionElement.appendChild(eventElement);
+
+		}
+		
+		ruleElement.appendChild(eventsSectionElement);
+		
+		return ruleElement;
+	}
+
+
 	/**
 	 * 
 	 * @return El conjunto de reglas configuradas. Set vacio si no hay reglas configuradas
@@ -124,6 +228,13 @@ public class RuleDAO {
 	}
 
 
+	
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 * @throws SmartBuildingException
+	 */
 	private List<DeviceEvent> getDeviceEvents(Element element) throws SmartBuildingException {
 		
 		Element eventsSection;
@@ -215,90 +326,8 @@ public class RuleDAO {
 		}
 		
 	}
+
 	
-	
-	public void addRule(Rule rule) throws SmartBuildingException {
-		
-		if (rule == null) 
-			throw new IllegalArgumentException("Cannot add a null Rule");
-
-		if (rule.getRuleID() == null)
-			throw new IllegalArgumentException("Cannot add a Rule with null ID");
-
-		if (rule.getRuleID().trim().equalsIgnoreCase(""))
-			throw new IllegalArgumentException("Cannot add a Rule with blank ID");
-
-		
-		Document dom = createDomFromFile();
-		Element rulesSection = getRulesSection(dom);
-		
-		Element ruleElement = dom.createElement(RULE_ELEMENT_TAG);
-		ruleElement.setAttribute(RULE_ATTR_ENABLED, DOMUtils.getInstance().getBooleanRepresentation(rule.isEnabled()));
-		ruleElement.setAttribute(RULE_ATTR_CONTINUOUS, DOMUtils.getInstance().getBooleanRepresentation(rule.isContinuous()));
-		ruleElement.setAttribute(RULE_ATTR_ORDERED, DOMUtils.getInstance().getBooleanRepresentation(rule.isOrdered()));
-	
-		Element ruleID = dom.createElement(RULE_ID_TAG);
-		Text id = dom.createTextNode(rule.getRuleID());
-		ruleID.appendChild(id);
-
-		Element ruleDescription = dom.createElement(RULE_DESCRIPTION_TAG);
-		Text description = dom.createTextNode(rule.getRuleDescription());
-		ruleDescription.appendChild(description);
-
-		ruleElement.appendChild(ruleID);
-		ruleElement.appendChild(ruleDescription);
-
-		Element actionElement = dom.createElement(RULE_ACTION_ELEMENT_TAG);
-		if (rule.getDeviceAction() != null) {
-			
-			Element deviceDriverIDElement = dom.createElement(DEVICEDRIVER_ID_TAG);
-			String deviceDriverID = rule.getDeviceAction().getDeviceDriver().getDeviceID();
-			deviceDriverIDElement.appendChild(dom.createTextNode(deviceDriverID));
-			actionElement.appendChild(deviceDriverIDElement);
-			
-			Element actionNameElement = dom.createElement(RULE_ACTION_NAME_TAG);
-			String actionName = rule.getDeviceAction().getActionName();
-			actionNameElement.appendChild(dom.createTextNode(actionName));
-			actionElement.appendChild(actionNameElement);
-		}
-		
-		ruleElement.appendChild(actionElement);
-
-		Element eventsSectionElement = dom.createElement(RULE_EVENTS_SECTION_TAG);
-		
-		for (DeviceEvent deviceEvent : rule.getDeviceEvents()) {
-			Element eventElement = dom.createElement(RULE_EVENT_ELEMENT_TAG);
-
-			Element deviceDriverIDElement = dom.createElement(DEVICEDRIVER_ID_TAG);
-			String deviceDriverID = deviceEvent.getDeviceDriver().getDeviceID();
-			deviceDriverIDElement.appendChild(dom.createTextNode(deviceDriverID));
-			eventElement.appendChild(deviceDriverIDElement);
-			
-			Element eventNameElement = dom.createElement(RULE_EVENT_NAME_TAG);
-			String eventName = deviceEvent.getEventName();
-			eventNameElement.appendChild(dom.createTextNode(eventName));
-			eventElement.appendChild(eventNameElement);
-			
-			eventsSectionElement.appendChild(eventElement);
-
-		}
-		
-		ruleElement.appendChild(eventsSectionElement);
-		
-		rulesSection.appendChild(ruleElement);
-
-		
-		try {
-			// DOMUtils.getInstance().printDomToXml(dom, System.out);
-			DOMUtils.getInstance().printDomToXml(dom, new FileOutputStream(XML_FILENAME));
-		} catch (XmlException e) {
-			throw new SmartBuildingException(e);
-		} catch (FileNotFoundException e) {
-			throw new SmartBuildingException(e);
-		} 
-
-	}
-
 
 	/**
 	 * 

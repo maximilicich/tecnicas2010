@@ -43,6 +43,11 @@ public class Rule {
 	 * @param ruleDescription
 	 */
 	private Rule(String ruleID, String ruleDescription) {
+		if (ruleID == null)
+			throw new IllegalArgumentException("Cannot instantiate Rule with null ruleID");
+		if (ruleID.trim().equalsIgnoreCase(""))
+			throw new IllegalArgumentException("Cannot instantiate Rule with blank ruleID");
+		
 		this.ruleID = ruleID;
 		this.ruleDescription = ruleDescription;
 	}

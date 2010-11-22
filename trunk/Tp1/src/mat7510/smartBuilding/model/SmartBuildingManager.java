@@ -3,8 +3,6 @@ package mat7510.smartBuilding.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import mat7510.smartBuilding.model.Rule.VoidAction;
-
 
 /**
  * 
@@ -70,6 +68,9 @@ public class SmartBuildingManager {
 	public Set<Rule> getRules() {
 		return rules;
 	}
+
+	
+	
 	
 	
 	/**
@@ -79,35 +80,46 @@ public class SmartBuildingManager {
 	 */
 	public void addRule(Rule newRule) throws SmartBuildingException {
 
-		int count = 1;
-		boolean insert = false;
+		// TODO Esto deberia ser Transaccional
 		
-		if (newRule == null){
-			throw new SmartBuildingException(" Regla vacia "); 	
-		}
 		// Validaciones
-		if ( newRule.getDeviceAction()==null || newRule.getRuleID() == null || newRule.getDeviceEvents() == null){
-			throw new SmartBuildingException(" No se encuentran cargados todos los datos obligatorios para la nueva regla ");
+		
+		// not null
+		if (newRule == null)
+			throw new IllegalArgumentException("Cannot add null Rule.");
+
+		// El ID es validado en el constructor de la misma Rule...
+		
+		if ( newRule.getDeviceAction() == null)
+			throw new SmartBuildingException(" Cannot add Rule with no DeviceAction defined.");
+
+		if (newRule.getDeviceEvents() == null)
+			throw new SmartBuildingException(" Cannot add Rule with no DeviceEvents defined.");
+
+		
+		// Agregamos a nuestro SET
+		// SI EL ID YA EXISTE: LO MODIFICAMOS PARA QUE ENTRE IGUAL
+		int count = 0;
+		while (! rules.add(newRule)) {
+			
+			if (count == 0) 
+				newRule.setRuleID(newRule.getRuleID() + "copy" + count);
+			else 
+				newRule.setRuleID(newRule.getRuleID() + count);
+			++count;
 		}
 
-		// Agregamos a nuestro SET
-		while ( insert == false){
-			
-			if ( rules.add(newRule) == false) {
-				if (count == 0){
-					newRule.setRuleID(newRule.getRuleID() + "copy" + count);
-				}
-				else{
-					newRule.setRuleID(newRule.getRuleID() + count);
-				}
-				count = count + 1;
-			}
-			else {
-				insert = true;
-			}
-		}
+		
+		// Alta en el DAO : registramos todo de nuevo
+		RuleDAO.getInstance().setRules(rules);
+		
+		// Registramos en el EventEngine
 		eventEngine.registerRule(newRule);
+
+	
 	}
+
+	
 
 	
 	/**
@@ -151,12 +163,13 @@ public class SmartBuildingManager {
 	 */
 	public void deleteRule(String ruleID) {
 		
-		for (Rule rule: rules) {
-			if ( rule.getRuleID() == ruleID ){
-				//Sacar la regla de eventEngine
-				//Actualizar config
-			}
-		}
+		// El ID debe estar en nuestras reglas. Sino EXCEPTION (esta bien asi??)
+		
+		// Luego lo retiramos de nuestro Set
+		
+		// Grabamos el Set en el DAO (persistencia)
+		
+		// Y DESREGISTRAMOS LA RULE DEL EVENTENGINE
 		
 	}
 	
