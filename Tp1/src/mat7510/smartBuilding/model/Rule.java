@@ -34,6 +34,14 @@ public class Rule {
 	private List<DeviceEvent> deviceEvents = new ArrayList<DeviceEvent>();
 	
 	
+	/**
+	 * El Constructor ES PRIVADO
+	 * Ya que para crear una Regla se usa el BUILDER provisto por esta
+	 * misma Clase
+	 * 
+	 * @param ruleID
+	 * @param ruleDescription
+	 */
 	private Rule(String ruleID, String ruleDescription) {
 		this.ruleID = ruleID;
 		this.ruleDescription = ruleDescription;
@@ -41,6 +49,29 @@ public class Rule {
 
 	/**
 	 * Un Builder para la Rule 
+	 * 
+	 * Los atributos minimos obligatorios son
+	 * - ruleID 
+	 * - ruleDescription
+	 * 
+	 * Asi, si queremos crear una Rule solo con estos parms, hacemos
+	 * 
+	 * new Rule.Builder(ruleID, ruleDesctiption).build();
+	 * 
+	 * Luego tenemos parms adicionales, opcionales:
+	 * - continuous (es una Regla de eventos continuos ?)
+	 * - ordered (es una Regla de eventos ordenados ?)
+	 * - La DeviceAction asociada!
+	 * 
+	 * Suponiendo que queremos crear una Rule
+	 * ordenada
+	 * continua
+	 * y con el DeviceAction miAction:
+	 * 
+	 * Para esto, hacemos
+	 * 
+	 * new Rule.Builder(ruleID, ruleDesctiption).continuous(true).ordered(true).action(miACtion).build();
+	 * 
 	 * Segun pattern de Joshua Bloch
 	 * http://rwhansen.blogspot.com/2007/07/theres-builder-pattern-that-joshua.html
 	 * http://www.drdobbs.com/java/208403883;jsessionid=KP2YOIG0O2LWFQE1GHOSKH4ATMY32JVN?pgno=2
