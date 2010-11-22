@@ -3,6 +3,8 @@ package mat7510.smartBuilding.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import mat7510.smartBuilding.model.Rule.VoidAction;
+
 
 /**
  * 
@@ -96,6 +98,14 @@ public class SmartBuildingManager {
 	 */
 	public void disableRule(String ruleID) {
 		
+		for (Rule rule: rules) {
+			if ( rule.getRuleID() == ruleID ){
+				rule.setEnabled(false);
+				//Sacar la regla de eventEngine
+				//Actualizar ABM
+			}
+		}
+		
 	}
 	
 	
@@ -105,6 +115,15 @@ public class SmartBuildingManager {
 	 */
 	public void enableRule(String ruleID) {
 		
+		
+		for (Rule rule: rules) {
+			if ( rule.getRuleID() == ruleID ){
+				rule.setEnabled(true);
+				eventEngine.registerRule(rule);
+				//actualizar ABM
+			}
+		}
+		
 	}
 	
 	
@@ -113,6 +132,13 @@ public class SmartBuildingManager {
 	 * @param ruleID
 	 */
 	public void deleteRule(String ruleID) {
+		
+		for (Rule rule: rules) {
+			if ( rule.getRuleID() == ruleID ){
+				//Sacar la regla de eventEngine
+				//Actualizar config
+			}
+		}
 		
 	}
 	
