@@ -20,10 +20,13 @@ public class RuleDAOTest_addNewRule {
 		newRule.addDeviceEvent(ac.getDeviceEventByName("FUNCTION AC WARM"));
 		newRule.addDeviceEvent(ac.getDeviceEventByName("TURN ON AC"));
 	
-		RuleDAO.getInstance().addRule(newRule);
+		Set<Rule> rules = RuleDAO.getInstance().getRules();
+		rules.add(newRule);
+		
+		RuleDAO.getInstance().setRules(rules);
 		
 
-		Set<Rule> rules = RuleDAO.getInstance().getRules();
+		rules = RuleDAO.getInstance().getRules();
 		for (Rule rule : rules) {
 			System.out.println(rule);
 			System.out.println("\t" + rule.getDeviceAction());

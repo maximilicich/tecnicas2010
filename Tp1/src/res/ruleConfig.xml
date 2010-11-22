@@ -1,96 +1,67 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <smartBuildingRules>
-
-	<rule continuous="no" enabled="yes">
-		
-		<ruleID>X000001-K</ruleID>
-		<ruleDescription>Apertura Puerta Central</ruleDescription>
-		
-		<action>
-			<deviceDriverID>Puerta-Central-PB</deviceDriverID>
-			<actionName>open</actionName>
-		</action>
-		<events>
-			<event>
-				<deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
-				<eventName>Morning</eventName>
-			</event>
-<!--			<event>-->
-<!--				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0023</deviceDriverID>-->
-<!--				<eventName>open</eventName>-->
-<!--			</event>-->
-<!--			<event>-->
-<!--				<deviceDriverID>DETECTOR-MOVIMIENTO-PB-0025</deviceDriverID>-->
-<!--				<eventName>hayMovimiento</eventName>-->
-<!--			</event>-->
-		</events>
-	
-	</rule>
-
-	<rule continuous="no" enabled="no" ordered="yes">
-
-		<ruleID>X000002</ruleID>
-		<ruleDescription>Encendido Aire Acondicionado Piso 24 Hab 358</ruleDescription>
-
-		<action>
-			<deviceDriverID>AC-PISO24-0358</deviceDriverID>
-			<actionName>TURN ON AC</actionName>
-		</action>
-		<events>
-			<event>
-				<deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
-				<eventName>Morning</eventName>
-			</event>
-<!--			<event>-->
-<!--				<deviceDriverID>TERMOMETRO-PISO24</deviceDriverID>-->
-<!--				<eventName>temperaturaCalida</eventName>-->
-<!--			</event>-->
-		</events>
-
-	</rule>
-
-	<rule continuous="no" enabled="yes" ordered="no">
-
-		<ruleID>X000003</ruleID>
-		<ruleDescription>Encendido Luces Pasillos</ruleDescription>
-
-		<action>
-			<deviceDriverID>LUCES-PASILLOS</deviceDriverID>
-			<actionName>Lights On</actionName>
-		</action>
-		<events>
-<!--			<event>-->
-<!--				<deviceDriverID>ASCENSOR</deviceDriverID>-->
-<!--				<eventName>llegando</eventName>-->
-<!--			</event>-->
-			<event>
-				<deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
-				<eventName>Evening</eventName>
-			</event>
-			<event>
-				<deviceDriverID>Puerta-Central-PB</deviceDriverID>
-				<eventName>Door Opened</eventName>
-			</event>
-		</events>
-	
-	</rule>
-	
-<rule continuous="no" enabled="yes" ordered="no">
-<ruleID>RULE-PRUEBA-TEST</ruleID>
-<ruleDescription>Rule dada de alta desde la clase test RuleDAOTest_addNewRule</ruleDescription>
-<action>
-<deviceDriverID>AC-PISO24-0358</deviceDriverID>
-<actionName>TURN ON AC</actionName>
-</action>
-<events>
-<event>
-<deviceDriverID>AC-PISO24-0358</deviceDriverID>
-<eventName>FUNCTION AC WARM</eventName>
-</event>
-<event>
-<deviceDriverID>AC-PISO24-0358</deviceDriverID>
-<eventName>TURN ON AC</eventName>
-</event>
-</events>
-</rule>
+  <rule continuous="no" enabled="yes" ordered="no">
+    <ruleID>X000001-KX000001-K</ruleID>
+    <ruleDescription/>
+    <action>
+      <deviceDriverID>Puerta-Central-PB</deviceDriverID>
+      <actionName>open</actionName>
+    </action>
+    <events>
+      <event>
+        <deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
+        <eventName>Morning</eventName>
+      </event>
+    </events>
+  </rule>
+  <rule continuous="no" enabled="no" ordered="yes">
+    <ruleID>X000002X000002</ruleID>
+    <ruleDescription/>
+    <action>
+      <deviceDriverID>AC-PISO24-0358</deviceDriverID>
+      <actionName>TURN ON AC</actionName>
+    </action>
+    <events>
+      <event>
+        <deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
+        <eventName>Morning</eventName>
+      </event>
+    </events>
+  </rule>
+  <rule continuous="no" enabled="yes" ordered="no">
+    <ruleID>X000003X000003</ruleID>
+    <ruleDescription/>
+    <action>
+      <deviceDriverID>LUCES-PASILLOS</deviceDriverID>
+      <actionName>Lights On</actionName>
+    </action>
+    <events>
+      <event>
+        <deviceDriverID>CENTRAL-CLOCK</deviceDriverID>
+        <eventName>Evening</eventName>
+      </event>
+      <event>
+        <deviceDriverID>Puerta-Central-PB</deviceDriverID>
+        <eventName>Door Opened</eventName>
+      </event>
+    </events>
+  </rule>
+  <rule continuous="no" enabled="yes" ordered="no">
+    <ruleID>RULE-PRUEBA-TEST</ruleID>
+    <ruleDescription>Rule dada de alta desde la clase test RuleDAOTest_addNewRule</ruleDescription>
+    <action>
+      <deviceDriverID>AC-PISO24-0358</deviceDriverID>
+      <actionName>TURN ON AC</actionName>
+    </action>
+    <events>
+      <event>
+        <deviceDriverID>AC-PISO24-0358</deviceDriverID>
+        <eventName>FUNCTION AC WARM</eventName>
+      </event>
+      <event>
+        <deviceDriverID>AC-PISO24-0358</deviceDriverID>
+        <eventName>TURN ON AC</eventName>
+      </event>
+    </events>
+  </rule>
 </smartBuildingRules>

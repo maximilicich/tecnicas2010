@@ -42,15 +42,20 @@ public class DOMtoXMLExample {
 			TransformerFactory.newInstance();
 		Transformer transformer = tFactory.newTransformer();
 
-		DOMSource source = new DOMSource(dom);
-		StreamResult result = new StreamResult(System.out);
-
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+		transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		
+		StreamResult resultToFile = new StreamResult("C:/temp/books30.xml");
+		StreamResult result = new StreamResult(System.out);
+		
+		DOMSource source = new DOMSource(dom);
+
 		
 		transformer.transform(source, result);
 		
-		StreamResult resultToFile = new StreamResult("C:/temp/books.xml");
 		transformer.transform(source, resultToFile);
 		
 		
