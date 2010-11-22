@@ -19,9 +19,9 @@ public class MainWindow extends JFrame{
 
     public Mediator getMediador() {
 		return mediador;
-	}
+    }
 
-	public MainWindow(SmartBuildingManager buildingManager){
+    public MainWindow(SmartBuildingManager buildingManager){
         mediador = new Mediator(buildingManager);
     }
 

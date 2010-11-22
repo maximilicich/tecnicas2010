@@ -15,12 +15,11 @@ import java.util.*;
 public class ListPanel extends JawtList implements ListSelectionListener{
     Mediator med;
     int tag;
-
+    
     public ListPanel(Mediator md){
             med = md;
             addListSelectionListener(this);
     }
-
 
     public void setTag(int tag){
         this.tag=tag;

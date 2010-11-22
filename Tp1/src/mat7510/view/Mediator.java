@@ -27,7 +27,7 @@ public class Mediator {
         mainFrame = new MainFrame();
         translator = new Translator(buildingManager);
         createWindow();
-                try {
+        try {
             driversListPanel.addAll(translator.getDriverIds().iterator());
         } catch (SmartBuildingException ex) {}
     }

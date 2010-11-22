@@ -23,13 +23,14 @@ public class Translator{
             this.model = buildingManager;
             reload();
         } catch (SmartBuildingException ex) {
-
+            System.out.println("error");
         }
     }
 
     public void reload() throws SmartBuildingException {
             this.model.refreshDeviceDrivers();
             devDrivers = this.model.getDeviceDrivers();
+            System.out.println("dff");
     }
 
 
