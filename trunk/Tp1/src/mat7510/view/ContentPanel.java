@@ -23,8 +23,8 @@ public class ContentPanel extends JPanel{
         centerPanel.setLayout(new GridLayout(1, 4));
         centerPanel.add(new DriverPanel(mediador));
         centerPanel.add(new StatePanel(mediador));
-        centerPanel.add(new ActionPanel(mediador));
         centerPanel.add(new EventPanel(mediador));
+        centerPanel.add(new ActionPanel(mediador));
         centerPanel.add(new RulePanel(mediador));
         add(centerPanel, BorderLayout.CENTER);
         
@@ -32,8 +32,8 @@ public class ContentPanel extends JPanel{
         topPanel.setLayout(new GridLayout(1, 4,5,25));
         topPanel.add(new JLabel("Drivers", JLabel.CENTER));
         topPanel.add(new JLabel("Estados", JLabel.CENTER));
-        topPanel.add(new JLabel("Acciones Disponibles", JLabel.CENTER));
         topPanel.add(new JLabel("Eventos disponibles", JLabel.CENTER));
+        topPanel.add(new JLabel("Acciones Disponibles", JLabel.CENTER));
         topPanel.add(new JLabel("Reglas", JLabel.CENTER));
         this.add(topPanel, BorderLayout.NORTH);
 

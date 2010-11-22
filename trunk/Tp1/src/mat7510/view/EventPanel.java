@@ -8,12 +8,14 @@ package mat7510.view;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author sergio
  */
-public class EventPanel extends JPanel{
+public class EventPanel extends JPanel implements ListSelectionListener{
     private final Mediator mediador;
     private final ListPanel eventListPanel;
 
@@ -23,10 +25,15 @@ public class EventPanel extends JPanel{
         mediador = med;
 
         eventListPanel = new ListPanel(mediador);
+        eventListPanel.addListSelectionListener(this);
         mediador.addEventList(eventListPanel);
 
         add(eventListPanel);
         add(new ControllerPanel());
+    }
+
+    public void valueChanged(ListSelectionEvent e) {
+        eventListPanel.clearSelection();
     }
 
 
