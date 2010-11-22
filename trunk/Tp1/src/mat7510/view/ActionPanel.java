@@ -41,8 +41,7 @@ public class ActionPanel extends JPanel implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
      if (e.getActionCommand()=="execute" ){
-            int index=actionListPanel.getSelectedItemIndex();
-            mediador.executeActionWithIndex(index);
+            mediador.executeActionWithIndex((String)actionListPanel.getSelectedValue());
         }
     }
 

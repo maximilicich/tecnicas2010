@@ -5,17 +5,7 @@
 
 package mat7510.view;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import javax.swing.JOptionPane;
-
-import mat7510.smartBuilding.model.DeviceAction;
-import mat7510.smartBuilding.model.DeviceDriver;
-import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
 
@@ -29,37 +19,19 @@ public class Mediator {
     ListPanel stateListPanel;
     ListPanel actionListPanel;
     ListPanel eventListPanel;
+    ListPanel rulesListPanel;
     Translator translator;
-    ArrayList<DeviceDriver> devDrivers;
+
 
     public Mediator(SmartBuildingManager buildingManager){
         mainFrame = new MainFrame();
         translator = new Translator(buildingManager);
         createWindow();
-        init();
+                try {
+            driversListPanel.addAll(translator.getDriverIds().iterator());
+        } catch (SmartBuildingException ex) {}
     }
 
-    private void init(){
-    	
-        try {
-           Set<DeviceDriver> setDrivers = translator.actualizar();
-           devDrivers = new ArrayList();
-           Iterator<DeviceDriver> it = setDrivers.iterator();
-
-            while(it.hasNext()){
-                DeviceDriver devDriver = (DeviceDriver) it.next();
-                devDrivers.add(devDriver);
-                String deviceID=devDriver.getDeviceID();
-                driversListPanel.add(deviceID);
-            }
-
-        } catch (SmartBuildingException ex) {
-            System.out.println("Error: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        
-    }
-    
     public void addDriverList(ListPanel list){
         driversListPanel=list;
     }
@@ -76,26 +48,17 @@ public class Mediator {
         eventListPanel=list;
     }
 
+    public void addRuleList(ListPanel list){
+        rulesListPanel=list;
+    }
 
     private void createWindow(){
         ContentPanel contentPane = new ContentPanel(this);
         mainFrame.getContentPane().add(contentPane);
     }
-    
+
     public void showWindow(){
         mainFrame.setVisible(true);
-    }
-
-    private void loadState(DeviceDriver driver){
-          Map<String, String> map = driver.getState();
-          Iterator it = map.keySet().iterator();
-
-          while(it.hasNext()){
-            String key = (String) it.next();
-            String value = map.get(key);
-            String data=key+" = "+value;
-            stateListPanel.add(data);
-          }
     }
 
     private void clearDriver(){
@@ -104,52 +67,36 @@ public class Mediator {
         eventListPanel.clear();
     }
 
-    public void selectDriverWithIndex(int index){
-
-    	System.out.println("index: "+index);
-    	clearDriver();
-    	DeviceDriver driver = devDrivers.get(index);
-    	loadState(driver);
-
-    	actionListPanel.addAll(this.getActionNames(driver.getActions()).iterator());
-    	eventListPanel.addAll(this.getEventsNames(driver.getEvents()).iterator());
-    	//actionListPanel.addAll(driver.getActions().iterator());
-    	//eventListPanel.addAll(driver.getEvents().iterator());
-       
-
-    }
-    
-    public List<String> getActionNames ( List<DeviceAction> actions){
-    	Iterator<DeviceAction> it = actions.iterator();
-    	List<String> actionsNames = new ArrayList<String>();
-   	 	while(it.hasNext()){
-            actionsNames.add(it.next().getActionName());
+    public void selectDriverWithIndex(String deviceID){
+          clearDriver();
+        try {
+          stateListPanel.addAll(translator.getDriverStates(deviceID).iterator());
+          actionListPanel.addAll(translator.getDriverActionsIds(deviceID).iterator());
+          eventListPanel.addAll(translator.getDriverEventsIds(deviceID).iterator());
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
-		return actionsNames;
-    	
     }
-    
-    public List<String> getEventsNames ( List<DeviceEvent> events){
-    	Iterator<DeviceEvent> it = events.iterator();
-    	List<String> eventsNames = new ArrayList<String>();
-   	 	while(it.hasNext()){
-            eventsNames.add(it.next().getEventName());
-        }
-		return eventsNames;
-    	
-    }
-
 
     public void addDriverWithName(String dir){
         JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
     }
 
-    public void executeActionWithIndex(int index){
-         JOptionPane.showMessageDialog(mainFrame, "ejecutar: "+index);
+    public void executeActionWithIndex(String actionID){
+        String driverID = (String) driversListPanel.getSelectedValue();
+        try {
+            if(actionID==null || driverID==null || actionID.equals("") || driverID.equals("")){
+                   JOptionPane.showMessageDialog(mainFrame ,"Driver o accion no seleccionada","Warning", JOptionPane.WARNING_MESSAGE);
+                   return;
+            }
+            translator.execute(driverID, actionID);
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, ex, actionID, JOptionPane.ERROR_MESSAGE);
+        }
     }
-      
-    public void removeEventWithIndex(int index){
-        JOptionPane.showMessageDialog(mainFrame, "remove: "+index);
+
+    public void removeEventWithIndex(String eventID){
+             JOptionPane.showMessageDialog(mainFrame, "", eventID, JOptionPane.ERROR_MESSAGE);
     }
 
     public void addEvent(){

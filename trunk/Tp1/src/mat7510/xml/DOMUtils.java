@@ -61,8 +61,7 @@ public class DOMUtils implements java.io.Serializable {
 	 * @throws XmlException
 	 */
 	public Document getDocument(InputStream xml) throws XmlException  {
-                System.out.println("entroo");
-		try {
+       		try {
 			// Step 1: create a DocumentBuilderFactory
 			DocumentBuilderFactory dbf =
 				DocumentBuilderFactory.newInstance();
