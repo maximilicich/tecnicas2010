@@ -169,4 +169,18 @@ public class Mediator {
         JOptionPane.showMessageDialog(mainFrame, "url: "+txt);
     }
 
+
+    public ArrayList<String> getDriversId() throws SmartBuildingException{
+        return translator.getDriverIds();
+    }
+
+    public ArrayList<String> getEventsForDriverID(String deviceID) throws SmartBuildingException{
+        return translator.getDriverEventsIds(deviceID);
+    }
+
+    public ArrayList<String> getAction() throws SmartBuildingException{
+        String driverID = (String) driversListPanel.getSelectedValue();
+        return translator.getDriverActionsIds(driverID);
+    }
+
 }

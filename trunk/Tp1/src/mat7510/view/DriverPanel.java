@@ -19,19 +19,19 @@ import javax.swing.event.ListSelectionListener;
 public class DriverPanel extends JPanel implements ActionListener,ListSelectionListener{
 
         ListPanel driversListPanel;
-        Mediator mediador;
+        Mediator mediator;
         
         public DriverPanel(Mediator med){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBorder(new EmptyBorder(5,5,5,5));
 
-            mediador=med;
+            mediator=med;
             JButton updateButton = new JButton("Actualizar");
             updateButton.setActionCommand("update");
             updateButton.addActionListener(this);
 
             driversListPanel = new ListPanel();
-            mediador.addDriverList(driversListPanel);
+            mediator.addDriverList(driversListPanel);
             driversListPanel.addListSelectionListener(this);
 
             ControllerPanel controllerPanel = new ControllerPanel();
@@ -45,7 +45,7 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
              DriverFileChooser open = new DriverFileChooser("./");
              String dir=open.getDirectorio();
              if(!dir.equals("")){
-               mediador.addDriverWithName(dir);
+               mediator.addDriverWithName(dir);
               }
 
     }
@@ -62,7 +62,7 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
              JList theList = (JList)e.getSource();
              
              if (!theList.isSelectionEmpty())
-                mediador.selectDriverWithIndex((String) theList.getSelectedValue());
+                mediator.selectDriverWithIndex((String) theList.getSelectedValue());
         }
     }
 
