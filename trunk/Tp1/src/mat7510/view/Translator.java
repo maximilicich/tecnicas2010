@@ -34,7 +34,7 @@ public class Translator{
 
 
     public DeviceDriver getDeviceDriver(String deviceID) throws SmartBuildingException{
-            Iterator it = devDrivers.iterator();
+            Iterator<DeviceDriver> it = devDrivers.iterator();
 
             while(it.hasNext()){
                 DeviceDriver driver = (DeviceDriver) it.next();
@@ -47,8 +47,8 @@ public class Translator{
     }
 
     public ArrayList<String> getDriverIds() throws SmartBuildingException{
-            ArrayList<String> result = new ArrayList();
-            Iterator it = devDrivers.iterator();
+            ArrayList<String> result = new ArrayList<String>();
+            Iterator<DeviceDriver> it = devDrivers.iterator();
 
             while(it.hasNext()){
                 DeviceDriver driver = (DeviceDriver) it.next();
@@ -61,8 +61,8 @@ public class Translator{
         DeviceDriver driver = getDeviceDriver(deviceID);
         Map<String,String> map = driver.getState();
 
-        Iterator it = map.keySet().iterator();
-        ArrayList<String> result = new ArrayList();
+        Iterator<String> it = map.keySet().iterator();
+        ArrayList<String> result = new ArrayList<String>();
 
         while(it.hasNext()){
             String key = (String) it.next();
@@ -75,8 +75,8 @@ public class Translator{
 
     public ArrayList<String> getDriverActionsIds(String deviceID) throws SmartBuildingException{
         DeviceDriver driver = getDeviceDriver(deviceID);
-        Iterator it = driver.getActions().iterator();
-        ArrayList<String> result = new ArrayList();
+        Iterator<DeviceAction> it = driver.getActions().iterator();
+        ArrayList<String> result = new ArrayList<String>();
 
         while(it.hasNext()){
             DeviceAction action = (DeviceAction) it.next();
@@ -88,8 +88,8 @@ public class Translator{
 
     public ArrayList<String> getDriverEventsIds(String deviceID) throws SmartBuildingException{
         DeviceDriver driver = getDeviceDriver(deviceID);
-        Iterator it = driver.getEvents().iterator();
-        ArrayList<String> result = new ArrayList();
+        Iterator<DeviceEvent> it = driver.getEvents().iterator();
+        ArrayList<String> result = new ArrayList<String>();
 
         while(it.hasNext()){
             DeviceEvent event = (DeviceEvent) it.next();
