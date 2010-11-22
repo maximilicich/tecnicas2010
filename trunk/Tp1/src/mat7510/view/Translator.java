@@ -131,6 +131,33 @@ public class Translator{
     		}	
 		return listOfRules;
     }
+    
+    public List<String> getEventForRule ( String deviceID, String actionID , String ruleID ) throws SmartBuildingException{
+    	
+    	Set<Rule> rules = this.model.getRules();
+    	List<String> listEvents = new ArrayList<String>();
+    	
+    		for ( Rule rule : rules){
+    			if ( (rule.getDeviceAction().getActionName().equals(actionID)) && (rule.getDeviceAction().getDeviceDriver().getDeviceID().equals(deviceID) )){
+    					listEvents = getListOfRuleEvents (rule);
+    				
+    			}
+    		}	
+		return listEvents;
+    	
+    }
+    
+    public List<String> getListOfRuleEvents ( Rule rule ){
+		
+    	List<String> listEvents = new ArrayList<String>();
+    	Iterator<DeviceEvent> it = rule.getDeviceEvents().iterator();
+    	
+    	while ( !it.hasNext()){
+    		listEvents.add(it.next().getEventName());
+    	}
+    	
+    	return listEvents;
+    }
 
 
 
