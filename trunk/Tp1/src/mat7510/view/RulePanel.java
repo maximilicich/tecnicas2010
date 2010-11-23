@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -17,13 +18,13 @@ import javax.swing.border.EmptyBorder;
  * @author sergio
  */
 public class RulePanel extends JPanel implements ActionListener {
-    private Mediator mediador;
+    private Mediator mediator;
     private ListPanel ruleListPanel;
 
     public RulePanel(Mediator med){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(5,5,5,5));
-        mediador = med;
+        mediator = med;
         JButton deleteButton = new JButton("Eliminar");
         deleteButton.setActionCommand("delete");
         deleteButton.addActionListener(this);
@@ -42,23 +43,31 @@ public class RulePanel extends JPanel implements ActionListener {
         controllerEventPanel.add(detailButton);
 
        ruleListPanel = new ListPanel();
-       mediador.addRuleList(ruleListPanel);
+       mediator.addRuleList(ruleListPanel);
 
         add(ruleListPanel);
         add(controllerEventPanel);
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand()=="delete" ){
-            int index = ruleListPanel.getSelectedIndex();
+        int index = ruleListPanel.getSelectedIndex();
 
+        if (e.getActionCommand()=="delete" ){
+            
             if(index>=0)
                 ruleListPanel.removeItem(index);
-                mediador.removeEventWithIndex((String) ruleListPanel.getSelectedValue());
+                mediator.removeEventWithIndex((String) ruleListPanel.getSelectedValue());
 
         }else if (e.getActionCommand()=="add" ){
-            mediador.createNewRule();
+            mediator.createNewRule();
         }else if (e.getActionCommand()=="description" ){
+            /*
+                if(index <0){
+                    JOptionPane.showMessageDialog(this ,"Debe seleccionar una regla","Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+*/
+                mediator.showDescriptionRule((String) ruleListPanel.getSelectedValue());
 
         }
     }
