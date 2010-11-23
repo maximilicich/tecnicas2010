@@ -31,7 +31,6 @@ public class Translator{
     public void reload() throws SmartBuildingException {
             this.model.refreshDeviceDrivers();
             devDrivers = this.model.getDeviceDrivers();
-            System.out.println("dff");
     }
 
 
@@ -146,19 +145,47 @@ public class Translator{
 		return listEvents;
     	
     }
+
+    public Rule getRule ( String ruleID ) throws SmartBuildingException{
+
+    	Set<Rule> rules = this.model.getRules();
+
+    		for ( Rule rule : rules){
+                    if(rule.getRuleID().equals(ruleID)){
+                        return rule;
+                    }
+    		}
+		return null;
+    }
     
-    public List<String> getListOfRuleEvents ( Rule rule ){
+    public ArrayList<String> getListOfRuleEvents ( Rule rule ){
 		
-    	List<String> listEvents = new ArrayList<String>();
+    	ArrayList<String> listEvents = new ArrayList<String>();
     	Iterator<DeviceEvent> it = rule.getDeviceEvents().iterator();
     	
-    	while ( !it.hasNext()){
-    		listEvents.add(it.next().getEventName());
+    	while ( it.hasNext()){
+                DeviceEvent event = it.next();
+    		listEvents.add(event.getEventName());
     	}
     	
     	return listEvents;
     }
 
+    public ArrayList<String> getListOfRuleType ( Rule rule ){
 
+    	ArrayList<String> types = new ArrayList<String>();
+
+        if(rule.isContinuous())
+            types.add("Continuo");
+
+        if(rule.isOrdered())
+            types.add("Con Orden");
+
+        return types;
+    }
+    
+    public void deleteRule(String ruleID) throws SmartBuildingException {
+            model.deleteRule(ruleID);
+    }
 
 }
