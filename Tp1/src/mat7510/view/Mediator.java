@@ -5,12 +5,14 @@
 
 package mat7510.view;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.Rule;
@@ -40,6 +42,9 @@ public class Mediator {
         } catch (SmartBuildingException ex) {}
     }
 
+    public JFrame getWindows(){
+        return mainFrame;
+    }
     public void addDriverList(ListPanel list){
         driversListPanel=list;
     }
@@ -113,8 +118,8 @@ public class Mediator {
             translator.reload();
             driversListPanel.addAll(translator.getDriverIds().iterator());
         } catch (SmartBuildingException ex) {
-            JOptionPane.showMessageDialog(mainFrame , ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }
+		JOptionPane.showMessageDialog(mainFrame , ex, "Error", JOptionPane.ERROR_MESSAGE);
+	}
     }
 
     public void updateRulePanel() {
@@ -137,7 +142,7 @@ public class Mediator {
     	}
     }
 
-    
+
     public void executeActionWithIndex(String actionID){
         String driverID = (String) driversListPanel.getSelectedValue();
         try {
@@ -178,8 +183,6 @@ public class Mediator {
         } catch (SmartBuildingException ex) {
             JOptionPane.showMessageDialog(mainFrame, "Error al crear la regla", "", JOptionPane.ERROR_MESSAGE);
         }
-        dialog.dispose();
-        updateRulePanel();
     }
 
     public void createNewRule(){
@@ -200,7 +203,13 @@ public class Mediator {
             ArrayList<String> arrayOfEvents = translator.getListOfRuleEvents(rule);
             ArrayList<String> arrayOfTypes = translator.getListOfRuleType(rule);
 
-            new DescriptionRuleDialog(mainFrame,ruleID,nameAction,arrayOfTypes,arrayOfEvents);
+            String typeText="";
+            for(String text :arrayOfTypes ){
+                typeText+=text+"/";
+            }
+
+            typeText= typeText.substring(0, typeText.length()-1);
+            new DescriptionRuleDialog(mainFrame,ruleID,nameAction,typeText,arrayOfEvents,rule.isEnabled(),rule.getRuleDescription());
 
         } catch (SmartBuildingException ex) {
             JOptionPane.showMessageDialog(mainFrame, "Error al tratar de mostrar la información", "", JOptionPane.ERROR_MESSAGE);
@@ -219,21 +228,30 @@ public class Mediator {
         String driverID = (String) driversListPanel.getSelectedValue();
         return translator.getDriverActionsIds(driverID);
     }
-    
-    
-    public void addDriverWithName(String dir){
 
-    	// JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+    public void showEditRule(String ruleID){
+        Rule rule;
         try {
-			translator.addDeviceDriver(dir);
-		} catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(mainFrame, ex, "Error", JOptionPane.ERROR_MESSAGE);
-		} catch (SmartBuildingException e) {
-            JOptionPane.showMessageDialog(mainFrame, e, "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		
-		this.update();
-        
-    }
+            rule = translator.getRule(ruleID);
 
+        
+            if(rule.isEnabled()){
+                int n = JOptionPane.showConfirmDialog(mainFrame, "La regla se encuentra Habilitada, Desea deshabilitarla?","Habilitar/Desabilitar Regla",
+                JOptionPane.YES_NO_OPTION);
+                if (n == JOptionPane.YES_OPTION) {
+                    translator.disableRule(ruleID);
+                }
+
+            }else{
+                int n = JOptionPane.showConfirmDialog(mainFrame, "La regla se encuentra Deshabilitada, Desea habilitarla?","Habilitar/Desabilitar Regla",
+                JOptionPane.YES_NO_OPTION);
+                if (n == JOptionPane.YES_OPTION) {
+                    translator.enableRule(ruleID);
+                }
+            }
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, "Error al tratar de cambiar el estado", "", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
 }
