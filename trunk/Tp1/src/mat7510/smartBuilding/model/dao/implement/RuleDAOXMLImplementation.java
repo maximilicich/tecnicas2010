@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.model.dao.implement;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +9,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.DeviceEvent;
+import mat7510.smartBuilding.model.Rule;
+import mat7510.smartBuilding.model.SmartBuildingException;
+import mat7510.smartBuilding.model.dao.DeviceDriverDAO;
+import mat7510.smartBuilding.model.dao.RuleDAO;
+import mat7510.smartBuilding.utils.WorkingDirectory;
 import mat7510.xml.DOMUtils;
 import mat7510.xml.XmlException;
 
@@ -22,11 +30,9 @@ import org.w3c.dom.Text;
  * @author MA_Xx
  *
  */
-public class RuleDAO {
+public class RuleDAOXMLImplementation implements RuleDAO {
 
-	private static RuleDAO instance = new RuleDAO();
-	private RuleDAO() {
-	}
+	private DAOFactory daoFactory;
 	
 	private static final String XML_FILENAME = "/res/ruleConfig.xml";
 	
@@ -53,16 +59,16 @@ public class RuleDAO {
 	private static final String RULE_EVENT_NAME_TAG = "eventName";
 
 	
+	private DeviceDriverDAO deviceDriverDAO; 
+	
 	/**
-	 * DeviceDriverLoader Es un Singleton
-	 *  
-	 * @return la instancia Singleton de la Clase
+	 * 
 	 */
-	public static RuleDAO getInstance() {
-		return instance;
+	public RuleDAOXMLImplementation() {
+		deviceDriverDAO = DAOFactory.getInstance().createDeviceDriverDAO();
 	}
 	
-	
+
 	/**
 	 * 
 	 * Vuelca todas las Rules en el Repositorio
@@ -259,7 +265,7 @@ public class RuleDAO {
 			String deviceDriverID = getUniqueAttributeValue(eventElement, DEVICEDRIVER_ID_TAG);
 			String eventName = getUniqueAttributeValue(eventElement, RULE_EVENT_NAME_TAG);
 
-			DeviceDriver dev = DeviceDriverDAO.getInstance().getDeviceDriverByID(deviceDriverID);
+			DeviceDriver dev = deviceDriverDAO.getDeviceDriverByID(deviceDriverID);
 			if (dev == null)
 				throw new SmartBuildingException("Error trying to retrieve DeviceDriver for ID " + deviceDriverID + " (event name <" + eventName + ">) : DeviceDriver NOT FOUND.");
 
@@ -288,7 +294,7 @@ public class RuleDAO {
 		String deviceDriverID = getUniqueAttributeValue(actionSection, DEVICEDRIVER_ID_TAG);
 		String actionName = getUniqueAttributeValue(actionSection, RULE_ACTION_NAME_TAG);
 
-		DeviceDriver dev = DeviceDriverDAO.getInstance().getDeviceDriverByID(deviceDriverID);
+		DeviceDriver dev = deviceDriverDAO.getDeviceDriverByID(deviceDriverID);
 		if (dev == null)
 			throw new SmartBuildingException("Error trying to retrieve DeviceDriver for ID " + deviceDriverID + " (action name <" + actionName + ">) : DeviceDriver NOT FOUND.");
 		

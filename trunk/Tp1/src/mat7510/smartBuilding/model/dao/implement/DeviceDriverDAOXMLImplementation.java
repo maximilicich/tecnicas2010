@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.model.dao.implement;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +9,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.SmartBuildingException;
+import mat7510.smartBuilding.model.dao.DeviceDriverDAO;
+import mat7510.smartBuilding.utils.WorkingDirectory;
 import mat7510.xml.DOMUtils;
 import mat7510.xml.XmlException;
 
@@ -18,19 +22,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
 /**
- * Clase Singleton que se encarga de leer el archivo XML de configuracion
+ * Clase que se encarga de leer el archivo XML de configuracion
  * de los Drivers de Dispositivos e instanciar para cada uno la Clase
  * Correspondiente.
  * 
  * @author Grupo 10
  *
  */
-public class DeviceDriverDAO {
+public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 
-	private static DeviceDriverDAO instance = new DeviceDriverDAO();
-	private DeviceDriverDAO() {
-	}
-	
 	private static final String XML_FILENAME = "/res/deviceDriverConfig.xml";
 	
 	/**
@@ -41,15 +41,13 @@ public class DeviceDriverDAO {
 	private static final String DEVICE_DRIVER_ELEMENT_ID_TAG = "deviceID";
 	private static final String DEVICE_DRIVER_ELEMENT_NAME_TAG = "deviceDescription";
 	private static final String DEVICE_DRIVER_ELEMENT_CLASS_TAG = "driverClass";
-	
+
 	/**
-	 * DeviceDriverLoader Es un Singleton
-	 *  
-	 * @return la instancia Singleton de la Clase
+	 * 
 	 */
-	public static DeviceDriverDAO getInstance() {
-		return instance;
+	public DeviceDriverDAOXMLImplementation() {
 	}
+	
 
 	/**
 	 * Este metodo devuelve la lista de DeviceDrivers configurados para SmartBuilding
