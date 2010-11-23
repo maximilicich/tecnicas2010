@@ -17,8 +17,8 @@ public class ControllerPanel extends JPanel {
 
     public ControllerPanel(){
         setLayout(new FlowLayout(FlowLayout.CENTER));
-        setMaximumSize(new Dimension(400,20));
-        setPreferredSize(new Dimension(400,45));
+        setMaximumSize(new Dimension(400,50));
+        setPreferredSize(new Dimension(400,100));
     }
 
 }
