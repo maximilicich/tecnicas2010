@@ -4,19 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.DeviceEvent;
-import mat7510.smartBuilding.model.DeviceEventListener;
 
 public class DeviceDriverClock extends DeviceDriver{
 	
 	private List<DeviceAction> deviceActions = new ArrayList<DeviceAction>();
 	private List<DeviceEvent>  deviceEvents	 = new ArrayList<DeviceEvent>(); 
 	private Map<String,String> stateMap		 = new LinkedHashMap<String, String>();
-	private List<DeviceEventListener> listeners	 = new ArrayList<DeviceEventListener>();
 	
 	static final String ATTR_TIME_STATE = "DAY TIME";
 	static final String ATTR_VALUE_MOORNING = "MOORNING";

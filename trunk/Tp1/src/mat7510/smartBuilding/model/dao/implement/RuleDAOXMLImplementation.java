@@ -32,8 +32,6 @@ import org.w3c.dom.Text;
  */
 public class RuleDAOXMLImplementation implements RuleDAO {
 
-	private DAOFactory daoFactory;
-	
 	private static final String XML_FILENAME = "/res/ruleConfig.xml";
 	
 	/**
