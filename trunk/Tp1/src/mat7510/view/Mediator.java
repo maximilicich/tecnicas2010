@@ -112,9 +112,32 @@ public class Mediator {
             driversListPanel.clear();
             translator.reload();
             driversListPanel.addAll(translator.getDriverIds().iterator());
-        } catch (SmartBuildingException ex) {}
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame , ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
+    public void updateRulePanel() {
+
+    	String driverID = (String) driversListPanel.getSelectedValue();
+    	String actionID = (String) actionListPanel.getSelectedValue();
+
+    	try {
+    		if(actionID==null || driverID==null || actionID.equals("") || driverID.equals("")){
+    			JOptionPane.showMessageDialog(mainFrame ,"Driver o accion no seleccionada","Warning", JOptionPane.WARNING_MESSAGE);
+    			return;
+    		}
+    		rulesListPanel.clear();
+    		List<String> rules = translator.getRulesForDeviceAction(driverID, actionID);
+    		if(!rules.isEmpty()){               
+    			rulesListPanel.addAll(rules.iterator());
+    		}
+    	} catch (SmartBuildingException ex) {
+    		JOptionPane.showMessageDialog(mainFrame , ex, "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+    }
+
+    
     public void executeActionWithIndex(String actionID){
         String driverID = (String) driversListPanel.getSelectedValue();
         try {
@@ -143,7 +166,7 @@ public class Mediator {
 	Rule newRule = new Rule.Builder(dialog.getNameRule(),dialog.getDescriptionRule()).continuous(dialog.isContinuos()).ordered(dialog.isOrder()).build();
         String driverID = (String) driversListPanel.getSelectedValue();
         try {
-            DeviceAction action = translator.getDeviceAction(dialog.getNameRule(), dialog.getNameAction());
+            DeviceAction action = translator.getDeviceAction(driverID, dialog.getNameAction());
             newRule.setDeviceAction(action);
 
             for(EventItem event : dialog.getEvents()){
@@ -155,6 +178,8 @@ public class Mediator {
         } catch (SmartBuildingException ex) {
             JOptionPane.showMessageDialog(mainFrame, "Error al crear la regla", "", JOptionPane.ERROR_MESSAGE);
         }
+        dialog.dispose();
+        updateRulePanel();
     }
 
     public void createNewRule(){
