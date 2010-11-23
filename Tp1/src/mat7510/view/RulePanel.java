@@ -33,14 +33,27 @@ public class RulePanel extends JPanel implements ActionListener {
         addButton.setActionCommand("add");
         addButton.addActionListener(this);
 
-        JButton detailButton = new JButton("Descripcion");
+        JButton detailButton = new JButton("Descripción");
         detailButton.setActionCommand("description");
         detailButton.addActionListener(this);
 
+        JButton editButton = new JButton("Editar");
+        editButton.setActionCommand("edit");
+        editButton.addActionListener(this);
+
+        JPanel top = new JPanel();
+        top.add(addButton);
+        top.add(deleteButton);
+
+        JPanel botton = new JPanel();
+        botton.add(detailButton);
+        botton.add(editButton);
+
         ControllerPanel controllerEventPanel = new ControllerPanel();
-        controllerEventPanel.add(addButton);
-        controllerEventPanel.add(deleteButton);
-        controllerEventPanel.add(detailButton);
+        controllerEventPanel.add(top);
+        controllerEventPanel.add(botton);
+   //     controllerEventPanel.add(detailButton);
+  //      controllerEventPanel.add(editButton);
 
        ruleListPanel = new ListPanel();
        mediator.addRuleList(ruleListPanel);
@@ -52,23 +65,24 @@ public class RulePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         int index = ruleListPanel.getSelectedIndex();
 
-        if (e.getActionCommand()=="delete" ){
-            
-            if(index>=0)
-                ruleListPanel.removeItem(index);
-                mediator.removeRuleWithIndex((String) ruleListPanel.getSelectedValue());
-
-        }else if (e.getActionCommand()=="add" ){
+         if (e.getActionCommand().equals("add") ){
             mediator.createNewRule();
-        }else if (e.getActionCommand()=="description" ){
-            /*
-                if(index <0){
-                    JOptionPane.showMessageDialog(this ,"Debe seleccionar una regla","Warning", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-*/
-                mediator.showDescriptionRule((String) ruleListPanel.getSelectedValue());
+        }else{
 
+              if(index <0){
+                  JOptionPane.showMessageDialog(mediator.getWindows() ,"Debe seleccionar una regla","Warning", JOptionPane.WARNING_MESSAGE);
+                  return;
+              }
+
+              if (e.getActionCommand().equals("delete") ){
+                  ruleListPanel.removeItem(index);
+                  mediator.removeRuleWithIndex((String) ruleListPanel.getSelectedValue());
+              }else if (e.getActionCommand().equals("description") ){
+                      mediator.showDescriptionRule((String) ruleListPanel.getSelectedValue());
+
+              }else  if (e.getActionCommand().equals("edit") ){
+                       mediator.showEditRule((String) ruleListPanel.getSelectedValue());
+                    }
         }
     }
 
