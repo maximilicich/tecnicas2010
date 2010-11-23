@@ -177,9 +177,11 @@ public class Translator{
 
         if(rule.isContinuous())
             types.add("Continuo");
+        else types.add("Discontinuo");
 
         if(rule.isOrdered())
             types.add("Con Orden");
+        else types.add("Sin Orden");
 
         return types;
     }
