@@ -15,10 +15,10 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 
+@SuppressWarnings("serial")
 public class JawtList extends JScrollPane{
    private JList listWindow;
    private JListData listContents;
-   private int count;
 
    public JawtList(){
       listContents = new JListData();
@@ -27,7 +27,6 @@ public class JawtList extends JScrollPane{
       listWindow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
       getViewport().add(listWindow);
       listWindow.setFont(new Font("Dialog",Font.PLAIN,10));
-      count=0;
 
    }
 

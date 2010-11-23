@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class RulePanel extends JPanel implements ActionListener {
     private Mediator mediator;
     private ListPanel ruleListPanel;

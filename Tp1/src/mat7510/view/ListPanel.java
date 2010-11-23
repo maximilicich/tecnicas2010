@@ -5,13 +5,17 @@
 
 package mat7510.view;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Vector;
+
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /**
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class ListPanel extends JawtList implements ListSelectionListener{
     int tag;
     
@@ -53,8 +57,9 @@ public class ListPanel extends JawtList implements ListSelectionListener{
     	this.clear();
     }
 
-    private void fillDriversList(Vector vec){
-            Iterator it = vec.iterator();
+    @SuppressWarnings("unused")
+	private void fillDriversList(Vector<Object> vec){
+            Iterator<Object> it = vec.iterator();
             while(it.hasNext()){
                 Object data = it.next();
                 add(data.toString());

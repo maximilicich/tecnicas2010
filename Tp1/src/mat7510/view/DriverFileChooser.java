@@ -52,6 +52,7 @@ class DriverFileChooser {
 		  }
 	  }
 
+	@SuppressWarnings("serial")
 	class Mensaje extends JFrame {
 	    public Mensaje(String tex)  {
 		   JOptionPane.showMessageDialog(this,

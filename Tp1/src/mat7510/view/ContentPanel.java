@@ -12,6 +12,7 @@ import javax.swing.*;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class ContentPanel extends JPanel{
     private Mediator mediador;
  

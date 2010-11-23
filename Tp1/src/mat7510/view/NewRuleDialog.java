@@ -13,6 +13,7 @@ package mat7510.view;
 
 import java.awt.Font;
 import java.util.ArrayList;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,12 +22,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import mat7510.smartBuilding.model.SmartBuildingException;
 
 /**
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class NewRuleDialog extends javax.swing.JDialog implements ListSelectionListener{
 
     Mediator mediator;
@@ -47,7 +50,7 @@ public class NewRuleDialog extends javax.swing.JDialog implements ListSelectionL
         super(parent, true);
         try {
             mediator = med;
-            listEventsSelected = new ArrayList();
+            listEventsSelected = new ArrayList<EventItem>();
             initComponents();
             ArrayList<String> drivers = mediator.getDriversId();
             driverList.addAll(drivers.iterator());
@@ -60,7 +63,6 @@ public class NewRuleDialog extends javax.swing.JDialog implements ListSelectionL
         this.setVisible(true);
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         javax.swing.JLabel nameRuleLabel = new javax.swing.JLabel();

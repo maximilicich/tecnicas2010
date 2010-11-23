@@ -205,7 +205,7 @@ public class Translator{
     	
     	while ( it.hasNext()){
                 DeviceEvent event = it.next();
-    		listEvents.add(event.getEventName());
+    		listEvents.add(event.getDeviceDriver().getDeviceID() + " : " +  event.getEventName());
     	}
     	
     	return listEvents;

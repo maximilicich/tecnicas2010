@@ -7,6 +7,7 @@ package mat7510.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -20,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class ActionPanel extends JPanel implements ActionListener,ListSelectionListener{
     private final Mediator mediador;
     private final ListPanel actionListPanel;

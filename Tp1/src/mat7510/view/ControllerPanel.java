@@ -13,6 +13,7 @@ import javax.swing.JPanel;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class ControllerPanel extends JPanel {
 
     public ControllerPanel(){
