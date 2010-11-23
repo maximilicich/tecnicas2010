@@ -13,6 +13,7 @@ import javax.swing.*;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame{
 
     public MainFrame(){

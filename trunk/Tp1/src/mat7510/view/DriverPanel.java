@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class DriverPanel extends JPanel implements ActionListener,ListSelectionListener{
 
 	ListPanel driversListPanel;

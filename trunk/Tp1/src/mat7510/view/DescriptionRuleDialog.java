@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class DescriptionRuleDialog extends javax.swing.JDialog  implements ListSelectionListener{
 
     private javax.swing.JLabel actionLabel;
@@ -28,7 +29,6 @@ public class DescriptionRuleDialog extends javax.swing.JDialog  implements ListS
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JLabel typeLabel;
-    private Mediator mediator;
 
     /** Creates new form DescriptionRuleDialog */
     public DescriptionRuleDialog(java.awt.Frame parent,String ruleID,String actionName, String types, ArrayList<String> events, boolean isEnabled,String description){
@@ -38,7 +38,6 @@ public class DescriptionRuleDialog extends javax.swing.JDialog  implements ListS
         this.setVisible(true);
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents(String ruleID,String actionName, String types, ArrayList<String> events, boolean isEnabled,String description) {
 
         javax.swing.JLabel titleNameLabel = new javax.swing.JLabel();

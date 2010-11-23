@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author sergio
  */
+@SuppressWarnings("serial")
 public class StatePanel extends JPanel implements ListSelectionListener{
     private ListPanel stateListPanel;
     private Mediator mediador;
