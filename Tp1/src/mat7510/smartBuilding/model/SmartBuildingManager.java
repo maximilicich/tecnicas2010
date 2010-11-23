@@ -3,6 +3,10 @@ package mat7510.smartBuilding.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import mat7510.smartBuilding.model.dao.DeviceDriverDAO;
+import mat7510.smartBuilding.model.dao.RuleDAO;
+import mat7510.smartBuilding.model.dao.implement.DAOFactory;
+
 
 /**
  * 
@@ -11,19 +15,31 @@ import java.util.Set;
  */
 public class SmartBuildingManager {
 
+	/**
+	 * Es un SINGLETON
+	 */
 	private static SmartBuildingManager instance = new SmartBuildingManager();
+	public static SmartBuildingManager getInstance() {
+		return instance;
+	}
 
 	private SmartBuildingEventEngine eventEngine;
 	
 	private Set<DeviceDriver> deviceDrivers = new LinkedHashSet<DeviceDriver>();
 	private Set<Rule> rules = new LinkedHashSet<Rule>();
+
+	/**
+	 * Los DAO
+	 */
+	private DeviceDriverDAO deviceDriverDAO;
+	private RuleDAO ruleDAO;
 	
 	private SmartBuildingManager() {
 		this.eventEngine = SmartBuildingEventEngine.getInstance();
+		this.ruleDAO = DAOFactory.getInstance().createRuleDAO();
+		this.deviceDriverDAO = DAOFactory.getInstance().createDeviceDriverDAO();
 	}
-	public static SmartBuildingManager getInstance() {
-		return instance;
-	}
+	
 	
 	/**
 	 * @throws SmartBuildingException 
@@ -111,7 +127,7 @@ public class SmartBuildingManager {
 
 		
 		// Alta en el DAO : registramos todo de nuevo
-		RuleDAO.getInstance().setRules(rules);
+		ruleDAO.setRules(rules);
 		
 		// Registramos en el EventEngine
 		eventEngine.registerRule(newRule);
@@ -138,7 +154,7 @@ public class SmartBuildingManager {
 		ruleAffected.setEnabled(false);
 		
 		// Y actualizamos la persistencia
-		RuleDAO.getInstance().setRules(rules);
+		ruleDAO.setRules(rules);
 		
 	}
 	
@@ -159,7 +175,7 @@ public class SmartBuildingManager {
 		ruleAffected.setEnabled(true);
 		
 		// Y actualizamos la persistencia
-		RuleDAO.getInstance().setRules(rules);
+		ruleDAO.setRules(rules);
 	}
 	
 	
@@ -189,7 +205,7 @@ public class SmartBuildingManager {
 			throw new SmartBuildingException("Could not delete Rule for ID" + ruleID + " because it does not exist in SmartBuildingManager Rules Set.");
 		
 		// Grabamos el Set en el DAO (persistencia)
-		RuleDAO.getInstance().setRules(rules);
+		ruleDAO.setRules(rules);
 		
 		// Y DESREGISTRAMOS LA RULE DEL EVENTENGINE
 		eventEngine.unregisterRule(ruleToDelete);
@@ -209,7 +225,7 @@ public class SmartBuildingManager {
 	 */
 	private void loadDeviceDriversConfig() throws SmartBuildingException {
 
-		deviceDrivers = DeviceDriverDAO.getInstance().getDeviceDrivers();
+		deviceDrivers = deviceDriverDAO.getDeviceDrivers();
 
 		for (DeviceDriver deviceDriver : deviceDrivers) {
 			eventEngine.registerDeviceDriver(deviceDriver);
@@ -225,7 +241,7 @@ public class SmartBuildingManager {
 
 		eventEngine.reset();
 		
-		rules = RuleDAO.getInstance().getRules();
+		rules = ruleDAO.getRules();
 		
 		for (Rule rule : rules) {
 			eventEngine.registerRule(rule);

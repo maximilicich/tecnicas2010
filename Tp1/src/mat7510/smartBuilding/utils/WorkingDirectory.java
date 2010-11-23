@@ -1,14 +1,13 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.utils;
 import java.io.File;
 import java.net.URL;
 
 /**
- * Clase utilitaria solo para el package
  * 
  * @author Grupo 10
  *
  */
-class WorkingDirectory { 
+public class WorkingDirectory { 
 	
 	private static File workingDirectory; 
 	

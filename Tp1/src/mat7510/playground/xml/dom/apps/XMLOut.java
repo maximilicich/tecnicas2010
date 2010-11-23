@@ -1,5 +1,6 @@
 package mat7510.playground.xml.dom.apps;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import javax.xml.transform.Transformer;
@@ -23,9 +24,31 @@ import org.w3c.dom.Document;
  */
 public class XMLOut {
 
+	static final String xml = "<clientes> \n" +  
+	"<cliente>\n" + 
+	"	<nombre>Juancho</nombre>\n" + 
+	"	<apellido>Perez</apellido>\n" + 
+	"	<documento tipo=\"DNI\">34556823</documento>\n" + 
+	"</cliente>\n" + 
+	"<cliente>\n" + 
+	"	<nombre>Jose</nombre>\n" + 
+	"	<apellido>\n" + 
+	"		<ap1>Gometz</ap1>\n" + 
+	"		<ap2>Pardoux</ap2>\n" + 
+	"	</apellido>\n" + 
+	"	<documento tipo=\"CI\">12428132</documento>\n" + 
+	"</cliente>\n" + 
+	"<cliente>\n" + 
+	"	<nombre>Maria</nombre>\n" + 
+	"	<apellido>Fernandez</apellido>\n" + 
+	"	<documento tipo=\"DNI\">31234756</documento>\n" + 
+	"</cliente>\n" + 
+	"</clientes>";
+	
 	public static void main(String[] args) throws Exception {
 
-		InputStream xmlFile = XMLProvider.INSTANCE.getXMLResource("clientes.xml");
+		// InputStream xmlFile = XMLProvider.INSTANCE.getXMLResource("clientes.xml");
+		InputStream xmlFile = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		Document document = DOMUtils.getDocument(xmlFile);
 
 		// Use a Transformer for output

@@ -4,10 +4,17 @@ import java.util.Map;
 import java.util.Set;
 
 import mat7510.smartBuilding.model.DeviceDriver;
-import mat7510.smartBuilding.model.DeviceDriverDAO;
+import mat7510.smartBuilding.model.dao.DeviceDriverDAO;
+import mat7510.smartBuilding.model.dao.implement.DAOFactory;
 
 public class DeviceDriverLoaderTest {
 
+	private DeviceDriverDAO deviceDriverDAO;
+	
+	public DeviceDriverLoaderTest() {
+		deviceDriverDAO = DAOFactory.getInstance().createDeviceDriverDAO();
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		(new DeviceDriverLoaderTest()).execute();
@@ -22,7 +29,7 @@ public class DeviceDriverLoaderTest {
 		// DOMUtils.getInstance().printDomToXml(DOMUtils.getInstance().getDocument(xml), System.out);
 		
 		Set<DeviceDriver> devDrivers = 
-			DeviceDriverDAO.getInstance().getDeviceDrivers();
+			deviceDriverDAO.getDeviceDrivers();
 
 		for (DeviceDriver devDriver : devDrivers) {
 			System.out.println("DRIVER");
@@ -37,7 +44,7 @@ public class DeviceDriverLoaderTest {
 		
 		System.out.println("Now searching for " + oneDeviceID + "...");
 		
-		DeviceDriver mock = DeviceDriverDAO.getInstance().getDeviceDriverByID(oneDeviceID);
+		DeviceDriver mock = deviceDriverDAO.getDeviceDriverByID(oneDeviceID);
 		if (mock == null) {
 			System.out.println(oneDeviceID + " NOT FOUND");
 		} else {

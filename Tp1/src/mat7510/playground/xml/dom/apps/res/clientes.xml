@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
 <clientes>
 	<cliente>
-		<nombre>Juan</nombre>
+		<nombre>Juancho</nombre>
 		<apellido>Perez</apellido>
 		<documento tipo="DNI">34556823</documento>
 	</cliente>
