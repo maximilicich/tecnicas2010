@@ -194,6 +194,11 @@ public abstract class DeviceDriver {
 		
 		return this.deviceID.trim().equalsIgnoreCase(anotherDevice.deviceID.trim());
 	}
+
+	@Override
+	public int hashCode() {
+		return this.deviceID.hashCode();
+	}
 	
 	@Override
 	public String toString() {

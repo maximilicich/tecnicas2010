@@ -76,7 +76,7 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 			String deviceDriverClass = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_CLASS_TAG);
 			DeviceDriver devDriver = createDeviceDriver(deviceID, deviceDescription, deviceDriverClass);
 			if (! deviceDrivers.add(devDriver))
-				throw new SmartBuildingException("No se pudo agregar en el conjunto de DeviceDrivers instanciados al Device ID : " + deviceID + ", descripcion : " + deviceDescription);
+				throw new SmartBuildingException("ITEM DUPLICADO: No se pudo agregar en el conjunto de DeviceDrivers instanciados al Device ID : " + deviceID + ", descripcion : " + deviceDescription);
 		}
 		
 		return deviceDrivers;

@@ -226,6 +226,11 @@ public class Rule {
 
 	
 	@Override
+	public int hashCode() {
+		return this.ruleID.hashCode();
+	}
+	
+	@Override
 	public String toString() {
 		return "Rule ID : " + ruleID + " | description : " + ruleDescription;
 	}
