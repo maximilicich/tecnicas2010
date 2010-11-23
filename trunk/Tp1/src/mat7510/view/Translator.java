@@ -233,4 +233,12 @@ public class Translator{
     public void addRule(Rule rule) throws SmartBuildingException{
         model.addRule(rule);
     }
+
+    public void disableRule(String ruleID) throws SmartBuildingException {
+        model.disableRule(ruleID);
+    }
+
+    public void enableRule(String ruleID) throws SmartBuildingException {
+        model.enableRule(ruleID);
+    }
 }
