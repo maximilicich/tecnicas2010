@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import mat7510.smartBuilding.model.Rule;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
 
@@ -103,8 +106,13 @@ public class Mediator {
         }
    }
 
-    public void addDriverWithName(String dir){
-        JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+    public void update(){
+        try {
+            clearDriver();
+            driversListPanel.clear();
+            translator.reload();
+            driversListPanel.addAll(translator.getDriverIds().iterator());
+        } catch (SmartBuildingException ex) {}
     }
 
     public void executeActionWithIndex(String actionID){
@@ -122,27 +130,13 @@ public class Mediator {
         }
     }
 
-    public void removeEventWithIndex(String eventID){
-             JOptionPane.showMessageDialog(mainFrame, "", eventID, JOptionPane.ERROR_MESSAGE);
-    }
-
-    public void addEvent(){
-        String driverID = (String) driversListPanel.getSelectedValue();
-
-        if(driverID==null){
-            JOptionPane.showMessageDialog(mainFrame, "Debe seleccionar un driver");
-            return;
-        }
+    public void removeRuleWithIndex(String ruleID){
         try {
-            ArrayList<String> actionsId = translator.getDriverActionsIds(driverID);
-            Map<String,String> map = new HashMap();
-
-
-
-            new AddEventDialog(mainFrame,this);
+            translator.deleteRule(ruleID);
         } catch (SmartBuildingException ex) {
-            JOptionPane.showMessageDialog(mainFrame, "Error", "", JOptionPane.ERROR_MESSAGE);
-        }        
+            JOptionPane.showMessageDialog(mainFrame, "Error al eliminar la regla: "+ruleID, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+            
     }
 
     public void createNewRule(){
@@ -165,10 +159,20 @@ public class Mediator {
 
     }
 
-    public void addEvent2(String txt){
-        JOptionPane.showMessageDialog(mainFrame, "url: "+txt);
-    }
+    public void showDescriptionRule(String ruleID){
+        try {
+            Rule rule = translator.getRule(ruleID);
+            String nameAction = rule.getDeviceAction().getActionName();
+            
+            ArrayList<String> arrayOfEvents = translator.getListOfRuleEvents(rule);
+            ArrayList<String> arrayOfTypes = translator.getListOfRuleType(rule);
 
+            new DescriptionRuleDialog(mainFrame,ruleID,nameAction,arrayOfTypes,arrayOfEvents);
+
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, "Error al tratar de mostrar la información", "", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     public ArrayList<String> getDriversId() throws SmartBuildingException{
         return translator.getDriverIds();
@@ -182,9 +186,4 @@ public class Mediator {
         String driverID = (String) driversListPanel.getSelectedValue();
         return translator.getDriverActionsIds(driverID);
     }
-
-    public void showDescriptionRule(String ruleID){
-        new DescriptionRuleDialog(mainFrame, true);
-    }
-
 }

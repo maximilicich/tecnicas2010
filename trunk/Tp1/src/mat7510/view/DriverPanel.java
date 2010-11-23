@@ -41,19 +41,10 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
             add(controllerPanel);
     }
 
-    private void selectFile(){
-             DriverFileChooser open = new DriverFileChooser("./");
-             String dir=open.getDirectorio();
-             if(!dir.equals("")){
-               mediator.addDriverWithName(dir);
-              }
-
-    }
-
     public void actionPerformed(ActionEvent e) {
 
          if (e.getActionCommand()=="update" )
-            selectFile();
+            mediator.update();
     }
 
     public void valueChanged(ListSelectionEvent e) {

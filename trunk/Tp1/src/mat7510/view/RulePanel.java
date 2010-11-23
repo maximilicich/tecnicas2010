@@ -56,7 +56,7 @@ public class RulePanel extends JPanel implements ActionListener {
             
             if(index>=0)
                 ruleListPanel.removeItem(index);
-                mediator.removeEventWithIndex((String) ruleListPanel.getSelectedValue());
+                mediator.removeRuleWithIndex((String) ruleListPanel.getSelectedValue());
 
         }else if (e.getActionCommand()=="add" ){
             mediator.createNewRule();
