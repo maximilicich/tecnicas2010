@@ -183,4 +183,8 @@ public class Mediator {
         return translator.getDriverActionsIds(driverID);
     }
 
+    public void showDescriptionRule(String ruleID){
+        new DescriptionRuleDialog(mainFrame, true);
+    }
+
 }
