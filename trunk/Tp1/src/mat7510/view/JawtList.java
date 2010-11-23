@@ -18,6 +18,7 @@ import javax.swing.event.*;
 public class JawtList extends JScrollPane{
    private JList listWindow;
    private JListData listContents;
+   private int count;
 
    public JawtList(){
       listContents = new JListData();
@@ -26,12 +27,14 @@ public class JawtList extends JScrollPane{
       listWindow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
       getViewport().add(listWindow);
       listWindow.setFont(new Font("Dialog",Font.PLAIN,10));
+      count=0;
 
    }
 
    public void addListSelectionListener(ListSelectionListener iList){
       listWindow.addListSelectionListener(iList);
    }
+
 
    public void add(String s){
       listContents.addElement(s);
