@@ -12,13 +12,12 @@
 package mat7510.view;
 
 import java.awt.Font;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,14 +27,14 @@ import mat7510.smartBuilding.model.SmartBuildingException;
  *
  * @author sergio
  */
-public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,ListSelectionListener{
+public class NewRuleDialog extends javax.swing.JDialog implements ListSelectionListener{
 
     Mediator mediator;
     private javax.swing.JComboBox actionList;    
-    private javax.swing.JCheckBox continuoCheck;
-    private javax.swing.JCheckBox discontinuoCheck;
-    private javax.swing.JCheckBox orderCheck;
-    private javax.swing.JCheckBox unOrderCheck;
+    private JRadioButton continuoCheck;
+    private JRadioButton discontinuoCheck;
+    private JRadioButton orderCheck;
+    private JRadioButton unOrderCheck;
     private ListPanel driverList;
     private ListPanel eventList;
     private ListPanel addEventList;
@@ -79,10 +78,20 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
         javax.swing.JButton removeBtn = new javax.swing.JButton();
         javax.swing.JButton cancelBtn = new javax.swing.JButton();
         javax.swing.JButton acceptBtn = new javax.swing.JButton();
-        continuoCheck = new javax.swing.JCheckBox();
-        discontinuoCheck = new javax.swing.JCheckBox();
-        orderCheck = new javax.swing.JCheckBox();
-        unOrderCheck = new javax.swing.JCheckBox();
+        
+        continuoCheck = new JRadioButton();
+        discontinuoCheck = new JRadioButton();;
+        orderCheck = new JRadioButton();
+        unOrderCheck = new JRadioButton();
+
+        ButtonGroup bg1 = new ButtonGroup();
+        bg1.add(continuoCheck);
+        bg1.add(discontinuoCheck);
+
+        ButtonGroup bg2 = new ButtonGroup();
+        bg2.add(orderCheck);
+        bg2.add(unOrderCheck);
+
         JLabel descriptionTitleLabel = new JLabel();
         descriptionLabel = new javax.swing.JTextField();
 
@@ -138,19 +147,15 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
         });
 
         continuoCheck.setText("Continuo");
-        continuoCheck.addItemListener(this);
         continuoCheck.setActionCommand("continuo");
 
         discontinuoCheck.setText("Discontinuo");
-        discontinuoCheck.addItemListener(this);
         discontinuoCheck.setActionCommand("discontinuo");
 
         orderCheck.setText("Con Orden");
-        orderCheck.addItemListener(this);
         orderCheck.setActionCommand("order");
 
         unOrderCheck.setText("Sin Orden");
-        unOrderCheck.addItemListener(this);
         unOrderCheck.setActionCommand("unorder");
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -331,22 +336,6 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
 
     public ArrayList<EventItem> getEvents(){
         return listEventsSelected;
-    }
-
-    public void itemStateChanged(ItemEvent e) {
-        JCheckBox jc = (JCheckBox) e.getItem();
-
-        if(jc.getActionCommand().equals("order")){
-            unOrderCheck.setSelected(!orderCheck.isSelected());
-        }else if(jc.getActionCommand().equals("unorder")){
-            orderCheck.setSelected(!unOrderCheck.isSelected());
-
-        }else if(jc.getActionCommand().equals("continuo")){
-            discontinuoCheck.setSelected(!continuoCheck.isSelected());
-        }else if(jc.getActionCommand().equals("discontinuo")){
-            continuoCheck.setSelected(!discontinuoCheck.isSelected());
-        }
-
     }
 
     public void valueChanged(ListSelectionEvent e) {
