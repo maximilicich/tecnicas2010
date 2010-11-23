@@ -131,11 +131,41 @@ public class SmartBuildingManager {
 		
 		// Registramos en el EventEngine
 		eventEngine.registerRule(newRule);
+	
+	}
+
+
+	/**
+	 * 
+	 * @param newRule
+	 * @throws SmartBuildingException 
+	 */
+	public void addDeviceDriver(DeviceDriver newDeviceDriver) throws SmartBuildingException {
+
+		// TODO Esto deberia ser Transaccional
+		
+		// Validaciones
+		
+		// not null
+		if (newDeviceDriver == null)
+			throw new IllegalArgumentException("Cannot add null Device.");
+
+		// El ID es validado en el constructor de la misma Rule...
+		
+		// Agregamos a nuestro SET
+		if (!deviceDrivers.add(newDeviceDriver))
+			throw new SmartBuildingException("Cannot add new DeviceDriver because ID already exists (ID = " + newDeviceDriver.getDeviceID() + ")");
+			
+		
+		// Alta en el DAO : registramos todo de nuevo
+		deviceDriverDAO.setDeviceDrivers(deviceDrivers);
+		
+		// Registramos en el EventEngine
+		eventEngine.registerDeviceDriver(newDeviceDriver);
 
 	
 	}
 
-	
 
 	
 	/**
