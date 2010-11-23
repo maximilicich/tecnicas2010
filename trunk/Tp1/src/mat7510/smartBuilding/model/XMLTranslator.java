@@ -32,7 +32,7 @@ public class XMLTranslator {
 		try {
 			domXml = DOMUtils.getInstance().getDocument(xmlInput);
 		} catch (XmlException e) {
-			throw new SmartBuildingException("Error trying to get documento from inputstream", e);
+			throw new SmartBuildingException("Error trying to get document from inputstream", e);
 		}
 		
 		Element devDriverElement = getUniqueElementByName(domXml, DEVICE_DRIVER_ELEMENT_TAG);
@@ -104,7 +104,7 @@ public class XMLTranslator {
 			devDriver = (DeviceDriver)ct.newInstance(arglist);
 		}
 		catch (Throwable e) {
-			throw new SmartBuildingException("Error trying to instantiate DeviceDriver by Reflection", e);
+			throw new SmartBuildingException("Error trying to instantiate DeviceDriver by Reflection (class: " + deviceDriverClass + ")", e);
 		}
 
 		return devDriver;
