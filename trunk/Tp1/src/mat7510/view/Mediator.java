@@ -139,7 +139,7 @@ public class Mediator {
     }
 
     public void addNewRule(NewRuleDialog dialog){
-	Rule newRule = new Rule.Builder(dialog.getNameRule(),dialog.getNameRule()).continuous(dialog.isContinuos()).ordered(dialog.isOrder()).build();
+	Rule newRule = new Rule.Builder(dialog.getNameRule(),dialog.getDescriptionRule()).continuous(dialog.isContinuos()).ordered(dialog.isOrder()).build();
         String driverID = (String) driversListPanel.getSelectedValue();
         try {
             DeviceAction action = translator.getDeviceAction(dialog.getNameRule(), dialog.getNameAction());

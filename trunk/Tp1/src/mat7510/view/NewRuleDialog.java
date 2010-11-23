@@ -322,6 +322,10 @@ public class NewRuleDialog extends javax.swing.JDialog implements ListSelectionL
         return nameRule.getText();
     }
 
+    public String getDescriptionRule(){
+        return nameRule.getText();
+    }
+
     public String getNameAction(){
         return (String) actionList.getSelectedItem();
     }
