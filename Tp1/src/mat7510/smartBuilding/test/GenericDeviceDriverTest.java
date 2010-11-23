@@ -1,7 +1,5 @@
 package mat7510.smartBuilding.test;
 
-import mat7510.smartBuilding.model.DeviceDriver;
-
 import org.junit.After;
 import org.junit.Before;
 
@@ -12,8 +10,6 @@ import org.junit.Before;
  */
 public class GenericDeviceDriverTest {
 
-	private DeviceDriver driver;
-	
 	@Before
 	public void setUp() throws Exception {
 	}
