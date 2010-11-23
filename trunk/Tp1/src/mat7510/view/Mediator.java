@@ -5,6 +5,7 @@
 
 package mat7510.view;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -252,6 +253,21 @@ public class Mediator {
         } catch (SmartBuildingException ex) {
             JOptionPane.showMessageDialog(mainFrame, "Error al tratar de cambiar el estado", "", JOptionPane.ERROR_MESSAGE);
         }
+
+    }
+
+    public void addDriverWithName(String dir){
+
+    	// JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+        try {
+			translator.addDeviceDriver(dir);
+		} catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(mainFrame, ex, "Error", JOptionPane.ERROR_MESSAGE);
+		} catch (SmartBuildingException e) {
+            JOptionPane.showMessageDialog(mainFrame, e, "Error", JOptionPane.ERROR_MESSAGE);
+		}
+
+		this.update();
 
     }
 }
