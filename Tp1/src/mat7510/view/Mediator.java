@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import mat7510.smartBuilding.model.DeviceAction;
+import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.Rule;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
@@ -89,7 +89,6 @@ public class Mediator {
    public void selectActionWithIndex(String actionID){
         String driverID = (String) driversListPanel.getSelectedValue();
 
-
         try {
             if(actionID==null || driverID==null || actionID.equals("") || driverID.equals("")){
                    JOptionPane.showMessageDialog(mainFrame ,"Driver o accion no seleccionada","Warning", JOptionPane.WARNING_MESSAGE);
@@ -139,6 +138,24 @@ public class Mediator {
             
     }
 
+    public void addNewRule(NewRuleDialog dialog){
+	Rule newRule = new Rule.Builder(dialog.getNameRule(),dialog.getNameRule()).continuous(dialog.isContinuos()).ordered(dialog.isOrder()).build();
+        String driverID = (String) driversListPanel.getSelectedValue();
+        try {
+            DeviceAction action = translator.getDeviceAction(dialog.getNameRule(), dialog.getNameAction());
+            newRule.setDeviceAction(action);
+
+            for(EventItem event : dialog.getEvents()){
+                DeviceEvent e = translator.getDeviceEvent(event.getDriverID(), event.getEventID());
+                newRule.addDeviceEvent(e);
+            }
+
+            translator.addRule(newRule);
+        } catch (SmartBuildingException ex) {
+            JOptionPane.showMessageDialog(mainFrame, "Error al crear la regla", "", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void createNewRule(){
         String driverID = (String) driversListPanel.getSelectedValue();
 
@@ -146,17 +163,7 @@ public class Mediator {
             JOptionPane.showMessageDialog(mainFrame, "Debe seleccionar un driver");
             return;
         }
-        try {
-            ArrayList<String> actionsId = translator.getDriverActionsIds(driverID);
-            Map<String,String> map = new HashMap();
-
-
-
-            new NewRuleDialog(mainFrame,this);
-        } catch (SmartBuildingException ex) {
-            JOptionPane.showMessageDialog(mainFrame, "Error", "", JOptionPane.ERROR_MESSAGE);
-        }
-
+        new NewRuleDialog(mainFrame,this);
     }
 
     public void showDescriptionRule(String ruleID){

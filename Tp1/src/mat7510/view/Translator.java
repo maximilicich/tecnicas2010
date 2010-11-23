@@ -47,6 +47,34 @@ public class Translator{
             return null;
     }
 
+    public DeviceAction getDeviceAction(String deviceID, String nameAction) throws SmartBuildingException{
+        DeviceDriver driver = getDeviceDriver(deviceID);
+        Iterator<DeviceAction> it = driver.getActions().iterator();
+
+        while(it.hasNext()){
+            DeviceAction action = (DeviceAction) it.next();
+
+            if(action.getActionName().equals(nameAction))
+                return action;
+        }
+
+        return null;
+    }
+
+    public DeviceEvent getDeviceEvent(String deviceID, String eventID) throws SmartBuildingException{
+        DeviceDriver driver = getDeviceDriver(deviceID);
+        Iterator<DeviceEvent> it = driver.getEvents().iterator();
+
+        while(it.hasNext()){
+            DeviceEvent action = (DeviceEvent) it.next();
+
+            if(action.getEventName().equals(eventID))
+                return action;
+        }
+
+        return null;
+    }
+
     public ArrayList<String> getDriverIds() throws SmartBuildingException{
             ArrayList<String> result = new ArrayList<String>();
             Iterator<DeviceDriver> it = devDrivers.iterator();
@@ -190,4 +218,7 @@ public class Translator{
             model.deleteRule(ruleID);
     }
 
+    public void addRule(Rule rule) throws SmartBuildingException{
+        model.addRule(rule);
+    }
 }

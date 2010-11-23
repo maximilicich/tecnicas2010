@@ -16,6 +16,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -29,24 +30,6 @@ import mat7510.smartBuilding.model.SmartBuildingException;
  */
 public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,ListSelectionListener{
 
-    class Event extends Object{
-        private String eventID;
-        private String driverID;
-        public Event(String driverID,String eventID){
-            this.eventID=eventID;
-            this.driverID=driverID;
-        }
-
-        public String getDriverID(){ return driverID;}
-        public String getEventID(){return eventID;}
-
-        @Override
-	public String toString() {
-		return eventID+" ("+driverID+")";
-	}
-
-    }
-
     Mediator mediator;
     private javax.swing.JComboBox actionList;    
     private javax.swing.JCheckBox continuoCheck;
@@ -57,7 +40,8 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
     private ListPanel eventList;
     private ListPanel addEventList;
     private JTextField nameRule;
-    private ArrayList<Event> listEventsSelected;
+    private ArrayList<EventItem> listEventsSelected;
+    private javax.swing.JTextField descriptionLabel;
 
 
     public NewRuleDialog(java.awt.Frame parent, Mediator med) {
@@ -99,7 +83,12 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
         discontinuoCheck = new javax.swing.JCheckBox();
         orderCheck = new javax.swing.JCheckBox();
         unOrderCheck = new javax.swing.JCheckBox();
+        JLabel descriptionTitleLabel = new JLabel();
+        descriptionLabel = new javax.swing.JTextField();
 
+        discontinuoCheck.setSelected(true);
+        unOrderCheck.setSelected(true);
+        
         driverList.addListSelectionListener(this);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,14 +104,12 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
 
 
         actionLabel.setText("Accion:");
-
         driverLabel.setText("Driver:");
-
         eventLabel.setText("Eventos:");
-
         eventAddLabel.setText("Eventos a Agregar:");
-
         addBtn.setText("Agregar");
+        descriptionTitleLabel.setText("Descripción:");
+        
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
@@ -166,38 +153,38 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
         unOrderCheck.addItemListener(this);
         unOrderCheck.setActionCommand("unorder");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameRuleLabel)
-                                    .addComponent(actionLabel)
-                                    .addComponent(typeLabel)
-                                    .addComponent(nameRule, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(continuoCheck)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(discontinuoCheck))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(orderCheck)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(unOrderCheck)))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(driverList, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(driverLabel)))
-                            .addComponent(actionList, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancelBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nameRuleLabel)
+                                .addComponent(actionLabel)
+                                .addComponent(descriptionTitleLabel)
+                                .addComponent(typeLabel)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(continuoCheck)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(discontinuoCheck))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(orderCheck)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(unOrderCheck))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(descriptionLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameRule, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
+                            .addGap(28, 28, 28)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(driverList, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(driverLabel)))
+                        .addComponent(actionList, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancelBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -210,7 +197,6 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
                                         .addComponent(eventList, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(addBtn)
                                 .addGap(55, 55, 55)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,9 +223,13 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
                     .addComponent(eventAddLabel))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(nameRule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(descriptionTitleLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
                         .addComponent(typeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -249,7 +239,7 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(orderCheck)
                             .addComponent(unOrderCheck))
-                        .addGap(37, 37, 37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(actionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(actionList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -282,7 +272,7 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
             return;
         }
 
-        Event event = new Event(driverID,eventID);
+        EventItem event = new EventItem(driverID,eventID);
         addEventList.addItem(event);
         listEventsSelected.add(event);
     }
@@ -308,11 +298,6 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
             return;
         }
 
-        if(!orderCheck.isSelected() && !unOrderCheck.isSelected() && !continuoCheck.isSelected() && !discontinuoCheck.isSelected()){
-            JOptionPane.showMessageDialog(this ,"Debe seleccionar al menos un tipo","Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
         if(actionList.getSelectedIndex()<0){
             JOptionPane.showMessageDialog(this ,"Debe asignarle una accion","Warning", JOptionPane.WARNING_MESSAGE);
             return;
@@ -322,24 +307,44 @@ public class NewRuleDialog extends javax.swing.JDialog implements ItemListener,L
             JOptionPane.showMessageDialog(this ,"Debe asignarle al menos un evento","Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
+
+        mediator.addNewRule(this);
       
+    }
+
+    public String getNameRule(){
+        return nameRule.getText();
+    }
+
+    public String getNameAction(){
+        return (String) actionList.getSelectedItem();
+    }
+
+    public boolean isContinuos(){
+        return continuoCheck.isSelected();
+    }
+
+    public boolean isOrder(){
+        return orderCheck.isSelected();
+    }
+
+    public ArrayList<EventItem> getEvents(){
+        return listEventsSelected;
     }
 
     public void itemStateChanged(ItemEvent e) {
         JCheckBox jc = (JCheckBox) e.getItem();
 
         if(jc.getActionCommand().equals("order")){
-            if(orderCheck.isSelected())
-                unOrderCheck.setSelected(false);
+            unOrderCheck.setSelected(!orderCheck.isSelected());
         }else if(jc.getActionCommand().equals("unorder")){
-            if(unOrderCheck.isSelected())
-                orderCheck.setSelected(false);
+            orderCheck.setSelected(!unOrderCheck.isSelected());
+
         }else if(jc.getActionCommand().equals("continuo")){
-            if(continuoCheck.isSelected())
-                discontinuoCheck.setSelected(false);
+            discontinuoCheck.setSelected(!continuoCheck.isSelected());
         }else if(jc.getActionCommand().equals("discontinuo")){
-            if(discontinuoCheck.isSelected())
-                continuoCheck.setSelected(false);
+            continuoCheck.setSelected(!discontinuoCheck.isSelected());
         }
 
     }
