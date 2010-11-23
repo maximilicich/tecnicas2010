@@ -5,11 +5,12 @@
 
 package mat7510.view;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import javax.swing.JOptionPane;
+
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.Rule;
@@ -193,4 +194,21 @@ public class Mediator {
         String driverID = (String) driversListPanel.getSelectedValue();
         return translator.getDriverActionsIds(driverID);
     }
+    
+    
+    public void addDriverWithName(String dir){
+
+    	// JOptionPane.showMessageDialog(mainFrame, "url: "+dir);
+        try {
+			translator.addDeviceDriver(dir);
+		} catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(mainFrame, ex, "Error", JOptionPane.ERROR_MESSAGE);
+		} catch (SmartBuildingException e) {
+            JOptionPane.showMessageDialog(mainFrame, e, "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		this.update();
+        
+    }
+
 }

@@ -71,9 +71,9 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 		Set<DeviceDriver> deviceDrivers = new LinkedHashSet<DeviceDriver>();
 		
 		for (Element element : devDriverElements) {
-			String deviceID = getDeviceID(element);
-			String deviceDescription = getDeviceDescription(element);
-			String deviceDriverClass = getDeviceDriverClass(element);
+			String deviceID = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_ID_TAG);
+			String deviceDescription = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_NAME_TAG);
+			String deviceDriverClass = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_CLASS_TAG);
 			DeviceDriver devDriver = createDeviceDriver(deviceID, deviceDescription, deviceDriverClass);
 			if (! deviceDrivers.add(devDriver))
 				throw new SmartBuildingException("No se pudo agregar en el conjunto de DeviceDrivers instanciados al Device ID : " + deviceID + ", descripcion : " + deviceDescription);
@@ -211,25 +211,11 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 	 * @throws SmartBuildingException
 	 */
 	private Element getDeviceDriversSection(Document domXml) throws SmartBuildingException {
-	
-		List<Element> devDriversSection = null;
-		
 		try {
-			devDriversSection = 
-				DOMUtils.getInstance().getElementsByName(domXml, DEVICE_DRIVERS_SECTION_TAG);
-		} catch (Exception e) {
-			throw new SmartBuildingException(e);
+			return DOMUtils.getInstance().getUniqueElementByName(domXml, DEVICE_DRIVERS_SECTION_TAG);
+		} catch (XmlException e) {
+			throw new SmartBuildingException("Error trying to retrieve element " + DEVICE_DRIVERS_SECTION_TAG + " from XML", e);
 		}
-		
-		if (devDriversSection.size() == 0) {
-			throw new SmartBuildingException("No existe la sección " + DEVICE_DRIVERS_SECTION_TAG + " en el XML");
-		}
-		if (devDriversSection.size() > 1) {
-			throw new SmartBuildingException("Existe mas de una sección " + DEVICE_DRIVERS_SECTION_TAG + " en el XML");
-		}
-		
-		return devDriversSection.iterator().next();
-	
 	}
 
 	/**
@@ -248,53 +234,22 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 	}
 	
 
+
 	/**
 	 * 
 	 * @param element
+	 * @param attribute
 	 * @return
-	 * @throws SmartBuildingException 
+	 * @throws SmartBuildingException
 	 */
-	private String getDeviceDescription(Element devDriverElement) throws SmartBuildingException {
-
+	private String getUniqueAttributeValue(Element element, String attribute) throws SmartBuildingException {
 		try {
-			return DOMUtils.getInstance().getUniqueAttributeValue(devDriverElement, DEVICE_DRIVER_ELEMENT_NAME_TAG);
+			return DOMUtils.getInstance().getUniqueAttributeValue(element, attribute);
 		} catch (XmlException e) {
-			throw new SmartBuildingException("Error trying to retrieve value for element " + DEVICE_DRIVER_ELEMENT_NAME_TAG + " from XML", e);
+			throw new SmartBuildingException("Error trying to retrieve value for element " + attribute + " from XML", e);
 		}
+	}
 	
-	}
-
-	/**
-	 * 
-	 * @param element
-	 * @return
-	 * @throws SmartBuildingException 
-	 */
-	private String getDeviceID(Element devDriverElement) throws SmartBuildingException {
-
-		try {
-			return DOMUtils.getInstance().getUniqueAttributeValue(devDriverElement, DEVICE_DRIVER_ELEMENT_ID_TAG);
-		} catch (XmlException e) {
-			throw new SmartBuildingException("Error trying to retrieve value for element " + DEVICE_DRIVER_ELEMENT_ID_TAG + " from XML", e);
-		}
-
-	}
-
-	/**
-	 * 
-	 * @param element
-	 * @return
-	 * @throws SmartBuildingException 
-	 */
-	private String getDeviceDriverClass(Element devDriverElement) throws SmartBuildingException {
-
-		try {
-			return DOMUtils.getInstance().getUniqueAttributeValue(devDriverElement, DEVICE_DRIVER_ELEMENT_CLASS_TAG);
-		} catch (XmlException e) {
-			throw new SmartBuildingException("Error trying to retrieve value for element " + DEVICE_DRIVER_ELEMENT_CLASS_TAG + " from XML", e);
-		}
-
-	}
 
 	
 	/**

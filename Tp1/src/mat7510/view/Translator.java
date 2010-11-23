@@ -1,5 +1,7 @@
 package mat7510.view;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +14,7 @@ import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.Rule;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
+import mat7510.smartBuilding.model.XMLTranslator;
 
 
 public class Translator{
@@ -33,6 +36,15 @@ public class Translator{
             devDrivers = this.model.getDeviceDrivers();
     }
 
+    
+    public void addDeviceDriver(String xmlFileURL) throws FileNotFoundException, SmartBuildingException {
+
+    	XMLTranslator xmlTranslator = new XMLTranslator();
+        DeviceDriver dev = xmlTranslator.getDeviceDriver(new FileInputStream(xmlFileURL));
+        this.model.addDeviceDriver(dev);
+        
+    }
+    
 
     public DeviceDriver getDeviceDriver(String deviceID) throws SmartBuildingException{
             Iterator<DeviceDriver> it = devDrivers.iterator();

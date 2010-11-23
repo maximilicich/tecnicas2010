@@ -18,43 +18,52 @@ import javax.swing.event.ListSelectionListener;
  */
 public class DriverPanel extends JPanel implements ActionListener,ListSelectionListener{
 
-        ListPanel driversListPanel;
-        Mediator mediator;
-        
-        public DriverPanel(Mediator med){
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            setBorder(new EmptyBorder(5,5,5,5));
+	ListPanel driversListPanel;
+	Mediator mediator;
 
-            mediator=med;
-            JButton updateButton = new JButton("Actualizar");
-            updateButton.setActionCommand("update");
-            updateButton.addActionListener(this);
+	public DriverPanel(Mediator med){
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setBorder(new EmptyBorder(5,5,5,5));
 
-            driversListPanel = new ListPanel();
-            mediator.addDriverList(driversListPanel);
-            driversListPanel.addListSelectionListener(this);
+		mediator=med;
+		JButton updateButton = new JButton("Actualizar");
+		updateButton.setActionCommand("update");
+		updateButton.addActionListener(this);
 
-            ControllerPanel controllerPanel = new ControllerPanel();
-            controllerPanel.add(updateButton);
+		driversListPanel = new ListPanel();
+		mediator.addDriverList(driversListPanel);
+		driversListPanel.addListSelectionListener(this);
 
-            add(driversListPanel);
-            add(controllerPanel);
-    }
+		ControllerPanel controllerPanel = new ControllerPanel();
+		controllerPanel.add(updateButton);
 
-    public void actionPerformed(ActionEvent e) {
+		add(driversListPanel);
+		add(controllerPanel);
+	}
 
-         if (e.getActionCommand()=="update" )
-            mediator.update();
-    }
+	public void valueChanged(ListSelectionEvent e) {
 
-    public void valueChanged(ListSelectionEvent e) {
-     
-        if(!e.getValueIsAdjusting()){
-             JList theList = (JList)e.getSource();
-             
-             if (!theList.isSelectionEmpty())
-                mediator.selectDriverWithIndex((String) theList.getSelectedValue());
-        }
-    }
+		if(!e.getValueIsAdjusting()){
+			JList theList = (JList)e.getSource();
+
+			if (!theList.isSelectionEmpty())
+				mediator.selectDriverWithIndex((String) theList.getSelectedValue());
+		}
+	}
+
+	private void selectFile(){
+		DriverFileChooser open = new DriverFileChooser("./");
+		String dir=open.getDirectorio();
+		if(!dir.equals("")){
+			mediator.addDriverWithName(dir);
+		}
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand()=="update" )
+			selectFile();
+	}
+
 
 }
