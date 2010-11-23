@@ -1,5 +1,5 @@
 <deviceDriver>
 	<deviceID>NEW-DEVICE-ADDED-FROM-GUI</deviceID>
 	<deviceDescription>Newe Device Driver Clock</deviceDescription>
-	<driverClass>mat7510.smartBuildingDriverClock.DeviceDriverClock</driverClass>
+	<driverClass>mat7510.smartBuildingDriverClock.DeviceDriverClock2</driverClass>
 </deviceDriver>

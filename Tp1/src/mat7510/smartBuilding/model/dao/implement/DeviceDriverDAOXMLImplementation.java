@@ -279,7 +279,7 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 			devDriver = (DeviceDriver)ct.newInstance(arglist);
 		}
 		catch (Throwable e) {
-			throw new SmartBuildingException("Error al intentar instanciar el DeviceDriver por Reflection", e);
+			throw new SmartBuildingException("Error al intentar instanciar el DeviceDriver por Reflection (class: " + deviceDriverClass + ")", e);
 		}
 
 		return devDriver;
