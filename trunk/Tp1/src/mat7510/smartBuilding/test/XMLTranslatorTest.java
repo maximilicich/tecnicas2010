@@ -5,9 +5,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.XMLTranslator;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 
 public class XMLTranslatorTest {
 

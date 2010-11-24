@@ -3,6 +3,7 @@ package mat7510.smartBuilding.model;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 import mat7510.xml.DOMUtils;
 import mat7510.xml.XmlException;
 

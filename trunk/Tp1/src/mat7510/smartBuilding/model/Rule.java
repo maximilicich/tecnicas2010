@@ -8,6 +8,8 @@ import mat7510.eventManagerApi.version2.ActionEventChain;
 import mat7510.eventManagerApi.version2.ContinuousEventChainFilter;
 import mat7510.eventManagerApi.version2.EventChain;
 import mat7510.eventManagerApi.version2.OrderedEventChainFilter;
+import mat7510.smartBuilding.model.devicedriver.DeviceAction;
+import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
 
 /**
  * 

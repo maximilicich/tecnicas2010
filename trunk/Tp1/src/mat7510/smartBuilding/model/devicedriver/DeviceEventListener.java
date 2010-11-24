@@ -1,4 +1,5 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.model.devicedriver;
+
 
 /**
  * 

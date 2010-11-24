@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import mat7510.smartBuilding.dao.DeviceDriverDAO;
-import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.SmartBuildingException;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 import mat7510.smartBuilding.utils.WorkingDirectory;
 import mat7510.xml.DOMUtils;
 import mat7510.xml.XmlException;
