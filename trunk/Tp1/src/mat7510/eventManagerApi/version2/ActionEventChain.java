@@ -36,8 +36,8 @@ public class ActionEventChain extends EventChain {
 			}
 		}
 		if (isAccomplished()) {
-			action.execute();
 			resetOccurrences();
+			action.execute();
 		}
 	}
 
