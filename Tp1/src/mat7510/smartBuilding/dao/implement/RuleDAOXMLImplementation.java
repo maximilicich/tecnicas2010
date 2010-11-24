@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.model.dao.implement;
+package mat7510.smartBuilding.dao.implement;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,13 +9,13 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import mat7510.smartBuilding.dao.DeviceDriverDAO;
+import mat7510.smartBuilding.dao.RuleDAO;
 import mat7510.smartBuilding.model.DeviceAction;
 import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.Rule;
 import mat7510.smartBuilding.model.SmartBuildingException;
-import mat7510.smartBuilding.model.dao.DeviceDriverDAO;
-import mat7510.smartBuilding.model.dao.RuleDAO;
 import mat7510.smartBuilding.utils.WorkingDirectory;
 import mat7510.xml.DOMUtils;
 import mat7510.xml.XmlException;
@@ -27,12 +27,14 @@ import org.w3c.dom.Text;
 
 /**
  * 
- * @author MA_Xx
+ * @author Grupo 10
  *
  */
 public class RuleDAOXMLImplementation implements RuleDAO {
 
 	private static final String XML_FILENAME = "/res/ruleConfig.xml";
+
+	private DeviceDriverDAO deviceDriverDAO;
 	
 	/**
 	 * LOS TAGS XML
@@ -57,13 +59,11 @@ public class RuleDAOXMLImplementation implements RuleDAO {
 	private static final String RULE_EVENT_NAME_TAG = "eventName";
 
 	
-	private DeviceDriverDAO deviceDriverDAO; 
-	
 	/**
 	 * 
 	 */
 	public RuleDAOXMLImplementation() {
-		deviceDriverDAO = DAOFactory.getInstance().createDeviceDriverDAO();
+		deviceDriverDAO = new DeviceDriverDAOXMLImplementation();
 	}
 	
 

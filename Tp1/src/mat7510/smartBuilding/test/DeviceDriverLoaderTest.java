@@ -3,16 +3,20 @@ package mat7510.smartBuilding.test;
 import java.util.Map;
 import java.util.Set;
 
+import mat7510.smartBuilding.dao.DAOFactory;
+import mat7510.smartBuilding.dao.DeviceDriverDAO;
+import mat7510.smartBuilding.dao.implement.DAOFactoryXMLImplementation;
 import mat7510.smartBuilding.model.DeviceDriver;
-import mat7510.smartBuilding.model.dao.DeviceDriverDAO;
-import mat7510.smartBuilding.model.dao.implement.DAOFactory;
 
 public class DeviceDriverLoaderTest {
 
 	private DeviceDriverDAO deviceDriverDAO;
 	
 	public DeviceDriverLoaderTest() {
-		deviceDriverDAO = DAOFactory.getInstance().createDeviceDriverDAO();
+
+		DAOFactory daoFactory = new DAOFactoryXMLImplementation();
+		
+		deviceDriverDAO = daoFactory.createDeviceDriverDAO();
 	}
 	
 	public static void main(String[] args) throws Exception {

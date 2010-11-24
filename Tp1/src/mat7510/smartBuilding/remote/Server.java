@@ -1,8 +1,9 @@
 package mat7510.smartBuilding.remote;
 
-import java.rmi.*;
+import java.rmi.Naming;
 import java.util.Set;
 
+import mat7510.smartBuilding.dao.implement.DAOFactoryXMLImplementation;
 import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.SmartBuildingManager;
 
@@ -15,9 +16,12 @@ public class Server {
 		try {
 			System.out.println("Servidor iniciado");
 
-			SmartBuildingManager.getInstance().loadConfig();
+			SmartBuildingManager smartBuildingManager = 
+				new SmartBuildingManager(new DAOFactoryXMLImplementation());
+				
+			smartBuildingManager.loadConfig();
 			
-			Set<DeviceDriver> devices = SmartBuildingManager.getInstance().getDeviceDrivers();
+			Set<DeviceDriver> devices = smartBuildingManager.getDeviceDrivers();
 			
 			for ( DeviceDriver device : devices){
 				RemoteObject h1 = new RemoteObject(device);

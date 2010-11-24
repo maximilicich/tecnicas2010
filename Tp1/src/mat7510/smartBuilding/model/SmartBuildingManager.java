@@ -3,9 +3,9 @@ package mat7510.smartBuilding.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import mat7510.smartBuilding.model.dao.DeviceDriverDAO;
-import mat7510.smartBuilding.model.dao.RuleDAO;
-import mat7510.smartBuilding.model.dao.implement.DAOFactory;
+import mat7510.smartBuilding.dao.DAOFactory;
+import mat7510.smartBuilding.dao.DeviceDriverDAO;
+import mat7510.smartBuilding.dao.RuleDAO;
 
 
 /**
@@ -14,14 +14,6 @@ import mat7510.smartBuilding.model.dao.implement.DAOFactory;
  *
  */
 public class SmartBuildingManager {
-
-	/**
-	 * Es un SINGLETON
-	 */
-	private static SmartBuildingManager instance = new SmartBuildingManager();
-	public static SmartBuildingManager getInstance() {
-		return instance;
-	}
 
 	private SmartBuildingEventEngine eventEngine;
 	
@@ -34,10 +26,10 @@ public class SmartBuildingManager {
 	private DeviceDriverDAO deviceDriverDAO;
 	private RuleDAO ruleDAO;
 	
-	private SmartBuildingManager() {
+	public SmartBuildingManager(DAOFactory daoFactory) {
 		this.eventEngine = SmartBuildingEventEngine.getInstance();
-		this.ruleDAO = DAOFactory.getInstance().createRuleDAO();
-		this.deviceDriverDAO = DAOFactory.getInstance().createDeviceDriverDAO();
+		this.ruleDAO = daoFactory.createRuleDAO();
+		this.deviceDriverDAO = daoFactory.createDeviceDriverDAO();
 	}
 	
 	
