@@ -6,7 +6,7 @@ import java.util.Set;
 import mat7510.smartBuilding.dao.DAOFactory;
 import mat7510.smartBuilding.dao.DeviceDriverDAO;
 import mat7510.smartBuilding.dao.implement.DAOFactoryXMLImplementation;
-import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 
 public class DeviceDriverLoaderTest {
 

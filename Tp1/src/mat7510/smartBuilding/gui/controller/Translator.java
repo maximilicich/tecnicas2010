@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mat7510.smartBuilding.model.DeviceAction;
-import mat7510.smartBuilding.model.DeviceDriver;
-import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.Rule;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
 import mat7510.smartBuilding.model.XMLTranslator;
+import mat7510.smartBuilding.model.devicedriver.DeviceAction;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
 
 
 public class Translator{

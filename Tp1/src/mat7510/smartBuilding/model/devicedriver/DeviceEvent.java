@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.model.devicedriver;
 
 import mat7510.eventManagerApi.version2.Event;
 

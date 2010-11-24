@@ -4,8 +4,8 @@ import java.rmi.Naming;
 import java.util.Set;
 
 import mat7510.smartBuilding.dao.implement.DAOFactoryXMLImplementation;
-import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.SmartBuildingManager;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 
 /***********************************************************************************
  * Servidor RMI. Exporta objetos del tipo RemoteObject y muestra los vínculos (bindings)

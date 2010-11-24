@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import mat7510.smartBuilding.model.DeviceAction;
-import mat7510.smartBuilding.model.DeviceEventListener;
+import mat7510.smartBuilding.model.devicedriver.DeviceAction;
+import mat7510.smartBuilding.model.devicedriver.DeviceEventListener;
 
 public abstract class DeviceActionACOnOff extends DeviceAction {
 

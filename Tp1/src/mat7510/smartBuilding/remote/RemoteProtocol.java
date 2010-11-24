@@ -2,7 +2,7 @@ package mat7510.smartBuilding.remote;
 
 import java.rmi.*;
 
-import mat7510.smartBuilding.model.DeviceDriver;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 
 /***********************************************************************************
  * Interfaz de clase exportada 

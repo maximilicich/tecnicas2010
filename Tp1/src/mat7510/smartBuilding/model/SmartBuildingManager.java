@@ -6,6 +6,7 @@ import java.util.Set;
 import mat7510.smartBuilding.dao.DAOFactory;
 import mat7510.smartBuilding.dao.DeviceDriverDAO;
 import mat7510.smartBuilding.dao.RuleDAO;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 
 
 /**

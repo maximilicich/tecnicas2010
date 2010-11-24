@@ -3,8 +3,8 @@ package mat7510.smartBuilding.test;
 import mat7510.smartBuilding.dao.DAOFactory;
 import mat7510.smartBuilding.dao.DeviceDriverDAO;
 import mat7510.smartBuilding.dao.implement.DAOFactoryXMLImplementation;
-import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.SmartBuildingException;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 
 public class DeviceDriverDAOTest_addDevice {
 

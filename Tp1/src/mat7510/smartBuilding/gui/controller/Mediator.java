@@ -17,11 +17,11 @@ import mat7510.smartBuilding.gui.view.DescriptionRuleDialog;
 import mat7510.smartBuilding.gui.view.ListPanel;
 import mat7510.smartBuilding.gui.view.MainFrame;
 import mat7510.smartBuilding.gui.view.NewRuleDialog;
-import mat7510.smartBuilding.model.DeviceAction;
-import mat7510.smartBuilding.model.DeviceEvent;
 import mat7510.smartBuilding.model.Rule;
 import mat7510.smartBuilding.model.SmartBuildingException;
 import mat7510.smartBuilding.model.SmartBuildingManager;
+import mat7510.smartBuilding.model.devicedriver.DeviceAction;
+import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
 
 /**
  *

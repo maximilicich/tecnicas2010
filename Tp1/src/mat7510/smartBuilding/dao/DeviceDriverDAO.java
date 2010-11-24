@@ -2,8 +2,8 @@ package mat7510.smartBuilding.dao;
 
 import java.util.Set;
 
-import mat7510.smartBuilding.model.DeviceDriver;
 import mat7510.smartBuilding.model.SmartBuildingException;
+import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
 
 /**
  * DAO para los DeviceDrivers:

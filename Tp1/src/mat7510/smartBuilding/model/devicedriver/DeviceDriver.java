@@ -1,9 +1,10 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.model.devicedriver;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 // import mat7510.eventManagerApi.version2.EventListener;
 
@@ -19,8 +20,8 @@ import java.util.Set;
  * del Dispositivo (Device) al cual representa.
  * 
  * Todo driver de dispositivo debe proveeer 
- * a) Las {@link mat7510.smartBuilding.DeviceAction acciones } que pueden realizarse sobre el dispositivo
- * b) Los {@link mat7510.smartBuilding.DeviceEvent eventos } que el dispositivo informa al entorno
+ * a) Las {@link mat7510.smartBuilding.model.devicedriver.DeviceAction acciones } que pueden realizarse sobre el dispositivo
+ * b) Los {@link mat7510.smartBuilding.model.devicedriver.DeviceEvent eventos } que el dispositivo informa al entorno
  * c) El estado actual del dispositivo: El estado se define por un conjunto 
  * 	  de nombres de atributos y su valor actual correspondiente 
  * 	  Estos valores son siempre de tipo String
@@ -104,14 +105,14 @@ public abstract class DeviceDriver {
 	
 	
 	/**
-	 * Las {@link mat7510.smartBuilding.DeviceAction acciones } que pueden realizarse sobre el dispositivo
+	 * Las {@link mat7510.smartBuilding.model.devicedriver.DeviceAction acciones } que pueden realizarse sobre el dispositivo
 	 * 
 	 * @return
 	 */
 	public abstract List<DeviceAction> getActions();
 	
 	/**
-	 * Los {@link mat7510.smartBuilding.DeviceEvent eventos } que el dispositivo informa al entorno
+	 * Los {@link mat7510.smartBuilding.model.devicedriver.DeviceEvent eventos } que el dispositivo informa al entorno
 	 * 
 	 * @return
 	 */

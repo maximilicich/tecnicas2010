@@ -1,6 +1,6 @@
 package mat7510.smartBuildingDriverClock;
 
-import mat7510.smartBuilding.model.DeviceEvent;
+import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
 
 public abstract class DeviceEventClock extends DeviceEvent {
 
