@@ -31,16 +31,12 @@ public class DeviceDriverDoor extends DeviceDriver {
 	static final String ATTR_VALUE_LOCKED = "LOCKED";
 	static final String ATTR_VALUE_UNLOCKED = "UNLOCKED";
 	
-	static int ic = 0;
-	int nr;
-
 
 	
 	public DeviceDriverDoor(String deviceID, String deviceDescription) {
 		
 		super(deviceID, deviceDescription);
 
-		nr = ++ic;
 		
 		this.state.put(ATTR_OPEN_STATE, ATTR_VALUE_CLOSED);
 		this.state.put(ATTR_LOCK_STATE, ATTR_VALUE_LOCKED);
@@ -60,7 +56,6 @@ public class DeviceDriverDoor extends DeviceDriver {
 		this.actions.add(new DeviceActionDoor(this, "lock", ATTR_LOCK_STATE, ATTR_VALUE_LOCKED, deviceEventDoorLocked));
 		this.actions.add(new DeviceActionDoor(this, "unlock", ATTR_LOCK_STATE, ATTR_VALUE_UNLOCKED, deviceEventDoorUnlocked));
 		
-		System.out.println("instanciando puerta " + deviceID + " : " + nr);
 	}
 
 	
@@ -77,7 +72,6 @@ public class DeviceDriverDoor extends DeviceDriver {
 	@Override
 	public Map<String, String> getState() {
 		
-		System.out.println("consultando estado puerta" + getDeviceID() + " : " + nr);
 		
 		return this.state;
 	}
