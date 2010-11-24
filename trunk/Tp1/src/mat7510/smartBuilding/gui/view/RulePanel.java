@@ -78,8 +78,8 @@ public class RulePanel extends JPanel implements ActionListener {
               }
 
               if (e.getActionCommand().equals("delete") ){
-                  ruleListPanel.removeItem(index);
                   mediator.removeRuleWithIndex((String) ruleListPanel.getSelectedValue());
+                  ruleListPanel.removeItem(index);
               }else if (e.getActionCommand().equals("description") ){
                       mediator.showDescriptionRule((String) ruleListPanel.getSelectedValue());
 
