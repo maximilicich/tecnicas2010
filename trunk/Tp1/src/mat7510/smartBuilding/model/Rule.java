@@ -20,7 +20,7 @@ import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
  * @author Grupo 10 
  *
  */
-public class Rule {
+public class Rule implements ActionCommand{
 
 	private String ruleID;
 	private String ruleDescription;
@@ -255,5 +255,12 @@ public class Rule {
 		public void execute() {
 			// NO HACE NADA, PUES ES VOID ACTION
 		}
+	}
+
+
+	@Override
+	public void execute() {
+		deviceAction.execute();
+		
 	}
 }
