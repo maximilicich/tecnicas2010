@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.dao.implement;
+package mat7510.smartBuilding.utils;
 import java.io.File;
 import java.net.URL;
 
