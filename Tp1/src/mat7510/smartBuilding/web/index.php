@@ -106,7 +106,7 @@ function getStateOfRules(){
                 <h1>Setting Rules:</h1>
 
                             <?php
-                    $header=array("idRule" => "ID Rule","Description" => "Description","Enabled" => "Enabled");
+                    $header=array("idRule" => "ID Rule","Description" => "Description","Action" => "Action");
 
                     $rules = getStateOfRules();
 
