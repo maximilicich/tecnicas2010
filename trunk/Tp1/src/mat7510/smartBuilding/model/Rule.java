@@ -20,7 +20,7 @@ import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
  * @author Grupo 10 
  *
  */
-public class Rule{
+public class Rule {
 
 	private String ruleID;
 	private String ruleDescription;
@@ -193,6 +193,7 @@ public class Rule{
 	
 	public void setDeviceAction(DeviceAction deviceAction) {
 		this.deviceAction = deviceAction;
+		this.actionEventChain.setAction(deviceAction);
 	}
 
 	public DeviceAction getDeviceAction() {
@@ -256,5 +257,5 @@ public class Rule{
 			// NO HACE NADA, PUES ES VOID ACTION
 		}
 	}
-
+	
 }

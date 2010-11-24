@@ -130,6 +130,7 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 	 * @param rules
 	 * @throws SmartBuildingException 
 	 */
+	@SuppressWarnings("static-access")
 	public void setDeviceDrivers(Set<DeviceDriver> deviceDrivers) throws SmartBuildingException {
 		
 		Document dom;
@@ -279,8 +280,6 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 											String deviceDriverClass) throws SmartBuildingException {
 
 		DeviceDriver devDriver;
-		
-		System.out.println("Creando Puerta x reflection...");
 		
 		// CREAMOS EL DRIVER POR REFLECTION !!
 		try {
