@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.model.dao;
+package mat7510.smartBuilding.dao;
 
 import java.util.Set;
 
