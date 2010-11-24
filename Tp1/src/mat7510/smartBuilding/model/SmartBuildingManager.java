@@ -151,7 +151,10 @@ public class SmartBuildingManager {
 			
 		
 		// Alta en el DAO : registramos todo de nuevo
-		deviceDriverDAO.setDeviceDrivers(deviceDrivers);
+		// deviceDriverDAO.setDeviceDrivers(deviceDrivers);
+		
+		// NO! No registramos todo de nuevo...sino, hacemos macana:
+		deviceDriverDAO.addDeviceDriver(newDeviceDriver);
 		
 		// Registramos en el EventEngine
 		eventEngine.registerDeviceDriver(newDeviceDriver);

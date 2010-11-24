@@ -32,6 +32,8 @@ import org.w3c.dom.Text;
 public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 
 	private static final String XML_FILENAME = "/res/deviceDriverConfig.xml";
+
+	private static Set<DeviceDriver> devicePool = null;
 	
 	/**
 	 * LOS TAGS XML
@@ -57,29 +59,39 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 	 *  
 	 * @throws SmartBuildingException Excepcion general 
 	 */
+	@SuppressWarnings("static-access")
 	public Set<DeviceDriver> getDeviceDrivers() throws SmartBuildingException {
-		
-		Document domXml = createDomFromFile();
-		
-		Element devDriversSection = getDeviceDriversSection(domXml);
 	
-		List<Element> devDriverElements = getDeviceDriverElements(devDriversSection);
-		
-		if (devDriverElements.isEmpty()) 
-			throw new SmartBuildingException("No existen Drivers de Dispositivos configurados en el XML");
-	
-		Set<DeviceDriver> deviceDrivers = new LinkedHashSet<DeviceDriver>();
-		
-		for (Element element : devDriverElements) {
-			String deviceID = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_ID_TAG);
-			String deviceDescription = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_NAME_TAG);
-			String deviceDriverClass = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_CLASS_TAG);
-			DeviceDriver devDriver = createDeviceDriver(deviceID, deviceDescription, deviceDriverClass);
-			if (! deviceDrivers.add(devDriver))
-				throw new SmartBuildingException("ITEM DUPLICADO: No se pudo agregar en el conjunto de DeviceDrivers instanciados al Device ID : " + deviceID + ", descripcion : " + deviceDescription);
+		if (devicePool != null) {
+			return devicePool;
 		}
+		else {
+			
+			Document domXml = createDomFromFile();
+			
+			Element devDriversSection = getDeviceDriversSection(domXml);
 		
-		return deviceDrivers;
+			List<Element> devDriverElements = getDeviceDriverElements(devDriversSection);
+			
+			if (devDriverElements.isEmpty()) 
+				throw new SmartBuildingException("No existen Drivers de Dispositivos configurados en el XML");
+		
+			Set<DeviceDriver> deviceDrivers = new LinkedHashSet<DeviceDriver>();
+			
+			for (Element element : devDriverElements) {
+				String deviceID = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_ID_TAG);
+				String deviceDescription = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_NAME_TAG);
+				String deviceDriverClass = getUniqueAttributeValue(element, DEVICE_DRIVER_ELEMENT_CLASS_TAG);
+				DeviceDriver devDriver = createDeviceDriver(deviceID, deviceDescription, deviceDriverClass);
+				if (! deviceDrivers.add(devDriver))
+					throw new SmartBuildingException("ITEM DUPLICADO: No se pudo agregar en el conjunto de DeviceDrivers instanciados al Device ID : " + deviceID + ", descripcion : " + deviceDescription);
+			}
+			
+			this.devicePool = deviceDrivers;
+			
+			return deviceDrivers;
+
+		}
 		
 	}
 
@@ -147,6 +159,7 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 			throw new SmartBuildingException(e);
 		} 
 		
+		this.devicePool = deviceDrivers;
 	}
 
 	
@@ -184,13 +197,11 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 		if (deviceDriver.getDeviceID().trim().equalsIgnoreCase(""))
 			throw new IllegalArgumentException("Cannot add a DeviceDriver with blank ID");
 
-		
 		Document dom = createDomFromFile();
 
 		Element devDriversSection = getDeviceDriversSection(dom);
 
 		devDriversSection.appendChild(createDeviceDriverElement(dom, deviceDriver));
-		
 		
 		try {
 			// DOMUtils.getInstance().printDomToXml(dom, System.out);
@@ -200,6 +211,11 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 		} catch (FileNotFoundException e) {
 			throw new SmartBuildingException(e);
 		} 
+
+		// AGREAMOS EL DEVICE AL POOL:
+		if (! devicePool.add(deviceDriver)) {
+			throw new SmartBuildingException("DUPLICATED ITEM: Error trying to add new Device Driver ID " + deviceDriver.getDeviceID() + " already exists");
+		}
 
 	}
 	
@@ -263,6 +279,8 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 											String deviceDriverClass) throws SmartBuildingException {
 
 		DeviceDriver devDriver;
+		
+		System.out.println("Creando Puerta x reflection...");
 		
 		// CREAMOS EL DRIVER POR REFLECTION !!
 		try {
