@@ -1,0 +1,8 @@
+
+2010-10-20
+
+Aplicaciones del Decorator Pattern como lo hacemos nosotros en TP2
+
+http://java.sun.com/blueprints/corej2eepatterns/Patterns/InterceptingFilter.html
+http://download.oracle.com/javase/tutorial/collections/implementations/wrapper.html
+

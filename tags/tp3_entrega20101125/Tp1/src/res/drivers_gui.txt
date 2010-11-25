@@ -1,0 +1,12 @@
+Detector de Humo
+Puerta
+Ventana
+Aire Acondicionado
+Televisor
+Luz principal
+Luces laterales
+Luces de emergencia
+Ascensor 01
+Ascensor 02
+Ascensor 03
+Ascensor 04
