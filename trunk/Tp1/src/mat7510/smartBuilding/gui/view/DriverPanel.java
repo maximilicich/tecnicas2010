@@ -29,16 +29,21 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
 		setBorder(new EmptyBorder(5,5,5,5));
 
 		mediator=med;
-		JButton updateButton = new JButton("Actualizar");
-		updateButton.setActionCommand("update");
-		updateButton.addActionListener(this);
+		JButton addButton = new JButton("Agregar");
+		addButton.setActionCommand("add");
+		addButton.addActionListener(this);
+
+                JButton refreshButton = new JButton("Recargar");
+		refreshButton.setActionCommand("reload");
+		refreshButton.addActionListener(this);
 
 		driversListPanel = new ListPanel();
 		mediator.addDriverList(driversListPanel);
 		driversListPanel.addListSelectionListener(this);
 
 		ControllerPanel controllerPanel = new ControllerPanel();
-		controllerPanel.add(updateButton);
+		controllerPanel.add(addButton);
+                controllerPanel.add(refreshButton);
 
 		add(driversListPanel);
 		add(controllerPanel);
@@ -64,8 +69,10 @@ public class DriverPanel extends JPanel implements ActionListener,ListSelectionL
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand()=="update" )
+		if (e.getActionCommand().equals("add") )
 			selectFile();
+                else if(e.getActionCommand().equals("reload"))
+                    mediator.reload();
 	}
 
 

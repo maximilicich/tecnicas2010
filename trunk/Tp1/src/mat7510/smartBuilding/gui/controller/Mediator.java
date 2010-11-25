@@ -8,6 +8,8 @@ package mat7510.smartBuilding.gui.controller;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,7 +27,7 @@ import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
 
 /**
  *
- * @author sergio
+ * @author Grupo 10
  */
 public class Mediator {
 	MainFrame mainFrame;
@@ -78,6 +80,17 @@ public class Mediator {
 		mainFrame.setVisible(true);
 	}
 
+        public void reload(){
+            try {
+                translator.reload();
+                driversListPanel.clear();
+                clearDriver();
+                driversListPanel.addAll(translator.getDriverIds().iterator());
+            } catch (SmartBuildingException ex) {
+               JOptionPane.showMessageDialog(mainFrame, "Error, al recargar los datos.", "", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
 	private void clearDriver(){
 		actionListPanel.clear();
 		stateListPanel.clear();

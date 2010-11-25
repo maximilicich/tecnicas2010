@@ -7,7 +7,7 @@ package mat7510.smartBuilding.gui.controller;
 
 /**
  *
- * @author sergio
+ * @author Grupo 10
  */
 public class EventItem {
 	private String eventID;

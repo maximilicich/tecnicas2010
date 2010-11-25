@@ -12,7 +12,7 @@ import mat7510.smartBuilding.gui.controller.Mediator;
 
 /**
  *
- * @author sergio
+ * @author Grupo 10
  */
 @SuppressWarnings("serial")
 public class ContentPanel extends JPanel{

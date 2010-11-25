@@ -28,7 +28,7 @@
       </event>
     </events>
   </rule>
-  <rule continuous="no" enabled="yes" ordered="no">
+  <rule continuous="no" enabled="no" ordered="no">
     <ruleID>X000003X000003</ruleID>
     <ruleDescription/>
     <action>
