@@ -204,9 +204,13 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 
 		devDriversSection.appendChild(createDeviceDriverElement(dom, deviceDriver));
 		
+		File file = WorkingDirectory.get();
+		String path = file.getAbsolutePath();
+		path = path + XML_FILENAME;
+		
 		try {
 			// DOMUtils.getInstance().printDomToXml(dom, System.out);
-			DOMUtils.getInstance().printDomToXml(dom, new FileOutputStream(XML_FILENAME));
+			DOMUtils.getInstance().printDomToXml(dom, new FileOutputStream(path));//XML_FILENAME));
 		} catch (XmlException e) {
 			throw new SmartBuildingException(e);
 		} catch (FileNotFoundException e) {
@@ -215,7 +219,7 @@ public class DeviceDriverDAOXMLImplementation implements DeviceDriverDAO  {
 
 		// AGREAMOS EL DEVICE AL POOL:
 		if (! devicePool.add(deviceDriver)) {
-			throw new SmartBuildingException("DUPLICATED ITEM: Error trying to add new Device Driver ID " + deviceDriver.getDeviceID() + " already exists");
+		//	throw new SmartBuildingException("DUPLICATED ITEM: Error trying to add new Device Driver ID " + deviceDriver.getDeviceID() + " already exists");
 		}
 
 	}
