@@ -63,7 +63,7 @@ class DriverFileChooser {
 	  }
 
 	public String getDirectorio(){
-		return dir.equals("") ? "" : (dir+"\\"+nomarch);
+		return dir.equals("") ? "" : (dir+"/"+nomarch);
 	}
 
 	public String getNomArch(){
