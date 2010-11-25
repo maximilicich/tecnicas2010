@@ -20,8 +20,8 @@ class DriverFileChooser {
 
 	public DriverFileChooser(String dirDefecto){
 		JFileChooser c = new JFileChooser(dirDefecto);
-		Filtro pp =new Filtro();
-		c.setFileFilter(pp);
+		Filtro filtro =new Filtro();
+		c.setFileFilter(filtro);
 		c.setMultiSelectionEnabled(false);
 		int rVal = c.showOpenDialog(null);
 		if(rVal == JFileChooser.APPROVE_OPTION) {
