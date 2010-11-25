@@ -32,6 +32,7 @@ public class Translator{
     }
 
     public void reload() throws SmartBuildingException {
+            this.model.loadConfig();
             this.model.refreshDeviceDrivers();
             devDrivers = this.model.getDeviceDrivers();
     }
@@ -108,7 +109,7 @@ public class Translator{
         while(it.hasNext()){
             String key = (String) it.next();
             String value = map.get(key);
-            result.add(key+" "+value);
+            result.add(key+" = "+value);
         }
 
         return result;
