@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mat7510.smartBuilding.model.Rule;
-import mat7510.smartBuilding.model.SmartBuildingException;
-import mat7510.smartBuilding.model.SmartBuildingManager;
-import mat7510.smartBuilding.model.XMLTranslator;
-import mat7510.smartBuilding.model.devicedriver.DeviceAction;
-import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
-import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.domain.Rule;
+import mat7510.smartBuilding.domain.devicedriver.DeviceAction;
+import mat7510.smartBuilding.domain.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.exception.SmartBuildingException;
+import mat7510.smartBuilding.service.SmartBuildingManager;
+import mat7510.smartBuilding.service.XMLTranslator;
 
 
 public class Translator{

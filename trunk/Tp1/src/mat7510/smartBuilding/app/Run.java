@@ -1,9 +1,9 @@
 package mat7510.smartBuilding.app;
 
 import mat7510.smartBuilding.dao.implement.DAOFactoryXMLImplementation;
+import mat7510.smartBuilding.exception.SmartBuildingException;
 import mat7510.smartBuilding.gui.controller.Mediator;
-import mat7510.smartBuilding.model.SmartBuildingException;
-import mat7510.smartBuilding.model.SmartBuildingManager;
+import mat7510.smartBuilding.service.SmartBuildingManager;
 
 /**
  * 

@@ -1,9 +1,10 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.service;
 
 import mat7510.eventManagerApi.version2.EventManager;
-import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
-import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
-import mat7510.smartBuilding.model.devicedriver.DeviceEventListener;
+import mat7510.smartBuilding.domain.Rule;
+import mat7510.smartBuilding.domain.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEventListener;
 
 
 /**

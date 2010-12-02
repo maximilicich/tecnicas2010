@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import mat7510.smartBuilding.model.devicedriver.DeviceAction;
-import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
-import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.domain.devicedriver.DeviceAction;
+import mat7510.smartBuilding.domain.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEvent;
 
 public class DeviceDriverLights extends DeviceDriver {
 

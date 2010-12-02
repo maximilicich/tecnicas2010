@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.exception;
 
 /**
  * Exception General del Sistema BAS SmartBuilding 

@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import mat7510.smartBuilding.model.devicedriver.DeviceAction;
-import mat7510.smartBuilding.model.devicedriver.DeviceEventListener;
+import mat7510.smartBuilding.domain.devicedriver.DeviceAction;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEventListener;
 
 public abstract class DeviceActionACTemp extends DeviceAction{
 	

@@ -14,16 +14,16 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import mat7510.smartBuilding.domain.Rule;
+import mat7510.smartBuilding.domain.devicedriver.DeviceAction;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.exception.SmartBuildingException;
 import mat7510.smartBuilding.gui.view.ContentPanel;
 import mat7510.smartBuilding.gui.view.DescriptionRuleDialog;
 import mat7510.smartBuilding.gui.view.ListPanel;
 import mat7510.smartBuilding.gui.view.MainFrame;
 import mat7510.smartBuilding.gui.view.NewRuleDialog;
-import mat7510.smartBuilding.model.Rule;
-import mat7510.smartBuilding.model.SmartBuildingException;
-import mat7510.smartBuilding.model.SmartBuildingManager;
-import mat7510.smartBuilding.model.devicedriver.DeviceAction;
-import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.service.SmartBuildingManager;
 
 /**
  *

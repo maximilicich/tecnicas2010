@@ -23,9 +23,9 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import mat7510.smartBuilding.exception.SmartBuildingException;
 import mat7510.smartBuilding.gui.controller.EventItem;
 import mat7510.smartBuilding.gui.controller.Mediator;
-import mat7510.smartBuilding.model.SmartBuildingException;
 
 /**
  *
