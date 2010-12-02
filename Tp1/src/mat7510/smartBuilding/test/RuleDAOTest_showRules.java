@@ -5,9 +5,9 @@ import java.util.Set;
 import mat7510.smartBuilding.dao.DAOFactory;
 import mat7510.smartBuilding.dao.RuleDAO;
 import mat7510.smartBuilding.dao.implement.DAOFactoryXMLImplementation;
-import mat7510.smartBuilding.model.Rule;
-import mat7510.smartBuilding.model.SmartBuildingException;
-import mat7510.smartBuilding.model.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.domain.Rule;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEvent;
+import mat7510.smartBuilding.exception.SmartBuildingException;
 
 public class RuleDAOTest_showRules {
 

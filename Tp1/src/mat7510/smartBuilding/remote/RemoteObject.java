@@ -3,7 +3,7 @@ package mat7510.smartBuilding.remote;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 
-import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.domain.devicedriver.DeviceDriver;
 
 /***********************************************************************************
  * Implementación de clase exportada 

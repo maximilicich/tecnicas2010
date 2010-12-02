@@ -1,4 +1,4 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.service;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -6,7 +6,9 @@ import java.util.Set;
 import mat7510.smartBuilding.dao.DAOFactory;
 import mat7510.smartBuilding.dao.DeviceDriverDAO;
 import mat7510.smartBuilding.dao.RuleDAO;
-import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.domain.Rule;
+import mat7510.smartBuilding.domain.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.exception.SmartBuildingException;
 
 
 /**

@@ -2,8 +2,8 @@ package mat7510.smartBuilding.dao;
 
 import java.util.Set;
 
-import mat7510.smartBuilding.model.Rule;
-import mat7510.smartBuilding.model.SmartBuildingException;
+import mat7510.smartBuilding.domain.Rule;
+import mat7510.smartBuilding.exception.SmartBuildingException;
 
 /**
  * DAO para los Rules:

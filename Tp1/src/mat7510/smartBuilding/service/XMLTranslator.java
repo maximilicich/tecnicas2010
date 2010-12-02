@@ -1,9 +1,11 @@
-package mat7510.smartBuilding.model;
+package mat7510.smartBuilding.service;
 
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 
-import mat7510.smartBuilding.model.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.domain.Rule;
+import mat7510.smartBuilding.domain.devicedriver.DeviceDriver;
+import mat7510.smartBuilding.exception.SmartBuildingException;
 import mat7510.xml.DOMUtils;
 import mat7510.xml.XmlException;
 

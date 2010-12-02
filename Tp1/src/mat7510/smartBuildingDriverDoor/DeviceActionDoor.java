@@ -1,7 +1,7 @@
 package mat7510.smartBuildingDriverDoor;
 
-import mat7510.smartBuilding.model.devicedriver.DeviceAction;
-import mat7510.smartBuilding.model.devicedriver.DeviceEventListener;
+import mat7510.smartBuilding.domain.devicedriver.DeviceAction;
+import mat7510.smartBuilding.domain.devicedriver.DeviceEventListener;
 
 public class DeviceActionDoor extends DeviceAction {
 
